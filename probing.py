@@ -24,16 +24,18 @@ def mount_venues_endpoint(country='England'):
 
 def mount_players_endpoint(league, season, page=1):
     return f'/players?league={league}&season={season}&page={page}'
-    # endpoint = ount_players_endpoint(39):
+    # endpoint = mount_players_endpoint(39, 2022)
 
 async def main():
+    premier_league = 39
+    season = 2022
     api_key = os.getenv('API_KEY')
     url = 'https://v3.football.api-sports.io'
     headers = {
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': api_key
     }
-    endpoint = mount_venues_endpoint() 
+    endpoint = ''
     complete_url = url + endpoint
     data = await fetch(complete_url, headers)
     print(data)
