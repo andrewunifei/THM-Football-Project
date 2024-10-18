@@ -9,7 +9,7 @@ async def fetch(url, headers):
 async def main():
     headers = {
         'x-rapidapi-host': 'v3.football.api-sports.io',
-        'x-rapidapi-key': 'f4604ee3d0495772e1d3e67a9d40c29a'
+        'x-rapidapi-key': ''
     }
     url = 'https://v3.football.api-sports.io'
     endpoint_league = '/fixtures?league=39&season=2022'
