@@ -47,21 +47,33 @@ def mount_sg_game_player_statistics_endpoint(fixture):
 
 def mount_pl_team_statistics_endpoint(league, season, team):
     return f'/teams/statistics?league={league}&season={season}&team={team}'
+    # endpoint = mount_pl_team_statistics_endpoint(premier_league, season)
 
 def mount_pl_player_statistics_endpoint(league, season):
     return f'/players?league={league}&season={season}&page=8'
+    # endpoint = mount_pl_player_statistics_endpoint(premier_league, season)
+
+def mount_injuries_endpoint(league, season, player):
+    return f'/injuries?league={league}&season={season}&player={player}'
+    # endpoint = mount_injuries_endpoint(premier_league, season, 310187)
+
+def mount_historic_endpoint(player):
+    return f'/players/teams?player={player}'
+
+
 
 async def main():
     country = 'England'
     premier_league = 39
     season = 2022
+    neymar = 276
     api_key = os.getenv('API_KEY')
     url = 'https://v3.football.api-sports.io'
     headers = {
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': api_key
     }
-    endpoint = mount_pl_player_statistics_endpoint(premier_league, season)
+    endpoint = mount_historic_endpoint(neymar)
     complete_url = url + endpoint
     data = await fetch(complete_url, headers) 
     print(data)
