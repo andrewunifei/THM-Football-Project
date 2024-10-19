@@ -31,7 +31,7 @@ def mount_teams_endpoint(league, season):
 
 def mount_venues_endpoint(country):
     return f'/venues?country={country}'
-    # endpoint = mount_venues_endpoint() 
+    # endpoint = mount_venues_endpoint(country) 
 
 def mount_players_endpoint(league, season, page=1):
     return f'/players?league={league}&season={season}&page={page}'
@@ -73,10 +73,10 @@ async def main():
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': api_key
     }
-    endpoint = mount_historic_endpoint(neymar)
+    endpoint = mount_venues_endpoint(country) 
     complete_url = url + endpoint
     data = await fetch(complete_url, headers) 
-    print(data)
+    print(data['response'][0])
     # data = await get_ranking(url, headers, premier_league, season)
     # print(data[0])
 
