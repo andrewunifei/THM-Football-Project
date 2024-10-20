@@ -4,116 +4,94 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from ..models.player import Player
 
-def call_api(endpoint, params=None):
+def call_api(api_key, endpoint, params=None):
     if params is None:
         params = {}
 
-    # Construct the URL with parameters
     url = f'https://v3.football.api-sports.io/{endpoint}'
-    
-    # Make the GET request with headers
     headers = {
-        'x-rapidapi-key': 'YOUR_API_KEY_HERE'
+        'x-rapidapi-host': 'v3.football.api-sports.io',
+        'x-rapidapi-key': api_key
     }
-    
     response = requests.get(url, headers=headers, params=params)
     
-    # Check if the request was successful
     if response.status_code == 200:
-        return response.json()  # Return the JSON response
+        return response.json()  
     else:
-        response.raise_for_status()  # Raise an error for bad responses
+        response.raise_for_status() 
 
-# Example usage
-# result = call_api('some/endpoint', {'param1': 'value1', 'param2': 'value2'})
-
-def players_data(league, season, page=1, players_data=None):
+# Função recursiva por conta do sistema de paginação desse enpoint da API
+def generate_players_data(api_key, league, season, page=1, players_data=None):
     if players_data is None:
         players_data = []
 
-    # Call the API to get players data
-    players = call_api('players', {'league': league, 'season': season, 'page': page})
-
-    # Merge the current players data into the list
+    players = call_api(api_key, 'players', {'league': league, 'season': season, 'page': page})
     players_data.extend(players['response'])
 
-    # Check if there are more pages to fetch
     if players['paging']['current'] < players['paging']['total']:
         page = players['paging']['current'] + 1
         
-        # Sleep for 1 second if the next page number is odd
         if page % 2 == 1:
-            time.sleep(1)
+            time.sleep(1) # Pra evitar 429 - Too Many Requests
 
-        # Recursive call to fetch the next page of players
-        players_data = players_data(league, season, page, players_data)
+        players_data = generate_players_data(league, season, page, players_data)
 
     return players_data
 
-# Example usage
-# all_players = players_data(123, '2024')  # Replace with actual league ID and season
-
 # Esses dados são referentes a entidade 'Jogadr' no diagrama ER
 def fetch_player_and_populate(api_key, league, season, db_session):
-    response = requests.get(url)
+    players_data = generate_players_data(api_key, league, season)
 
-    if response.status_code == 200:
-        players_data = response.json()  # Parse JSON response
+    for player in players_data:
+        new_player = Player(
+            player_id=player['player']['player_id'],  # Adjust based on your API response structure
+            name=player['player']['name'],
+            first_name=player['player']['firstname'],
+            last_name=player['player']['lastname'],
+            age=player['player']['age'],
+            position=player['statistics']['games']['position'],
+            birth=player['player']['birth'],  # Assuming it's a JSON object
+            nationality=player['player']['nationality'],
+            height=player['player']['height'],
+            weight=player['player']['weight'],
+            injured=player['player']['injured'],
+            photo=player['player']['photo'],
+            games_appearances=player['statistics']['games']['appearances'],
+            games_lineups=player['statistics']['games']['lineups'],
+            minutes_played_total=player['statistics']['games']['minutes'],
+            rating=player['statistics']['games']['rating'],
+            substitutes_in=player['statistics']['substitutes']['in'],
+            substitutes_out=player['statistics']['substitutes']['out'],
+            bench=player['statistics']['substitutes']['bench'],
+            shots_on=player['statistics']['shots']['on'],
+            shots_total=player['statistics']['shots']['total'],
+            goals_total=player['statistics']['goals']['total'],
+            goals_conceded=player['statistics']['goals']['conceded'],
+            goals_assists=player['statistics']['goals']['assists'],
+            goals_saved=player['statistics']['goals']['saves'],
+            passes_total=player['statistics']['passes']['total'],
+            passes_key=player['statistics']['passes']['key'],
+            passes_accuracy=player['statistics']['passes']['accuracy'], 
+            tackles_total=player['statistics']['tackles']['total'],
+            tackles_blocks=player['statistics']['tackles']['blocks'],
+            tackles_interceptions=player['statistics']['tackles']['interceptions'], # Corrigir nome no UML e na tabela Postgresql
+            duels_total=player['statistics']['duels']['total'],
+            duels_won_total=player['statistics']['duels']['won'],
+            dribbles_attempts_total=player['statistics']['dribbles']['attempts'],
+            dribbles_success_total=player['statistics']['dribbles']['success'],
+            dribbles_past_total=player['statistics']['dribbles']['past'],
+            fouls_drawn_total=player['statistics']['fouls']['drawn'],
+            fouls_committed_total=player['statistics']['fouls']['committed'],
+            cards_yellow_total=player['statistics']['cards']['yellow'], 
+            cards_red_total=player['statistics']['cards']['red'], 
+            penalty_won_total=player['statistics']['penalty']['won'], 
+            penalty_committed_total=player['statistics']['penalty']['committed'], 
+            penalty_scored_total=player['statistics']['penalty']['scored'], 
+            penalty_missed_total=player['statistics']['penalty']['missed'], 
+            penalty_saved_total=player['statistics']['penalty']['saved'], 
+            team_id=player['statistics']['team']['id']
+        )
+        session.add(new_player)
 
-        for player in players_data:
-            new_player = Player(
-                player_id=player.get('player_id'),  # Adjust based on your API response structure
-                name=player['name'],
-                first_name=player['first_name'],
-                last_name=player['last_name'],
-                age=player['age'],
-                position=player['position'],
-                birth=player['birth'],  # Assuming it's a JSON object
-                nationality=player['nationality'],
-                height=player['height'],
-                weight=player['weight'],
-                injured=player['injured'],
-                photo=player['photo'],
-                games_appearances=player['games_appearances'],
-                games_lineups=player['games_lineups'],
-                minutes_played_total=player['minutes_played_total'],
-                rating=player['rating'],
-                substitutes_in=player['substitutes_in'],
-                substitutes_out=player['substitutes_out'],
-                bench=player['bench'],
-                shots_on=player['shots_on'],
-                shots_total=player['shots_total'],
-                goals_total=player['goals_total'],
-                goals_conceded=player['goals_conceded'],
-                goals_assists=player['goals_assists'],
-                goals_saved=player['goals_saved'],
-                passes_total=player['passes_total'],
-                passes_key=player['passes_key'],
-                passes_accuracy=player['passes_accuracy'], 
-                tackles_total=player['tackles_total'],
-                tackles_blocks=player['tackles_blocks'],
-                tackled_interceptions=player['tackled_interceptions'],
-                duels_total=player['duels_total'],
-                duels_won_total=player['duels_won_total'],
-                dribbles_attempts_total=player['dribbles_attempts_total'],
-                dribbles_success_total=player['dribbles_success_total'],
-                dribbles_past_total=player['dribbles_past_total'],
-                fouls_drawn_total=player['fouls_drawn_total'],
-                fouls_committed_total=player['fouls_committed_total'],
-                cards_yellow_total=player['cards_yellow_total'], 
-                cards_red_total=player['cards_red_total'], 
-                penalty_won_total=player['penalty_won_total'], 
-                penalty_committed_total=player['penalty_committed_total'], 
-                penalty_scored_total=player['penalty_scored_total'], 
-                penalty_missed_total=player['penalty_missed_total'], 
-                penalty_saved_total=player['penalty_saved_total'], 
-                team_id=None  # Set this if you have team data to link, otherwise set to None
-            )
-            session.add(new_player)  # Add new player to the session
-
-        # Step 5: Commit the session
-        session.commit()
-        print("Data inserted successfully.")
-
-    else:
-        print(f"Failed to fetch data from API: {response.status_code}")
+    session.commit()
+    print("Data inserted successfully.")
