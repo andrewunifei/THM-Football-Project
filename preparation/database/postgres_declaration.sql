@@ -10,18 +10,16 @@ CREATE TABLE Venue (
 );
 
 CREATE TABLE Team (
-    team_id SERIAL PRIMARY KEY UNIQUE NOT NULL,
+    team_id INTEGER PRIMARY KEY UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
     code VARCHAR(25) NOT NULL,
     country VARCHAR(50) NOT NULL,
     founded INTEGER NOT NULL,
     national BOOLEAN NOT NULL,
     logo VARCHAR(150) NOT NULL,
-    seasons_played INTEGER NOT NULL,
-    current_season INTEGER NOT NULL,
-    games_home INTEGER NOT NULL,
-    games_away INTEGER NOT NULL,
-    games_total INTEGER NOT NULL,
+    games_played_home INTEGER NOT NULL,
+    games_played_away INTEGER NOT NULL,
+    games_played_total INTEGER NOT NULL,
     wins_home INTEGER NOT NULL,
     wins_away INTEGER NOT NULL,
     wins_total INTEGER NOT NULL,
@@ -57,7 +55,7 @@ CREATE TABLE Team (
 );
 
 CREATE TABLE Player (
-    player_id SERIAL PRIMARY KEY UNIQUE NOT NULL,
+    player_id INTEGER PRIMARY KEY UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -69,10 +67,10 @@ CREATE TABLE Player (
     weight INTEGER NOT NULL,
     injured BOOLEAN NOT NULL,
     photo VARCHAR(150) NOT NULL,
-    games_apparences INTEGER NOT NULL,
+    games_appearances INTEGER NOT NULL,
     games_lineups INTEGER NOT NULL,
     minutes_played_total INTEGER NOT NULL,
-    rating FLOAT4 NOT NULL,
+    rating DECIMAL(2, 2) CHECK (rating >= 0 AND rating <= 10) NOT NULL,
     substitutes_in INTEGER NOT NULL,
     substitutes_out INTEGER NOT NULL,
     bench INTEGER NOT NULL,

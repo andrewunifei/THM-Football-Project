@@ -15,6 +15,8 @@ async def get_ranking(url, headers, league, season):
         data.append(await fetch(complete_url, headers))
 
     return data
+    # data = await get_ranking(url, headers, premier_league, season)
+    # print(data[0])
 
 async def fetch(url, headers):
     async with aiohttp.ClientSession(headers=headers) as session:
@@ -60,12 +62,11 @@ def mount_injuries_endpoint(league, season, player):
 def mount_historic_endpoint(player):
     return f'/players/teams?player={player}'
 
-
-
 async def main():
     country = 'England'
-    premier_league = 39
+    league = 39
     season = 2022
+    team = 33
     neymar = 276
     api_key = os.getenv('API_KEY')
     url = 'https://v3.football.api-sports.io'
@@ -73,12 +74,9 @@ async def main():
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': api_key
     }
-    endpoint = mount_venues_endpoint(country) 
+    endpoint = mount_pl_team_statistics_endpoint(league, season, 46)
     complete_url = url + endpoint
     data = await fetch(complete_url, headers) 
-    print(data['response'][0])
-    # data = await get_ranking(url, headers, premier_league, season)
-    # print(data[0])
-
+    print(data)
 
 asyncio.run(main())
