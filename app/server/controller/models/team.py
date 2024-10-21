@@ -59,3 +59,7 @@ class Team(Base):
     venue = relationship('Venue', back_populates='team')
     player = relationship('Player', back_populates='team')
     teams_historic = relationship('TeamsHistoric', back_populates='team')
+    home_games = relationship("Game", back_populates="home_team") 
+    away_games = relationship("Game", back_populates="away_team") 
+    games_won = relationship("Game", back_populates="winner_team") 
+    team_statistics = relationship("SGTeamStatistics", back_populates="team")

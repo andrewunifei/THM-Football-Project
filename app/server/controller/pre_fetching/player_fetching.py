@@ -95,8 +95,9 @@ def fetch_player_and_populate(api_key, league, season, db_session):
             team_id=player['statistics']['team']['id']
         )
         session.add(new_player)
-        with open('players_id.json', 'w') as file:
-            json.dump(players_id, file) # Irei usar esses ids para capturar dados em outro endpoint
+
+    with open('players_id.json', 'w') as file:
+        json.dump(players_id, file) # Irei usar esses ids para capturar dados em teams_historic_fetching
 
     session.commit()
     print("Data inserted successfully.")

@@ -5,7 +5,7 @@ from ..models.venue import Venue
 def fetch_venue_and_populate(
         api_key,
         country,
-        session
+        db_session
     ):
     api_url = f'https://v3.football.api-sports.io/venues?country={country}'
     headers = {
@@ -35,9 +35,9 @@ def fetch_venue_and_populate(
                 surface=venue['surface'],
                 image=venue['image']
             )
-            session.add(new_venue)
+            db_session.add(new_venue)
 
-        session.commit()
+        db_session.commit()
         print("Dados inseridos com sucesso.")
 
     else:

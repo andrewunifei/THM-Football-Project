@@ -1,8 +1,7 @@
 import json
 import requests
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from models import TeamsHistoric
+from ..models.teams_historic import TeamsHistoric
 
 def get_players_id():
     data = []
@@ -10,7 +9,7 @@ def get_players_id():
         data = json.load(file)
     return data
 
-def fetch_venue_and_populate(api_key, session): 
+def fetch_venue_and_populate(api_key, db_session): 
     players_ids = get_players_id()
 
     for id in players_ids:
@@ -29,9 +28,9 @@ def fetch_venue_and_populate(api_key, session):
                     team_id=record['response']['team']['id'],
                     seasons=record['response']['seasons']
                 )
-                session.add(new_record)
+                db_session.add(new_record)
 
-            session.commit()
+            db_session.commit()
             print("Data inserted successfully.")
 
         else:

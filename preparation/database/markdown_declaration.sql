@@ -139,7 +139,7 @@ Player {
 	team_id integer(4) > Team.team_id
 }
 
-Injuries {
+Injury {
 	player_id integer(4) pk unique > Player.player_id
 	game_id integer(4) pk unique > Game.game_id
 	type character varying(50)

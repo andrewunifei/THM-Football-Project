@@ -5,7 +5,8 @@ from sqlalchemy import (
     Float,
     Boolean,
     ForeignKey,
-    DECIMAL
+    DECIMAL,
+    CheckConstraint
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
@@ -71,7 +72,7 @@ class Player(Base):
     # Relacionamentos
     team = relationship('Team', back_populates='player')
     teams_historic = relationship('TeamsHistoric', back_populates='player')
-
+    injuries = relationship("Injury", back_populates="player")
 
 # Optional: Define relationship to Team if needed
 # class Team(Base):

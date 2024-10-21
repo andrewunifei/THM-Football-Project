@@ -126,7 +126,7 @@ CREATE TABLE Game (
     winner_team_id INTEGER REFERENCES Team(team_id) ON DELETE SET NULL NOT NULL
 );
 
-CREATE TABLE Injuries (
+CREATE TABLE Injury (
     player_id INTEGER REFERENCES Player(player_id) ON DELETE CASCADE NOT NULL,
     game_id INTEGER REFERENCES Game(game_id) ON DELETE CASCADE NOT NULL,
     type VARCHAR(50) CHECK (type IN ('Missing Fixture', 'Questionable')) NOT NULL,
