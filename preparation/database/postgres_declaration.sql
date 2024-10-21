@@ -106,7 +106,7 @@ CREATE TABLE Player (
 CREATE TABLE TeamsHistoric (
     player_id INTEGER REFERENCES Player(player_id) ON DELETE CASCADE NOT NULL,
     team_id INTEGER REFERENCES Team(team_id) ON DELETE CASCADE NOT NULL,
-    seasons INTEGER NOT NULL,
+    seasons INTEGER[] NOT NULL,
     PRIMARY KEY (player_id, team_id)
 );
 

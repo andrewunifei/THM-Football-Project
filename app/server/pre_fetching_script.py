@@ -27,3 +27,5 @@ season = 2022
 
 # fetch_venue_and_populate(api_key, country, db_session)
 fetch_team_and_populate(api_key, league, season, db_session)
+
+db_session.close()
