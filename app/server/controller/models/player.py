@@ -13,6 +13,7 @@ from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
+# Jogador
 class Player(Base):
     __tablename__ = 'Player'
 
@@ -66,6 +67,11 @@ class Player(Base):
     penalty_missed_total = Column(Integer, nullable=False)
     penalty_saved_total = Column(Integer, nullable=False)
     team_id = Column(Integer, ForeignKey('team.team_id', ondelete='SET NULL'))
+
+    # Relacionamentos
+    team = relationship('Team', back_populates='player')
+    teams_historic = relationship('TeamsHistoric', back_populates='player')
+
 
 # Optional: Define relationship to Team if needed
 # class Team(Base):

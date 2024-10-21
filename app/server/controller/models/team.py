@@ -54,3 +54,8 @@ class Team(Base):
     yellow_cards = Column(JSONB, nullable=False)
     red_cards = Column(JSONB, nullable=False)
     venue_id = Column(Integer, ForeignKey('venue.venue_id', ondelete='SET NULL'))
+
+    # Relacionamentos
+    venue = relationship('Venue', back_populates='team')
+    player = relationship('Player', back_populates='team')
+    teams_historic = relationship('TeamsHistoric', back_populates='team')

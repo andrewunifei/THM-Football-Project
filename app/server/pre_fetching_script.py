@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, inspect
 from sqlalchemy.ext.declarative import declarative_base
 from controller.pre_fetching.venue_fetching import fetch_venue_and_populate
 from controller.pre_fetching.team_fetching import fetch_team_and_populate
+from controller.pre_fetching.player_fetching import fetch_player_and_populate
 from dotenv import load_dotenv
 
 load_dotenv()

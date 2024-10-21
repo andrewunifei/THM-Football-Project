@@ -15,3 +15,6 @@ class Venue(Base):
     capacity = Column(Integer, nullable=False)
     surface = Column(String(25), nullable=False)
     image = Column(String(150), nullable=False)
+
+    # Relacionamentos
+    team = relationship('Team', back_populates= 'venue')

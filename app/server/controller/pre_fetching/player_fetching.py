@@ -1,5 +1,6 @@
 import requests
 import time
+import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from ..models.player import Player
@@ -41,16 +42,18 @@ def generate_players_data(api_key, league, season, page=1, players_data=None):
 # Esses dados são referentes a entidade 'Jogadr' no diagrama ER
 def fetch_player_and_populate(api_key, league, season, db_session):
     players_data = generate_players_data(api_key, league, season)
+    players_id = []
 
     for player in players_data:
+        players_id.append(player['player']['player_id']) # Agregar para escrever em um arquivo
         new_player = Player(
-            player_id=player['player']['player_id'],  # Adjust based on your API response structure
+            player_id=player['player']['player_id'],
             name=player['player']['name'],
             first_name=player['player']['firstname'],
             last_name=player['player']['lastname'],
             age=player['player']['age'],
             position=player['statistics']['games']['position'],
-            birth=player['player']['birth'],  # Assuming it's a JSON object
+            birth=player['player']['birth'],  # JSON object
             nationality=player['player']['nationality'],
             height=player['player']['height'],
             weight=player['player']['weight'],
@@ -74,7 +77,7 @@ def fetch_player_and_populate(api_key, league, season, db_session):
             passes_accuracy=player['statistics']['passes']['accuracy'], 
             tackles_total=player['statistics']['tackles']['total'],
             tackles_blocks=player['statistics']['tackles']['blocks'],
-            tackles_interceptions=player['statistics']['tackles']['interceptions'], # Corrigir nome no UML e na tabela Postgresql
+            tackles_interceptions=player['statistics']['tackles']['interceptions'],
             duels_total=player['statistics']['duels']['total'],
             duels_won_total=player['statistics']['duels']['won'],
             dribbles_attempts_total=player['statistics']['dribbles']['attempts'],
@@ -92,6 +95,8 @@ def fetch_player_and_populate(api_key, league, season, db_session):
             team_id=player['statistics']['team']['id']
         )
         session.add(new_player)
+        with open('players_id.json', 'w') as file:
+            json.dump(players_id, file) # Irei usar esses ids para capturar dados em outro endpoint
 
     session.commit()
     print("Data inserted successfully.")

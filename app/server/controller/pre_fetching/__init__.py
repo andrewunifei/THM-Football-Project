@@ -1,1 +1,1 @@
-__all__ = ['venue_fetching', 'team_fetching']
+__all__ = ['venue_fetching', 'team_fetching', 'player_fetching']

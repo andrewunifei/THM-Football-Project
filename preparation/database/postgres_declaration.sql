@@ -85,7 +85,7 @@ CREATE TABLE Player (
     passes_accuracy DECIMAL(5, 2) CHECK (passes_accuracy >= 0 AND passes_accuracy <= 100) NOT NULL,
     tackles_total INTEGER NOT NULL,
     tackles_blocks INTEGER NOT NULL,
-    tackled_interceptions INTEGER NOT NULL,
+    tackles_interceptions INTEGER NOT NULL,
     duels_total INTEGER NOT NULL,
     duels_won_total INTEGER NOT NULL,
     dribbles_attempts_total INTEGER NOT NULL,
