@@ -73,10 +73,4 @@ class Player(Base):
     team = relationship('Team', back_populates='player')
     teams_historic = relationship('TeamsHistoric', back_populates='player')
     injuries = relationship("Injury", back_populates="player")
-
-# Optional: Define relationship to Team if needed
-# class Team(Base):
-#     __tablename__ = 'Team'
-#     team_id = ...  # Define your Team model here
-#     players = relationship("Player", back_populates="team")
-
+    games_statistics = relationship("SGPlayerStatistics", back_populates="player")

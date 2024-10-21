@@ -31,3 +31,4 @@ class Game(Base):
     winner_team = relationship("Team", foreign_keys=[winner_team_id], back_populates="games_won") 
     injuries = relationship("Injury", back_populates="game")
     teams_statistics = relationship("SGTeamStatistics", back_populates="game")
+    players_statistics = relationship("SGPlayerStatistics", back_populates="game")      # Assuming Game class exists

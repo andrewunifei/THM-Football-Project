@@ -11,7 +11,6 @@ class SGPlayerStatistics(Base):
     game_id = Column(Integer, ForeignKey('game.game_id', ondelete='CASCADE'), primary_key=True, nullable=False)
     player_number = Column(Integer, nullable=False)
     position = Column(CHAR(5), nullable=False)
-    # Rating with check constraint
     rating = Column(DECIMAL(2, 2), 
                    CheckConstraint('rating >= 0 AND rating <= 10'), 
                    nullable=False)
@@ -26,7 +25,6 @@ class SGPlayerStatistics(Base):
     goals_saves = Column(Integer, nullable=False)
     passes_total = Column(Integer, nullable=False)
     passes_key = Column(Integer, nullable=False)
-    # Passes accuracy with check constraint
     passes_accuracy = Column(DECIMAL(5, 2), 
                              CheckConstraint('passes_accuracy >= 0 AND passes_accuracy <= 100'), 
                              nullable=False)
@@ -49,5 +47,5 @@ class SGPlayerStatistics(Base):
     penalty_saved = Column(Integer, nullable=False)
 
     # Relationships
-    player = relationship("Player", back_populates="player_statistics")  # Assuming Player class exists
-    game = relationship("Game", back_populates="player_statistics")      # Assuming Game class exists
+    player = relationship("Player", back_populates="games_statistics")  # Assuming Player class exists
+    game = relationship("Game", back_populates="players_statistics")      # Assuming Game class exists
