@@ -1,5 +1,5 @@
 import requests
-from ..models.team import Team 
+from .models.team import Team 
 
 # Esses dados são referentes a entidade 'Time' no diagrama ER
 def fetch_team_and_populate(api_key, league, season, db_session):

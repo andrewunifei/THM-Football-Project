@@ -1,7 +1,7 @@
 import requests
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import SGPlayerStatistics
+from .models.sg_player_statistics import SGPlayerStatistics
 
 def get_games_id():
     data = []

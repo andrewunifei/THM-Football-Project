@@ -1,6 +1,6 @@
 import requests
 from sqlalchemy import create_engine
-from models import Injuries
+from .models.injury import Injury
 
 def fetch_injury_and_populate(api_key, db_session, league, season):
     injuries_endpoint = f'injuries?league={league}&season={season}'

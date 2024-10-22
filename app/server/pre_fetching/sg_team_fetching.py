@@ -1,7 +1,7 @@
 import requests
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import SGTeamStatistics, Base  # Assuming your SGTeamStatistics model is in models.py
+from .models.sg_team_statistics import SGTeamStatistics
 
 def get_games_id():
     data = []

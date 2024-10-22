@@ -1,6 +1,6 @@
 import requests
 from sqlalchemy import create_engine
-from ..models.game import Game
+from .models.game import Game
 
 def fetch_game_and_populate(api_key, db_session):
     fixture_endpoint = f'fixtures?league={league}&season={season}'

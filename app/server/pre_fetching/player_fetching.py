@@ -3,7 +3,7 @@ import time
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from ..models.player import Player
+from .models.player import Player
 
 def call_api(api_key, endpoint, params=None):
     if params is None:
