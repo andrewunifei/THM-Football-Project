@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from .base import Base
 
 # Estádio 
 class Venue(Base):
@@ -18,5 +16,5 @@ class Venue(Base):
     image = Column(String(150), nullable=False)
 
     # Relacionamentos
-    team = relationship('Team', back_populates='venue')
-    games = relationship('Game', back_populates='venue')  
+    # team = relationship('Team', back_populates='venue')
+    # games = relationship('Game', back_populates='venue')  

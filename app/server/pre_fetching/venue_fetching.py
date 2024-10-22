@@ -1,4 +1,6 @@
 import requests
+from .models.team import Team
+from .models.game import Game
 from .models.venue import Venue
 
 # Esses dados são referentes a entidade 'Estádio' no diagrama ER

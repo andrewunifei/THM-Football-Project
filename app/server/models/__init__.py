@@ -6,5 +6,6 @@ __all__ = [
     'sg_player_statistics',
     'sg_team_statistics',
     'injury',
-    'teams_historic'
+    'teams_historic',
+    'base'
 ]

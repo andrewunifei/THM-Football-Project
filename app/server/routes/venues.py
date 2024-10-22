@@ -1,21 +1,27 @@
-# routes.py
-from flask import Blueprint, jsonify, request
+from flask import Flask, jsonify, request, g
+from sqlalchemy import create_engine, inspect, func
+from sqlalchemy.orm import sessionmaker, scoped_session
+from models.venue import Venue
 
-# Create a Blueprint for routes
-api = Blueprint('api', __name__)
+def venue_routes(app, Session):
+    @app.before_request
+    def before_request():
+        """Create a new session before each request."""
+        g.db_session = Session()
 
-@api.route('/users', methods=['GET'])
-def get_users():
-    # Logic to fetch users
-    return jsonify({"users": []})
+    # @app.teardown_request
+    # def teardown_request(exception):
+    #     """Remove the session after each request."""
+    #     Session.remove()
 
-@api.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    # Logic to fetch a specific user by ID
-    return jsonify({"user": {"id": user_id}})
+    @app.route('/top-cities', methods=['GET'])
+    def get_top_cities():
+        top_cities = (
+            g.db_session.query(Venue.city, func.count(Venue.city).label('occurrence'))
+            .group_by(Venue.city)
+            .order_by(func.count(Venue.city).desc())
+            .limit(5)
+            .all()
+        )
+        return jsonify(dict(top_cities))
 
-@api.route('/users', methods=['POST'])
-def create_user():
-    data = request.json  # Get JSON data from request
-    # Logic to create a new user
-    return jsonify({"message": "User created!"}), 201

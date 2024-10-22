@@ -1,10 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from .venue import Venue
-
-Base = declarative_base()
+from .base import Base
 
 # Time
 class Team(Base):
@@ -53,7 +50,7 @@ class Team(Base):
     penalty_missed = Column(Integer, nullable=False)
     yellow_cards = Column(JSONB, nullable=False)
     red_cards = Column(JSONB, nullable=False)
-    venue_id = Column(Integer, ForeignKey('venue.venue_id', ondelete='SET NULL'))
+    venue_id = Column(Integer, ForeignKey('Venue.venue_id', ondelete='SET NULL'))
 
     # Relacionamentos
     venue = relationship('Venue', back_populates='team')
