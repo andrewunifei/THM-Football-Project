@@ -4,12 +4,12 @@ from sqlalchemy.orm import relationship
 from base import Base
 
 class Injury(Base):
-    __tablename__ = 'injuries'
+    __tablename__ = 'injury'
 
     player_id = Column(Integer, ForeignKey('player.player_id', ondelete='CASCADE'), primary_key=True, nullable=False)
     game_id = Column(Integer, ForeignKey('game.game_id', ondelete='CASCADE'), primary_key=True, nullable=False)
-    type = Column(String(50), nullable=False)
-    reason = Column(String(100), nullable=False)
+    type = Column(String(50), nullable=True)
+    reason = Column(String(100), nullable=True)
 
     # Check Constraint for type
     __table_args__ = (

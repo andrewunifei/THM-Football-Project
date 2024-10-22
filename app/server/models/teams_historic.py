@@ -9,7 +9,7 @@ class TeamsHistoric(Base):
 
     player_id = Column(Integer, ForeignKey('player.player_id', ondelete='CASCADE'), primary_key=True, nullable=False)
     team_id = Column(Integer, ForeignKey('team.team_id', ondelete='CASCADE'), primary_key=True, nullable=False)
-    seasons = Column(Integer, nullable=False)
+    seasons = Column(Integer, nullable=True)
 
     # Relacionamentos
     player = relationship('Player', foreign_keys=[player_id], back_populates='teams_historic')

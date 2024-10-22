@@ -16,7 +16,7 @@ def fetch_injury_and_populate(api_key, db_session, league, season):
         injuries_data = injuries_data['response']
 
         for injury in injuries_data:
-            new_injury = Injuries(
+            new_injury = Injury(
                 player_id=injury['player']['id'],
                 game_id=injury['fixture']['id'],
                 type=injury['player']['type'],

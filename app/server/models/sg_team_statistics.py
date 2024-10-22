@@ -8,31 +8,28 @@ class SGTeamStatistics(Base):
 
     game_id = Column(Integer, ForeignKey('game.game_id', ondelete='CASCADE'), primary_key=True, nullable=False)
     team_id = Column(Integer, ForeignKey('team.team_id', ondelete='CASCADE'), primary_key=True, nullable=False)
-    shots_on_goal = Column(Integer, nullable=False)
-    shots_off_goal = Column(Integer, nullable=False)
-    total_shots = Column(Integer, nullable=False)
-    blocked_shots = Column(Integer, nullable=False)
-    shots_insidebox = Column(Integer, nullable=False)
-    shots_outsidebox = Column(Integer, nullable=False)
-    fouls = Column(Integer, nullable=False)
-    corner_kicks = Column(Integer, nullable=False)
-    offsides = Column(Integer, nullable=False)
-    yellow_cards = Column(Integer, nullable=False)
-    red_cards = Column(Integer, nullable=False)
-    goalkeeper_saves = Column(Integer, nullable=False)
-    total_passes = Column(Integer, nullable=False)
-    passes_accurate = Column(Integer, nullable=False)
+    shots_on_goal = Column(Integer, nullable=True)
+    shots_off_goal = Column(Integer, nullable=True)
+    total_shots = Column(Integer, nullable=True)
+    blocked_shots = Column(Integer, nullable=True)
+    shots_insidebox = Column(Integer, nullable=True)
+    shots_outsidebox = Column(Integer, nullable=True)
+    fouls = Column(Integer, nullable=True)
+    corner_kicks = Column(Integer, nullable=True)
+    offsides = Column(Integer, nullable=True)
+    yellow_cards = Column(Integer, nullable=True)
+    red_cards = Column(Integer, nullable=True)
+    goalkeeper_saves = Column(Integer, nullable=True)
+    total_passes = Column(Integer, nullable=True)
+    passes_accurate = Column(Integer, nullable=True)
 
     # Ball possession and passes percentage with constraints
     ball_possession = Column(DECIMAL(5, 2), 
                              CheckConstraint('ball_possession >= 0 AND ball_possession <= 100'), 
-                             nullable=False)
+                             nullable=True)
     passes_percentage = Column(DECIMAL(5, 2), 
                                CheckConstraint('passes_percentage >= 0 AND passes_percentage <= 100'), 
-                               nullable=False)
-    expected_goals = Column(DECIMAL(5, 2), 
-                            CheckConstraint('expected_goals >= 0 AND expected_goals <= 100'), 
-                            nullable=False)
+                               nullable=True)
 
     # Relationships
     game = relationship('Game', back_populates='teams_statistics')  # Assuming Game class exists

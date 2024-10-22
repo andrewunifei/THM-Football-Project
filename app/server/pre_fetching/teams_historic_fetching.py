@@ -1,7 +1,7 @@
 import json
 import requests
 from sqlalchemy import create_engine
-from .models.teams_historic import TeamsHistoric
+from models.teams_historic import TeamsHistoric
 
 def get_players_id():
     data = []

@@ -15,8 +15,6 @@ class Team(Base):
     founded = Column(Integer, nullable=False)
     national = Column(Boolean, nullable=False)
     logo = Column(String(150), nullable=False)
-    seasons_played = Column(Integer, nullable=False)
-    current_season = Column(Integer, nullable=False)
     games_played_home = Column(Integer, nullable=False)
     games_played_away = Column(Integer, nullable=False)
     games_played_total = Column(Integer, nullable=False)

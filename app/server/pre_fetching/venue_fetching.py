@@ -1,7 +1,5 @@
 import requests
-from .models.team import Team
-from .models.game import Game
-from .models.venue import Venue
+from models.venue import Venue
 
 # Esses dados são referentes a entidade 'Estádio' no diagrama ER
 def fetch_venue_and_populate(

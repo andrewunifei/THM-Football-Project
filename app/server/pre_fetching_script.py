@@ -16,16 +16,13 @@ DATABASE_URL = f'postgresql://{postgres_user}:{postgres_passwd}@localhost:5432/f
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 db_session = Session()
-inspector = inspect(engine)
-
-table_names = inspector.get_table_names()
-print("Existing tables:", table_names)
 
 country = 'England'
 league = 39 # Premier League
 season = 2022
 
-# fetch_venue_and_populate(api_key, country, db_session)
-fetch_team_and_populate(api_key, league, season, db_session)
+# fetch_venue_and_populate(api_key, country, db_session) # Already Fetched
+# fetch_team_and_populate(api_key, league, season, db_session) # Already Fetched
+fetch_player_and_populate(api_key, league, season, db_session)
 
 db_session.close()

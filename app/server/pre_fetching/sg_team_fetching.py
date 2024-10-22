@@ -1,7 +1,7 @@
 import requests
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .models.sg_team_statistics import SGTeamStatistics
+from models.sg_team_statistics import SGTeamStatistics
 
 def get_games_id():
     data = []
@@ -21,31 +21,33 @@ def fetch_sg_team_and_populate():
         }
         response = requests.get(api_url, headers=headers)
 
+
         if response.status_code == 200:
             statistics_data = response.json()
             statistics_data = statistics_data['response']
-
+            data = {}
+            for info in record['statistics']:
+                data[info['type']] = info['value']
             for record in statistics_data:
                 new_statistic = SGTeamStatistics(
                     game_id=id,
                     team_id=record['team']['id'],
-                    shots_on_goal=record['statistics'][0]['value'],
-                    shots_off_goal=record['statistics'][1]['value'],
-                    total_shots=record['statistics'][2]['value'],
-                    blocked_shots=record['statistics'][3]['value'],
-                    shots_insidebox=record['statistics'][4]['value'],
-                    shots_outsidebox=record['statistics'][5]['value'],
-                    fouls=record['statistics'][6]['value'],
-                    corner_kicks=record['statistics'][7]['value'],
-                    offsides=record['statistics'][8]['value'],
-                    yellow_cards=record['statistics'][9]['value'],
-                    red_cards=record['statistics'][10]['value'],
-                    goalkeeper_saves=record['statistics'][11]['value'],
-                    total_passes=record['statistics'][12]['value'],
-                    passes_accurate=record['statistics'][13]['value'],
-                    ball_possession=record['statistics'][14]['value'],  # Ensure this is a decimal value
-                    passes_percentage=record['statistics'][15]['value'],  # Ensure this is a decimal value
-                    expected_goals=record['statistics'][16]['value']   # Ensure this is a decimal value
+                    shots_on_goal=data["Shots on Goal"]['value'],
+                    shots_off_goal=data["Shots off Goal"]['value'],
+                    total_shots=data["Total Shots"]['value'],
+                    blocked_shots=data["Blocked Shots"]['value'],
+                    shots_insidebox=data["Shots insidebox",]['value'],
+                    shots_outsidebox=data["Shots outsidebox"]['value'],
+                    fouls=data["Fouls"]['value'],
+                    corner_kicks=data["Corner Kicks"]['value'],
+                    offsides=data["Offsides"]['value'],
+                    yellow_cards=data["Yellow Cards"]['value'],
+                    red_cards=data["Red Cards"]['value'],
+                    goalkeeper_saves=data["Goalkeeper Saves"]['value'],
+                    total_passes=data["Total passes"]['value'],
+                    passes_accurate=data["Passes accurate"]['value'],
+                    ball_possession=data["Ball Possession"]['value'],  # Ensure this is a decimal value
+                    passes_percentage=data["Passes %"]['value'],  # Ensure this is a decimal value
                 )
                 session.add(new_statistic)  # Add new statistic record to the session
 

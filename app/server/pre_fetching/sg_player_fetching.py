@@ -1,7 +1,7 @@
 import requests
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .models.sg_player_statistics import SGPlayerStatistics
+from models.sg_player_statistics import SGPlayerStatistics
 
 def get_games_id():
     data = []
@@ -30,40 +30,40 @@ def fetch_sg_player_and_populate(api_key, db_session):
             # Step 4: Insert data into the database
             for record in player_statistics_data:
                 new_statistic = SGPlayerStatistics(
-                    player_id=record['player']['id'],          # Adjust based on your API response structure
+                    player_id=record['players']['player']['id'],          # Adjust based on your API response structure
                     game_id=id,
-                    player_number=record['statistics']['games']['number'],
-                    position=record['statistics']['games']['position'],
-                    rating=record['statistics']['games']['rating'], # Provavelmente precisa de ajusta já que o retonro é uma string e essa variável espera um decimal
-                    captain=record['statistics']['games']['captain'],
-                    substitute=record['statistics']['games']['substitute'],
-                    offsides=record['statistics']['offsides'],
-                    shots_on=record['statistics']['shots']['on'],
-                    shots_total=record['statistics']['shots']['total'],
-                    goals_total=record['statistics']['goals']['total'],
-                    goals_conceded=record['statistics']['goals']['conceded'],
-                    goals_assists=record['statistics']['goals']['assists'],
-                    goals_saves=record['statistics']['goals']['saves'],
-                    passes_total=record['statistics']['passes']['total'],
-                    passes_key=record['statistics']['passes']['key'],
-                    passes_accuracy=record['statistics']['passes']['accuracy'],  # Ensure this is a decimal value
-                    tackles_total=record['statistics']['tackles']['total'],
-                    tackles_blocks=record['statistics']['tackles']['blocks'], # Verificar o nome dessa variável no modelo
-                    tackles_interceptions=record['statistics']['tackles']['interceptions'],  # Verificar o nome dessa variável no modelo
-                    duels_total=record['statistics']['duels']['total'],
-                    duels_won=record['statistics']['duels']['won'],
-                    dribbles_attempts=record['statistics']['dribbles']['attempts'],
-                    dribbles_success=record['statistics']['dribbles']['success'],
-                    dribbles_past=record['statistics']['dribbles']['past'],
-                    fouls_drawn=record['statistics']['fouls']['drawn'],
-                    fouls_committed=record['statistics']['fouls']['committed'],
-                    yellow_cards=record['statistics']['cards']['yellow'],
-                    red_cards=record['statistics']['cards']['red'],
-                    penalty_won=record['statistics']['penalty']['won'],
-                    penalty_committed=record['statistics']['penalty']['committed'],
-                    penalty_scored=record['statistics']['penalty']['scored'],
-                    penalty_missed=record['statistics']['penalty']['missed'],
-                    penalty_saved=record['statistics']['penalty']['saved']
+                    player_number=record['players']['statistics'][0]['games']['number'],
+                    position=record['players']['statistics'][0]['games']['position'],
+                    rating=record['players']['statistics'][0]['games']['rating'], # Provavelmente precisa de ajustar já que o retonro é uma string e essa variável espera um decimal
+                    captain=record['players']['statistics'][0]['games']['captain'],
+                    substitute=record['players']['statistics'][0]['games']['substitute'],
+                    offsides=record['players']['statistics'][0]['offsides'],
+                    shots_on=record['players']['statistics'][0]['shots']['on'],
+                    shots_total=record['players']['statistics'][0]['shots']['total'],
+                    goals_total=record['players']['statistics'][0]['goals']['total'],
+                    goals_conceded=record['players']['statistics'][0]['goals']['conceded'],
+                    goals_assists=record['players']['statistics'][0]['goals']['assists'],
+                    goals_saves=record['players']['statistics'][0]['goals']['saves'],
+                    passes_total=record['players']['statistics'][0]['passes']['total'],
+                    passes_key=record['players']['statistics'][0]['passes']['key'],
+                    passes_accuracy=record['players']['statistics'][0]['passes']['accuracy'],  # Ensure this is a decimal value
+                    tackles_total=record['players']['statistics'][0]['tackles']['total'],
+                    tackles_blocks=record['players']['statistics'][0]['tackles']['blocks'], # Verificar o nome dessa variável no modelo
+                    tackles_interceptions=record['players']['statistics'][0]['tackles']['interceptions'],  # Verificar o nome dessa variável no modelo
+                    duels_total=record['players']['statistics'][0]['duels']['total'],
+                    duels_won=record['players']['statistics'][0]['duels']['won'],
+                    dribbles_attempts=record['players']['statistics'][0]['dribbles']['attempts'],
+                    dribbles_success=record['players']['statistics'][0]['dribbles']['success'],
+                    dribbles_past=record['players']['statistics'][0]['dribbles']['past'],
+                    fouls_drawn=record['players']['statistics'][0]['fouls']['drawn'],
+                    fouls_committed=record['players']['statistics'][0]['fouls']['committed'],
+                    yellow_cards=record['players']['statistics'][0]['cards']['yellow'],
+                    red_cards=record['players']['statistics'][0]['cards']['red'],
+                    penalty_won=record['players']['statistics'][0]['penalty']['won'],
+                    penalty_committed=record['players']['statistics'][0]['penalty']['committed'],
+                    penalty_scored=record['players']['statistics'][0]['penalty']['scored'],
+                    penalty_missed=record['players']['statistics'][0]['penalty']['missed'],
+                    penalty_saved=record['players']['statistics'][0]['penalty']['saved']
                 )
                 db_session.add(new_statistic)  # Add new statistic record to the db_session
 
