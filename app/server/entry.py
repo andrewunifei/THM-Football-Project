@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask
-from routes.venues import venue_routes
+from routes.venue_routes import venue_routes
 from sqlalchemy import create_engine, inspect, func
 from sqlalchemy.orm import sessionmaker, scoped_session
 
