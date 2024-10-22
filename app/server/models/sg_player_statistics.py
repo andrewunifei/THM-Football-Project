@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Boolean, CHAR, CheckConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from base import Base
 
 class SGPlayerStatistics(Base):
     __tablename__ = 'sg_player_statistics'
@@ -47,5 +46,5 @@ class SGPlayerStatistics(Base):
     penalty_saved = Column(Integer, nullable=False)
 
     # Relationships
-    player = relationship("Player", back_populates="games_statistics")  # Assuming Player class exists
-    game = relationship("Game", back_populates="players_statistics")      # Assuming Game class exists
+    player = relationship('Player', foreign_keys=[player_id], back_populates='games_statistics')  # Assuming Player class exists
+    game = relationship('Game', foreign_keys=[game_id], back_populates='players_statistics')      # Assuming Game class exists

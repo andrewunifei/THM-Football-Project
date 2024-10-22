@@ -40,7 +40,7 @@ def fetch_venue_and_populate(
             db_session.add(new_venue)
 
         db_session.commit()
-        print("Dados inseridos com sucesso.")
+        print('Dados inseridos com sucesso.')
 
     else:
-        print(f"Comunicação com a API falhou com código: {response.status_code}")
+        print(f'Comunicação com a API falhou com código: {response.status_code}')

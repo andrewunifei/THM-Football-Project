@@ -1,9 +1,11 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
-from .base import Base
+from base import Base
 
 # Estádio 
 class Venue(Base):
+    print(Base)
     __tablename__ = 'venue'
 
     venue_id = Column(Integer, primary_key=True, unique=True, nullable=False)
@@ -16,5 +18,5 @@ class Venue(Base):
     image = Column(String(150), nullable=False)
 
     # Relacionamentos
-    # team = relationship('Team', back_populates='venue')
-    # games = relationship('Game', back_populates='venue')  
+    team = relationship('Team', back_populates='venue')
+    games = relationship('Game', back_populates='stadium')  

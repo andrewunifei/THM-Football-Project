@@ -11,12 +11,11 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from base import Base
 
 # Jogador
 class Player(Base):
-    __tablename__ = 'Player'
+    __tablename__ = 'player'
 
     player_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     name = Column(String(100), nullable=False)
@@ -70,7 +69,7 @@ class Player(Base):
     team_id = Column(Integer, ForeignKey('team.team_id', ondelete='SET NULL'))
 
     # Relacionamentos
-    team = relationship('Team', back_populates='player')
+    team = relationship('Team', foreign_keys=[team_id], back_populates='player')
     teams_historic = relationship('TeamsHistoric', back_populates='player')
-    injuries = relationship("Injury", back_populates="player")
-    games_statistics = relationship("SGPlayerStatistics", back_populates="player")
+    injuries = relationship('Injury', back_populates='player')
+    games_statistics = relationship('SGPlayerStatistics', back_populates='player')

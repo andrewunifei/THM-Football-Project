@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, CheckConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from base import Base
 
 class Injury(Base):
     __tablename__ = 'injuries'
@@ -18,5 +17,5 @@ class Injury(Base):
     )
 
     # Relationships
-    player = relationship("Player", back_populates="injuries")  # Assuming Player class exists
-    game = relationship("Game", back_populates="injuries")      # Assuming Game class exists
+    player = relationship('Player', back_populates='injuries')  # Assuming Player class exists
+    game = relationship('Game', back_populates='injuries')      # Assuming Game class exists

@@ -45,7 +45,7 @@ def fetch_game_and_populate(api_key, db_session):
             json.dump(games_id, file) # Irei usar esses ids para capturar dados em sg_team_fetching e sg_player_fetching
 
         db_session.commit()
-        print("Data inserted successfully.")
+        print('Data inserted successfully.')
 
     else:
-        print(f"Failed to fetch data from API: {response.status_code}")
+        print(f'Failed to fetch data from API: {response.status_code}')

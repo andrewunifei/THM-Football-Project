@@ -32,7 +32,7 @@ def fetch_team_and_populate(api_key, league, season, db_session):
                 team_statistics = response.json()
                 team_statistics = team_statistics['response']
             else:
-                print(f"Comunicação com endpoint Team Statistics falhou com código: {response.status_code}")
+                print(f'Comunicação com endpoint Team Statistics falhou com código: {response.status_code}')
                 break
 
             if type(team_statistics) == list:
@@ -85,7 +85,7 @@ def fetch_team_and_populate(api_key, league, season, db_session):
             db_session.add(new_team)
 
         db_session.commit()
-        print("Dados inseridos com sucesso.")
+        print('Dados inseridos com sucesso.')
 
     else:
-        print(f"Comunicação com a API falhou com código: {response.status_code}")
+        print(f'Comunicação com a API falhou com código: {response.status_code}')

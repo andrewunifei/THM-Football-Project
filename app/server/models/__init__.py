@@ -1,11 +1,10 @@
 __all__ = [
-    'team',
     'venue',
+    'team',
     'player',
     'game',
     'sg_player_statistics',
     'sg_team_statistics',
     'injury',
-    'teams_historic',
-    'base'
+    'teams_historic'
 ]

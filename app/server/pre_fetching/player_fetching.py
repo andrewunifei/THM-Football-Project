@@ -100,4 +100,4 @@ def fetch_player_and_populate(api_key, league, season, db_session):
         json.dump(players_id, file) # Irei usar esses ids para capturar dados em teams_historic_fetching
 
     session.commit()
-    print("Data inserted successfully.")
+    print('Data inserted successfully.')

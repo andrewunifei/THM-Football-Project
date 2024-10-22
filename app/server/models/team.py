@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
-from .base import Base
+from base import Base
 
 # Time
 class Team(Base):
+    print(Base)
     __tablename__ = 'team'
 
     team_id = Column(Integer, primary_key=True, unique=True, nullable=False)
@@ -50,13 +51,13 @@ class Team(Base):
     penalty_missed = Column(Integer, nullable=False)
     yellow_cards = Column(JSONB, nullable=False)
     red_cards = Column(JSONB, nullable=False)
-    venue_id = Column(Integer, ForeignKey('Venue.venue_id', ondelete='SET NULL'))
+    venue_id = Column(Integer, ForeignKey('venue.venue_id', ondelete='SET NULL'))
 
     # Relacionamentos
-    venue = relationship('Venue', back_populates='team')
+    venue = relationship('Venue', foreign_keys=[venue_id], back_populates='team')
     player = relationship('Player', back_populates='team')
     teams_historic = relationship('TeamsHistoric', back_populates='team')
-    home_games = relationship("Game", back_populates="home_team") 
-    away_games = relationship("Game", back_populates="away_team") 
-    games_won = relationship("Game", back_populates="winner_team") 
-    team_statistics = relationship("SGTeamStatistics", back_populates="team")
+    home_games = relationship('Game', foreign_keys='Game.home_team_id', back_populates='home_team') 
+    away_games = relationship('Game', foreign_keys='Game.away_team_id', back_populates='away_team') 
+    games_won = relationship('Game', foreign_keys='Game.winner_team_id', back_populates='winner_team') 
+    team_statistics = relationship('SGTeamStatistics', back_populates='team')

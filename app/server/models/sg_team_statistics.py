@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, CheckConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from base import Base
 
 class SGTeamStatistics(Base):
     __tablename__ = 'sg_team_statistics'
@@ -36,5 +35,5 @@ class SGTeamStatistics(Base):
                             nullable=False)
 
     # Relationships
-    game = relationship("Game", back_populates="teams_statistics")  # Assuming Game class exists
-    team = relationship("Team", back_populates="team_statistics")   # Assuming Team class exists
+    game = relationship('Game', back_populates='teams_statistics')  # Assuming Game class exists
+    team = relationship('Team', back_populates='team_statistics')   # Assuming Team class exists

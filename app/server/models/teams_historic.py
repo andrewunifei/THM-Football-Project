@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from base import Base
 
 # Hitórico de Times do Jogador
 class TeamsHistoric(Base):
@@ -13,5 +12,5 @@ class TeamsHistoric(Base):
     seasons = Column(Integer, nullable=False)
 
     # Relacionamentos
-    player = relationship('Player', back_populates='teams_historic')
-    team = relationship('Team', back_populates='teams_historic')
+    player = relationship('Player', foreign_keys=[player_id], back_populates='teams_historic')
+    team = relationship('Team', foreign_keys=[team_id], back_populates='teams_historic')

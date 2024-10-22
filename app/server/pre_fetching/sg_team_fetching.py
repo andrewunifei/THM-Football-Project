@@ -51,7 +51,7 @@ def fetch_sg_team_and_populate():
 
             # Step 5: Commit the session
             session.commit()
-            print("Data inserted successfully.")
+            print('Data inserted successfully.')
 
         else:
-            print(f"Failed to fetch data from API: {response.status_code}")
+            print(f'Failed to fetch data from API: {response.status_code}')

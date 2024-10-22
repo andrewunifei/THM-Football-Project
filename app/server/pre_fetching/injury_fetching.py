@@ -25,7 +25,7 @@ def fetch_injury_and_populate(api_key, db_session, league, season):
             db_session.add(new_injury)  
             
         db_session.commit()
-        print("Data inserted successfully.")
+        print('Data inserted successfully.')
 
     else:
-        print(f"Failed to fetch data from API: {response.status_code}")
+        print(f'Failed to fetch data from API: {response.status_code}')
