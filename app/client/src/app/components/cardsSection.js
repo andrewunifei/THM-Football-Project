@@ -7,7 +7,7 @@ import MediaCard from './mediaCard';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-export default function CardsSection({ title }) {
+export default function CardsSection({ title, media=false }) {
     return (
         <Box style={{paddingBottom: '10px', paddingTop: '10px'}}>
             <p style={{paddingBottom: '10px', font: 'roboto'}}>{title}</p>
@@ -15,17 +15,17 @@ export default function CardsSection({ title }) {
             <Grid container spacing={1} >
                 <Grid size={4}>
                     <Box>
-                        <MediaCard/>
+                        <MediaCard media={media ? media[0] : ''} />
                     </Box>
                 </Grid>
                 <Grid size={4}>
                     <Box>
-                        <MediaCard/>
+                        <MediaCard media={media ? media[1] : ''} />
                     </Box>
                 </Grid>
                 <Grid size={4}>
                     <Box>
-                        <MediaCard/>
+                        <MediaCard media={media ? media[2] : ''} />
                     </Box>
                 </Grid>
             </Grid>
