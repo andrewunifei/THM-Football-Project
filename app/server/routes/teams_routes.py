@@ -73,3 +73,33 @@ def team_routes(app, Session):
             return jsonify(games_info_dict)
         else:
             return None
+
+    @app.route('/teams-goals-info', methods=['GET'])
+    def get_teams_goals_info():
+        keys = [
+            'goals_for_home',
+            'goals_for_away',
+            'goals_for_total',
+            'segments_for',
+            'goals_against_home',
+            'goals_against_away',
+            'goals_against_total',
+            'segments_against'
+        ]
+
+        code = request.args.get('code')
+
+        goals_info_tuple =\
+            g.db_session.query(
+                team.Team.goals_for_home, team.Team.goals_for_away,\
+                team.Team.goals_for_total, team.Team.segments_for,\
+                team.Team.goals_against_home, team.Team.goals_against_away,\
+	            team.Team.goals_against_total, team.Team.segments_against)\
+            .where(team.Team.games_played_total > 0, team.Team.code == code)\
+            .first()
+
+        if goals_info_tuple:
+            goals_info_dict = dict(zip(keys, goals_info_tuple))
+            return jsonify(goals_info_dict)
+        else:
+            return None
