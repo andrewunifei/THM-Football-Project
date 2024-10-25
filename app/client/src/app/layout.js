@@ -36,7 +36,7 @@ const NAVIGATION = [
   {
     segment: 'teams',
     title: 'Times',
-    icon: <GroupsIcon />,
+    icon: <GroupsIcon />
   },
   {
     segment: 'stadiums',
