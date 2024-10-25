@@ -6,7 +6,6 @@ import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import { getTeamsInfo } from '../api/team';
-
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import Divider from '@mui/material/Divider';
@@ -14,7 +13,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Link from 'next/link';
+
+function getParams(teamsInfo, index) {
+    return `teams/explore?name=${teamsInfo[index]?.name}&code=${teamsInfo[index]?.code}&logo=${teamsInfo[index]?.logo}`
+}
 
 function Teams() {
   const [teamsInfo, setTeamsInfo] = useState([]);
@@ -35,11 +38,10 @@ function Teams() {
                 <Grid size={12}>
                         <List sx={{ width: '100%', overflow: 'auto' }}>
                             {teamsInfo ? teamsInfo.map((item, index) => (
-                                <>
                                 <Box>
-                                    <ListItemButton key={index} value={item} alignItems="flex-start">
+                                    <ListItemButton key={index} value={item} alignItems="flex-start" component={Link} to={getParams(teamsInfo, index)}>
                                         <ListItemAvatar>
-                                            <Avatar alt="Remy Sharp" src={teamsInfo[index]?.logo} />
+                                            <Avatar alt="logo" src={teamsInfo[index]?.logo} />
                                         </ListItemAvatar>
                                         <ListItemText
                                             primary={teamsInfo[index]?.name}
@@ -52,7 +54,6 @@ function Teams() {
                                                 >
                                                     <span style={{fontWeight:'bold'}}>Sigla:</span> {teamsInfo[index]?.code}
                                                 </Typography>
-                                                    
                                                 <Typography
                                                     component="span"
                                                     variant="body2"
@@ -73,7 +74,6 @@ function Teams() {
                                     </ListItemButton>
                                     <Divider variant="inset" component="li" />
                                     </Box>
-                                </>
                             )) : ''}
                         </List>
                 </Grid>
