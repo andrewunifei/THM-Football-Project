@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-//import { Chart as ChartJS, CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+//import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { getCapacitiesData } from '../api/stadium'; 
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-// ChartJS.register(CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend);
+// ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend);
 
 const BarChart = () => {
     const [chartData, setChartData] = useState({ labels: [], counts: [] });
@@ -35,6 +35,7 @@ const BarChart = () => {
     };
 
     const options = {
+        responsive: true,
         scales: {
             x: {
                 title: {
@@ -43,16 +44,16 @@ const BarChart = () => {
                 },
             },
             y: {
+                type: 'logarithmic',
                 title: {
-                    // type: 'logarithmic',
                     display: true,
-                    text: 'Ocorrências',
+                    text: 'Ocorrências (Escala Log)',
                 },
-                // ticks: {
-                //     callback: function(value) {
-                //         return Number(value).toLocaleString(); // Format ticks for better readability
-                //     },
-                // },
+                ticks: {
+                    callback: function(value) {
+                        return Number(value).toLocaleString(); // Format ticks for better readability
+                    },
+                },
             },
         },
     };

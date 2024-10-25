@@ -26,7 +26,7 @@ function Stadiums() {
 
   return (
     <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}>
-      <PageContainer maxWidth="lg">
+      <PageContainer maxWidth="xl">
         <Grid container spacing={3} >
           <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
             <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
@@ -42,11 +42,11 @@ function Stadiums() {
             </Paper>
           </Grid>
         </Grid>
-        <div style={{paddingTop:'30px'}}></div>
+        <div style={{paddingTop:'25px'}}></div>
         <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
           <CardsSection title={'Maiores Estádios'} media={topStadiumsInfo ? topStadiumsInfo : ''} />
         </Paper>
-        <div style={{paddingTop:'30px'}}></div>
+        <div style={{paddingTop:'25px'}}></div>
         <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
           <CardsSection title={'Menores Estádios'} media={bottomStadiumsInfo ? bottomStadiumsInfo: ''}/>
         </Paper>
