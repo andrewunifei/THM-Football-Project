@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { PageContainer, PageContainerToolbar } from '@toolpad/core/PageContainer';
+import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import CardsSection from '../components/cardsSection'
-import MediaCard from '../components/mediaCard';
 import { getTopStadiums, getBottomStadiums } from '../api/stadium';
 import BarChart from '../components/barChart';
+import PieChart from '../components/pieChart';
 
 function Stadiums() {
   const [topStadiumsInfo, setTopStadiumsInfo] = useState({});
@@ -30,14 +30,15 @@ function Stadiums() {
         <Grid container spacing={3} >
           <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
             <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-              <Box sx={{height: 300}}>
+              <Box sx={{height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <BarChart/>
               </Box>
             </Paper>
           </Grid>
           <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
             <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-              <Box sx={{height: 300}}>
+              <Box sx={{height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <PieChart/>
               </Box>
             </Paper>
           </Grid>

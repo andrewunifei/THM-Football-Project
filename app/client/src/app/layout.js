@@ -9,6 +9,8 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import { AppProvider } from '@toolpad/core/nextjs'; // Next.js
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import StadiumIcon from '@mui/icons-material/Stadium';
+import GroupsIcon from '@mui/icons-material/Groups';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,14 +29,19 @@ const NAVIGATION = [
     title: 'Menu',
   },
   {
+    segment: 'games',
+    title: 'Jogos',
+    icon: <SportsSoccerIcon />
+  },
+  {
+    segment: 'teams',
+    title: 'Times',
+    icon: <GroupsIcon />,
+  },
+  {
     segment: 'stadiums',
     title: 'Estádios',
     icon: <StadiumIcon />,
-  },
-  {
-    segment: 'page-2',
-    title: 'Page 2',
-    icon: <TimelineIcon />,
   },
 ];
 
@@ -42,7 +49,28 @@ const theme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'data-toolpad-color-scheme',
   },
-  colorSchemes: { light: true, dark: true },
+  colorSchemes: { 
+    light: {
+      palette: {
+        primary: {
+            main: '#000',
+        },
+        secondary: {
+            main: '#dc004e',
+        },
+      }
+    }, 
+    dark: {
+      palette: {
+        primary: {
+            main: '#fff',
+        },
+        secondary: {
+            main: '#dc004e',
+        },
+      }
+    },
+  },
   breakpoints: {
     values: {
       xs: 0,
@@ -51,7 +79,7 @@ const theme = createTheme({
       lg: 1200,
       xl: 1536,
     },
-  },
+  }
 });
 
 export default function RootLayout({ children }) {
@@ -62,8 +90,8 @@ export default function RootLayout({ children }) {
               navigation={NAVIGATION}
               theme={theme}
               branding={{
-                logo: <img src="https://www.svgrepo.com/show/17072/football.svg" alt="Football" />,
-                title: 'Dashboard',
+                logo: <img src="https://static.vecteezy.com/system/resources/previews/015/863/623/non_2x/england-premier-league-logo-on-transparent-background-free-vector.jpg" alt="Football" />,
+                title: 'Premier League Dashboard',
               }}
             >
               <DashboardLayout defaultSidebarCollapsed>
