@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
+import Divider from '@mui/material/Divider';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -19,36 +20,22 @@ function createData(name, home, away, total, color) {
     return { name, home, away, total, color };
 }
 
-function GamesTable({ teamsGamesInfo }) {
+function GoalsTable({ data }) {
     const rows = [
         createData(
-            'Vitórias', 
-            teamsGamesInfo?.wins_home,
-            teamsGamesInfo?.wins_away,
-            teamsGamesInfo?.wins_total,
+            'Realizados', 
+            data?.goals_for_home,
+            data?.goals_for_away,
+            data?.goals_for_total,
             '#32a852'
         ),
         createData(
-            'Derrotas', 
-            teamsGamesInfo?.losses_home,
-            teamsGamesInfo?.losses_away,
-            teamsGamesInfo?.losses_total,
+            'Tomados', 
+            data?.goals_against_home,
+            data?.goals_against_away,
+            data?.goals_against_total,
             '#a83232'
-        ),
-        createData(
-            'Empates', 
-            teamsGamesInfo?.draws_home,
-            teamsGamesInfo?.draws_away,
-            teamsGamesInfo?.draws_total,
-            '#a89c32'
-        ),
-        createData(
-            'Total', 
-            teamsGamesInfo?.games_played_home,
-            teamsGamesInfo?.games_played_away,
-            teamsGamesInfo?.games_played_total,
-            '#fff'
-        ),
+        )
     ];
 
     return (
@@ -91,4 +78,4 @@ function GamesTable({ teamsGamesInfo }) {
     )
 }
 
-export default GamesTable
+export default GoalsTable

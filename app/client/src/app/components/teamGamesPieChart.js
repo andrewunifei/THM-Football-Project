@@ -5,12 +5,9 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Title, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
 const TeamGamesPieChart = ({ teamsGamesInfo }) => {
-    React.useEffect(() => {
-        ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
-    }, [])
 
     const data = {
         labels: ['Vitórias', 'Derrotas', 'Empates'],
@@ -68,7 +65,7 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
     };
 
     return (
-        <Pie data={data} options={optionsTeams} />
+        <Pie data={data} options={optionsTeams} plugins={[ChartDataLabels]} />
     );
 };
 

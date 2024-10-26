@@ -3,22 +3,11 @@
 import { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
-import { getSurfaceData } from '../api/stadium'; 
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { getSurfaceData } from '../api/stadium';
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
-const resetChartRegistry = () => {
-    ChartJS.unregister(ChartDataLabels);
-};
-
 const PieChart = () => {
-    useEffect(() => {
-        return () => {
-            resetChartRegistry();
-        };
-    })
-
     const [data, setData] = useState({});
 
     const translations = {

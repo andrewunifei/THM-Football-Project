@@ -8,10 +8,6 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend);
 
-const resetChartRegistry = () => {
-    ChartJS.unregister(ChartDataLabels);
-};
-
 const BarChart = () => {
     const [chartData, setChartData] = useState({ labels: [], counts: [] });
 
@@ -59,10 +55,6 @@ const BarChart = () => {
         };
 
         fetchData();
-
-        return () => {
-            resetChartRegistry
-        };
     }, []);
 
     return (
