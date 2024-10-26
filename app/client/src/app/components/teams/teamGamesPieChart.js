@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
-const TeamGamesPieChart = ({ teamsGamesInfo }) => {
+export default function TeamsGamesPieChart({ teamsGamesInfo }) {
 
     const data = {
         labels: ['Vitórias', 'Derrotas', 'Empates'],
@@ -24,9 +24,9 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
                 '#3277a8' // Cor do empate
             ],
             borderColor: [
-                '#000', // Cor da vitória
-                '#000', // Cor da derrota
-                '#000' // Cor do empate
+                '#000',
+                '#000',
+                '#000'
             ],
             borderWidth: 1,
         }],
@@ -48,7 +48,7 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
                         const label = tooltipItem.label || '';
                         const value = tooltipItem.raw || 0;
                         const total = tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b);
-                        const percentage = ((value / total) * 100).toFixed(2) + '%'; // Calculate percentage
+                        const percentage = ((value / total) * 100).toFixed(2) + '%';
                         return (`${label}: ${value} (${percentage})`); 
                     }
                 }
@@ -58,7 +58,7 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
                 formatter: (value, context) => {
                     const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b);
                     const percentage = ((value / total) * 100).toFixed(2) + '%';
-                    return percentage; // Show percentage on each section
+                    return percentage;
                 },
             }
         }
@@ -68,5 +68,3 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
         <Pie data={data} options={optionsTeams} plugins={[ChartDataLabels]} style={{height:300}} />
     );
 };
-
-export default TeamGamesPieChart;

@@ -1,6 +1,3 @@
-'use client'
-
-import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -19,7 +16,7 @@ function createData(name, home, away, total, color) {
     return { name, home, away, total, color };
 }
 
-function GamesTable({ teamsGamesInfo }) {
+export default function TeamsGamesTable({ teamsGamesInfo }) {
     const rows = [
         createData(
             'Vitórias', 
@@ -91,5 +88,3 @@ function GamesTable({ teamsGamesInfo }) {
         </Box>
     )
 }
-
-export default GamesTable

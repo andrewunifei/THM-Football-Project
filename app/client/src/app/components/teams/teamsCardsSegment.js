@@ -1,5 +1,3 @@
-// components/BarChart.js
-
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -7,7 +5,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const CardsSegment = ({ data, card_color, bar_color, label }) => {
+export default  function TeamsCardsSegment({ data, cards_color, bar_color, label }) {
     const labels = data ? Object.keys(data).sort((a, b) => {
         const rangeA = a.split('-').map(Number);
         const rangeB = b.split('-').map(Number);
@@ -15,11 +13,11 @@ const CardsSegment = ({ data, card_color, bar_color, label }) => {
     }) : '';
 
     const values = data ? labels.map(label => {
-        return data[label].percentage ? parseFloat(data[label].percentage) : 0; // Keep as percentage
+        return data[label].percentage ? parseFloat(data[label].percentage) : 0;
     }) : '';
 
     const totals = data ? labels.map(label => {
-        return data[label].total || 0; // Get total values
+        return data[label].total || 0;
     }) : '';
 
     const chartData = {
@@ -35,8 +33,8 @@ const CardsSegment = ({ data, card_color, bar_color, label }) => {
                     anchor: 'end',
                     align: 'end',
                     formatter: (value, context) => {
-                        const total = totals[context.dataIndex]; // Get corresponding total
-                        return `${total}`; // Format as percentage and total
+                        const total = totals[context.dataIndex];
+                        return `${total}`;
                     },
                 },
             }
@@ -49,7 +47,7 @@ const CardsSegment = ({ data, card_color, bar_color, label }) => {
             y: {
                 beginAtZero: true,
                 min: 0,
-                max: 30,
+                max: cards_color == 'vermelhos' ? 100 : 50,
                 title: {
                     display: true,
                     text: 'Porcentagem (%)'
@@ -71,7 +69,7 @@ const CardsSegment = ({ data, card_color, bar_color, label }) => {
             },
             title: {
                 display: true,
-                text: `Distribuição de cartões ${card_color}`,
+                text: `Distribuição de cartões ${cards_color}`,
             },
             tooltip: {
                 callbacks: {
@@ -88,5 +86,3 @@ const CardsSegment = ({ data, card_color, bar_color, label }) => {
         <Bar data={chartData} options={options} plugins={[ChartDataLabels]} />
     );
 };
-
-export default CardsSegment;

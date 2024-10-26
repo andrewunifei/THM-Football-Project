@@ -7,7 +7,7 @@ import { getSurfaceData } from '../../api/stadium';
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
-const PieChart = () => {
+export default function StadiumsPieChart() {
     const [data, setData] = useState({});
 
     const translations = {
@@ -74,5 +74,3 @@ const PieChart = () => {
         <Pie data={chartData} options={optionsStadium} />
     );
 };
-
-export default PieChart;

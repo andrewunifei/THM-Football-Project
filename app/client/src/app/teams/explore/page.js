@@ -10,15 +10,15 @@ import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import GamesTable from '@/app/components/teams/gamesTable';
-import GoalsTable from '@/app/components/teams/goalsTable';
-import TeamGamesPieChart from '@/app/components/teams/teamGamesPieChart';
-import SegmentBarChart from '@/app/components/teams/segmentBarChart';
-import { getTeamsGamesInfo, getTeamsGoalsInfo } from '@/app/api/team';
 import Divider from '@mui/material/Divider';
-import GoalsPieChart from '@/app/components/teams/goalsPizza';
-import BiggestTable from '@/app/components/teams/biggestTable';
-import CardsSegment from '@/app/components/teams/cardsSegment';
+import TeamsGoalsPieChart from '@/app/components/teams/teamsGoalsPizza';
+import TeamsBiggestTable from '@/app/components/teams/teamsBiggestTable';
+import TeamsCardsSegment from '@/app/components/teams/teamsCardsSegment';
+import TeamsGamesTable from '@/app/components/teams/teamsGamesTable';
+import TeamsGoalsTable from '@/app/components/teams/teamsGoalsTable';
+import TeamGamesPieChart from '@/app/components/teams/teamGamesPieChart';
+import TeamsGoalsSegment from '@/app/components/teams/teamsGoalsSegment';
+import { getTeamsGamesInfo, getTeamsGoalsInfo } from '@/app/api/team';
 import { getTeamsCardsInfo } from '@/app/api/team';
 
 function getTitle(logo, name) {
@@ -78,7 +78,7 @@ function ExploreTeam() {
                     <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <Grid size={6} >
                             <Box>
-                                <GamesTable teamsGamesInfo={teamsGamesInfo} />     
+                                <TeamsGamesTable teamsGamesInfo={teamsGamesInfo} />     
                             </Box>
                         </Grid>
                         <Grid size={6} sx={{height: 300}}>
@@ -97,38 +97,38 @@ function ExploreTeam() {
                                 <Grid container spacing={8} sx={{display: 'flex', flexDirection: 'column'}}>
                                     <Grid>
                                         <Box>
-                                            <GoalsTable data={teamsGoalsInfo}/>
+                                            <TeamsGoalsTable data={teamsGoalsInfo}/>
                                         </Box>
                                     </Grid>
                                     <Grid>
                                         <Box>
-                                            <BiggestTable data={teamsGoalsInfo}/>
+                                            <TeamsBiggestTable data={teamsGoalsInfo}/>
                                         </Box>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid size={6}>
                                 <Box>
-                                    <SegmentBarChart data={teamsGoalsInfo?.segments_for} data2={teamsGoalsInfo?.segments_against} />
+                                    <TeamsGoalsSegment data={teamsGoalsInfo?.segments_for} data2={teamsGoalsInfo?.segments_against} />
                                 </Box>
                                 <Divider orientation="horizontal" style={{marginBottom: '20px', marginTop: '20px'}} />
                                 <Grid container spacing={2}>
                                     <Grid size={4}>
-                                        <GoalsPieChart 
+                                        <TeamsGoalsPieChart 
                                             name='Jogos em casa'
                                             for_data={teamsGoalsInfo?.goals_for_home} 
                                             against_data={teamsGoalsInfo?.goals_against_home}
                                         />
                                     </Grid>
                                     <Grid size={4}>
-                                        <GoalsPieChart 
+                                        <TeamsGoalsPieChart 
                                             name='Jogos fora'
                                             for_data={teamsGoalsInfo?.goals_for_away}
                                             against_data={teamsGoalsInfo?.goals_against_away}
                                         />
                                     </Grid>
                                     <Grid size={4}>
-                                        <GoalsPieChart 
+                                        <TeamsGoalsPieChart 
                                             name='Total'
                                             for_data={teamsGoalsInfo?.goals_for_total}
                                             against_data={teamsGoalsInfo?.goals_against_total}
@@ -145,12 +145,12 @@ function ExploreTeam() {
                     <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Grid size={6}>
                                 <Box>
-                                    <CardsSegment label='Cartões amarelos' data={teamsCardsInfo?.yellow_cards} card_color={'amarelo'} bar_color='#a89c32' />
+                                    <TeamsCardsSegment label='Cartões amarelos' data={teamsCardsInfo?.yellow_cards} cards_color={'amarelos'} bar_color='#a89c32' />
                                 </Box>
                             </Grid>
                             <Grid size={6}>
                                 <Box>
-                                    <CardsSegment label='Cartões vermelhos' data={teamsCardsInfo?.red_cards} card_color={'vermelho'} bar_color='#a83232' />
+                                    <TeamsCardsSegment label='Cartões vermelhos' data={teamsCardsInfo?.red_cards} cards_color={'vermelhos'} bar_color='#a83232' />
                                 </Box>
                             </Grid>
                         </Grid>

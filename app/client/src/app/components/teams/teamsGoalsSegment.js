@@ -1,5 +1,3 @@
-// components/BarChart.js
-
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -7,7 +5,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const SegmentBarChart = ({ data, data2 }) => {
+export default function TeamsGoalsSegment({ data, data2 }) {
     const labels = data ? Object.keys(data).sort((a, b) => {
         const rangeA = a.split('-').map(Number);
         const rangeB = b.split('-').map(Number);
@@ -15,19 +13,19 @@ const SegmentBarChart = ({ data, data2 }) => {
     }) : '';
 
     const values = data ? labels.map(label => {
-        return data[label].percentage ? parseFloat(data[label].percentage) : 0; // Keep as percentage
+        return data[label].percentage ? parseFloat(data[label].percentage) : 0;
     }) : '';
 
     const totals = data ? labels.map(label => {
-        return data[label].total || 0; // Get total values
+        return data[label].total || 0; 
     }) : '';
 
     const values2 = data2 ? labels.map(label => {
-        return data2[label].percentage ? parseFloat(data2[label].percentage) : 0; // Keep as percentage
+        return data2[label].percentage ? parseFloat(data2[label].percentage) : 0;
     }) : '';
 
     const totals2 = data2 ? labels.map(label => {
-        return data2[label].total || 0; // Get total values
+        return data2[label].total || 0; 
     }) : '';
 
     const chartData = {
@@ -43,8 +41,8 @@ const SegmentBarChart = ({ data, data2 }) => {
                     anchor: 'end',
                     align: 'end',
                     formatter: (value, context) => {
-                        const total = totals[context.dataIndex]; // Get corresponding total
-                        return `${total}`; // Format as percentage and total
+                        const total = totals[context.dataIndex]; 
+                        return `${total}`; 
                     },
                 },
             },
@@ -58,8 +56,8 @@ const SegmentBarChart = ({ data, data2 }) => {
                     anchor: 'end',
                     align: 'end',
                     formatter: (value, context) => {
-                        const total = totals2[context.dataIndex]; // Get corresponding total
-                        return `${total}`; // Format as percentage and total
+                        const total = totals2[context.dataIndex]; 
+                        return `${total}`; 
                     },
                 },
             }
@@ -111,5 +109,3 @@ const SegmentBarChart = ({ data, data2 }) => {
             <Bar data={chartData} options={options} plugins={[ChartDataLabels]} />
     );
 };
-
-export default SegmentBarChart;

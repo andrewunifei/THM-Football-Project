@@ -3,11 +3,11 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-// Register necessary components with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const GoalsPieChart = ({ for_data, against_data, name, labels }) => {
+export default function TeamsGoalsPieChart({ for_data, against_data, name }) {
     const chartData = {
         labels: [
             'Gols realizados',
@@ -15,14 +15,13 @@ const GoalsPieChart = ({ for_data, against_data, name, labels }) => {
         ],
         datasets: [
             {
-                label: 'Goals Analysis',
                 data: [
                     for_data,
                     against_data,
                 ],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)', // Goals For Home
-                    'rgba(75, 192, 192, 1)',   // Goals For Away
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(75, 192, 192, 1)', 
                 ],
                 borderColor: [
                     'rgba(75, 192, 192, 1)',
@@ -42,13 +41,19 @@ const GoalsPieChart = ({ for_data, against_data, name, labels }) => {
             title: {
                 display: true,
                 text: name,
+            },
+            datalabels: {
+                color: '#fff',
+                formatter: (value, context) => {
+                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b);
+                    const percentage = ((value / total) * 100).toFixed(2) + '%';
+                    return percentage;
+                },
             }
         }
     };
 
     return (
-            <Pie data={chartData} options={options} />
+            <Pie data={chartData} options={options} plugins={[ChartDataLabels]} />
     );
 };
-
-export default GoalsPieChart;

@@ -12,26 +12,28 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useTheme } from '@mui/material';
 
-function createData(name, home, away, color) {
+function createData(name, home, away, total, color) {
     const isDarkTheme = useTheme().palette.mode === 'dark';
     if(!isDarkTheme && color == '#fff') {
         color = '#000'
     }
-    return { name, home, away, color };
+    return { name, home, away, total, color };
 }
 
-function BiggestTable({ data }) {
+export default function TeamsGoalsTable({ data }) {
     const rows = [
         createData(
-            'Ganho', 
-            data?.biggest_win_home,
-            data?.biggest_win_away,
+            'Realizados', 
+            data?.goals_for_home,
+            data?.goals_for_away,
+            data?.goals_for_total,
             '#32a852'
         ),
         createData(
-            'Perdido', 
-            data?.biggest_loss_home,
-            data?.biggest_loss_away,
+            'Tomados', 
+            data?.goals_against_home,
+            data?.goals_against_away,
+            data?.goals_against_total,
             '#a83232'
         )
     ];
@@ -43,13 +45,16 @@ function BiggestTable({ data }) {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <span>Maior jogo</span>
+                                <span>Gols</span>
                             </TableCell>
                             <TableCell align="right">
                                 <span style={{fontWeight: 'bold'}}>Em casa</span>
                             </TableCell>
                             <TableCell align="right">
                                 <span style={{fontWeight: 'bold'}}>Fora</span>
+                            </TableCell>
+                            <TableCell align="right">
+                                <span style={{fontWeight: 'bold'}}>Total</span>
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -64,6 +69,7 @@ function BiggestTable({ data }) {
                             </TableCell>
                             <TableCell align="right" style={{color: row.color}}>{row.home}</TableCell>
                             <TableCell align="right" style={{color: row.color}}>{row.away}</TableCell>
+                            <TableCell align="right" style={{color: row.color}}>{row.total}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
@@ -72,5 +78,3 @@ function BiggestTable({ data }) {
         </Box>
     )
 }
-
-export default BiggestTable
