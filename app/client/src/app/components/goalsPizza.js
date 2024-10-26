@@ -7,18 +7,18 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 // Register necessary components with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const GoalsPieChart = ({ data }) => {
+const GoalsPieChart = ({ for_data, against_data, name, labels }) => {
     const chartData = {
         labels: [
-            'Goals For Home',
-            'Goals For Away',
+            'Gols realizados',
+            'Gols tomados'
         ],
         datasets: [
             {
                 label: 'Goals Analysis',
                 data: [
-                    data?.goals_for_home,
-                    data?.goals_for_away,
+                    for_data,
+                    against_data,
                 ],
                 backgroundColor: [
                     'rgba(75, 192, 192, 0.6)', // Goals For Home
@@ -41,7 +41,7 @@ const GoalsPieChart = ({ data }) => {
             },
             title: {
                 display: true,
-                text: 'Goals For and Against Analysis',
+                text: name,
             }
         }
     };

@@ -84,7 +84,11 @@ def team_routes(app, Session):
             'goals_against_home',
             'goals_against_away',
             'goals_against_total',
-            'segments_against'
+            'segments_against',
+            'biggest_win_home',
+            'biggest_win_away',
+            'biggest_loss_home',
+            'biggest_loss_away',
         ]
 
         code = request.args.get('code')
@@ -94,7 +98,9 @@ def team_routes(app, Session):
                 team.Team.goals_for_home, team.Team.goals_for_away,\
                 team.Team.goals_for_total, team.Team.segments_for,\
                 team.Team.goals_against_home, team.Team.goals_against_away,\
-	            team.Team.goals_against_total, team.Team.segments_against)\
+	            team.Team.goals_against_total, team.Team.segments_against,\
+                team.Team.biggest_win_home, team.Team.biggest_win_away,\
+                team.Team.biggest_loss_home, team.Team.biggest_loss_away)\
             .where(team.Team.games_played_total > 0, team.Team.code == code)\
             .first()
 

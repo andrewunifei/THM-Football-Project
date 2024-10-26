@@ -17,6 +17,7 @@ import SegmentBarChart from '@/app/components/segmentBarChart';
 import { getTeamsGamesInfo, getTeamsGoalsInfo } from '@/app/api/team';
 import Divider from '@mui/material/Divider';
 import GoalsPieChart from '@/app/components/goalsPizza';
+import BiggestTable from '@/app/components/biggestTable';
 
 function getTitle(logo, name) {
     return (
@@ -68,16 +69,16 @@ function ExploreTeam() {
             <PageContainer maxWidth="xl" breadcrumbs={getBread()} >
                 {getTitle(logo, name)}
                 <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-                    <Grid container spacing={2} >
-                        <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <p style={{paddingBottom: '10px', font: 'roboto'}}>Jogos</p>
-                            <Divider orientation="horizontal" style={{marginBottom: '15px'}} />
-                            <Box sx={{height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Resultados</p>
+                    <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                    <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Grid size={6} >
+                            <Box>
                                 <GamesTable teamsGamesInfo={teamsGamesInfo} />     
                             </Box>
                         </Grid>
-                        <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <Box sx={{height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Grid size={6} sx={{height: 300}}>
+                            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300}}>
                                 <TeamGamesPieChart teamsGamesInfo={teamsGamesInfo}/>
                             </Box>
                         </Grid>
@@ -85,32 +86,58 @@ function ExploreTeam() {
                 </Paper>
                 <div style={{paddingTop:'25px'}}></div>
                 <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-                <Grid container spacing={2} >
-                        <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <p style={{paddingBottom: '10px', font: 'roboto'}}>Gols</p>
-                            <Divider orientation="horizontal" style={{marginBottom: '15px'}} />
-                            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                <GoalsTable data={teamsGoalsInfo}/>
-                            </Box>
-                        </Grid>
-                        <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <Box sx={{height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                <SegmentBarChart data={teamsGoalsInfo?.segments_for} data2={teamsGoalsInfo?.segments_against} />
-                            </Box>
-                            <Divider orientation="horizontal" style={{marginBottom: '20px', marginTop: '20px'}} />
-                            <Grid container spacing={2} >
-                                <Grid size={4} sx={{border: '2px', borderColor: '#fff'}}>
-                                    <GoalsPieChart data={teamsGoalsInfo}/>
+                    <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Gols</p>
+                    <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                    <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={6}>
+                                <Grid container spacing={8} sx={{display: 'flex', flexDirection: 'column'}}>
+                                    <Grid>
+                                        <Box>
+                                            <GoalsTable data={teamsGoalsInfo}/>
+                                        </Box>
+                                    </Grid>
+                                    <Grid>
+                                        <Box>
+                                            <BiggestTable data={teamsGoalsInfo}/>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
-                                <Grid size={4} sx={{border: '2px', borderColor: '#fff'}}>
-                                    <GoalsPieChart data={teamsGoalsInfo}/>
-                                </Grid>
-                                <Grid size={4} sx={{border: '2px', borderColor: '#fff'}}>
-                                    <GoalsPieChart data={teamsGoalsInfo}/>
+                            </Grid>
+                            <Grid size={6}>
+                                <Box>
+                                    <SegmentBarChart data={teamsGoalsInfo?.segments_for} data2={teamsGoalsInfo?.segments_against} />
+                                </Box>
+                                <Divider orientation="horizontal" style={{marginBottom: '20px', marginTop: '20px'}} />
+                                <Grid container spacing={2}>
+                                    <Grid size={4}>
+                                        <GoalsPieChart 
+                                            name='Jogos em casa'
+                                            for_data={teamsGoalsInfo?.goals_for_home} 
+                                            against_data={teamsGoalsInfo?.goals_against_home}
+                                        />
+                                    </Grid>
+                                    <Grid size={4}>
+                                        <GoalsPieChart 
+                                            name='Jogos fora'
+                                            for_data={teamsGoalsInfo?.goals_for_away}
+                                            against_data={teamsGoalsInfo?.goals_against_away}
+                                        />
+                                    </Grid>
+                                    <Grid size={4}>
+                                        <GoalsPieChart 
+                                            name='Total'
+                                            for_data={teamsGoalsInfo?.goals_for_total}
+                                            against_data={teamsGoalsInfo?.goals_against_total}
+                                        />
                                 </Grid>
                             </Grid> 
                         </Grid>
                     </Grid>
+                </Paper>
+                <div style={{paddingTop:'25px'}}></div>
+                <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                    <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Cartões</p>
+                    <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
                 </Paper>
             </PageContainer>
         </Paper>

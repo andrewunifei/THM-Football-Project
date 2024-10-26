@@ -58,6 +58,7 @@ function GamesTable({ teamsGamesInfo }) {
                     <TableHead>
                         <TableRow>
                             <TableCell>
+                                <span>Partidas</span>
                             </TableCell>
                             <TableCell align="right">
                                 <span style={{fontWeight: 'bold'}}>Em casa</span>

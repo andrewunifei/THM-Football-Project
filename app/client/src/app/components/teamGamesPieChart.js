@@ -65,7 +65,7 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
     };
 
     return (
-        <Pie data={data} options={optionsTeams} plugins={[ChartDataLabels]} />
+        <Pie data={data} options={optionsTeams} plugins={[ChartDataLabels]} style={{height:300}} />
     );
 };
 
