@@ -3,12 +3,11 @@
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { getCapacitiesData } from '../api/stadium'; 
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { getCapacitiesData } from '../../api/stadium'; 
 
 ChartJS.register(CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend);
 
-const BarChart = () => {
+const StadiumsBarChart = () => {
     const [chartData, setChartData] = useState({ labels: [], counts: [] });
 
     const dataBarStadium = {
@@ -62,4 +61,4 @@ const BarChart = () => {
     );
 };
 
-export default BarChart;
+export default StadiumsBarChart;

@@ -5,6 +5,13 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from models import *
 import json
 
+def replace_none_with_zero(d):
+    for key, value in d.items():
+        if isinstance(value, dict):
+            replace_none_with_zero(value)
+        elif key in ['percentage', 'total'] and value is None:
+            d[key] = 0 
+
 def instance_to_dict(instance):
     return {key: value for key, value in instance.__dict__.items() if not key.startswith('_')}
 
@@ -107,5 +114,28 @@ def team_routes(app, Session):
         if goals_info_tuple:
             goals_info_dict = dict(zip(keys, goals_info_tuple))
             return jsonify(goals_info_dict)
+        else:
+            return None
+    
+    @app.route('/teams-cards-info', methods=['GET'])
+    def get_teams_cards_info():
+        keys = [
+            'yellow_cards',
+            'red_cards',
+        ]
+
+        code = request.args.get('code')
+
+        cards_info_tuple = \
+            g.db_session.query(
+                team.Team.yellow_cards,\
+                team.Team.red_cards)\
+            .where(team.Team.games_played_total > 0, team.Team.code == code)\
+            .first()
+
+        if cards_info_tuple:
+            cards_info_dict = dict(zip(keys, cards_info_tuple))
+            replace_none_with_zero(cards_info_dict)
+            return jsonify(cards_info_dict)
         else:
             return None

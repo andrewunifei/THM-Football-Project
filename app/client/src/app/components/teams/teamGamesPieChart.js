@@ -21,7 +21,7 @@ const TeamGamesPieChart = ({ teamsGamesInfo }) => {
             backgroundColor: [
                 '#32a852', // Cor da vitória
                 '#a83232', // Cor da derrota
-                '#a89c32' // Cor do empate
+                '#3277a8' // Cor do empate
             ],
             borderColor: [
                 '#000', // Cor da vitória

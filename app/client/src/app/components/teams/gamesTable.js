@@ -40,7 +40,7 @@ function GamesTable({ teamsGamesInfo }) {
             teamsGamesInfo?.draws_home,
             teamsGamesInfo?.draws_away,
             teamsGamesInfo?.draws_total,
-            '#a89c32'
+            '#3277a8'
         ),
         createData(
             'Total', 

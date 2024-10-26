@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const SegmentBarChart = ({ data, data2 }) => {
+const CardsSegment = ({ data, card_color, bar_color, label }) => {
     const labels = data ? Object.keys(data).sort((a, b) => {
         const rangeA = a.split('-').map(Number);
         const rangeB = b.split('-').map(Number);
@@ -22,43 +22,20 @@ const SegmentBarChart = ({ data, data2 }) => {
         return data[label].total || 0; // Get total values
     }) : '';
 
-    const values2 = data2 ? labels.map(label => {
-        return data2[label].percentage ? parseFloat(data2[label].percentage) : 0; // Keep as percentage
-    }) : '';
-
-    const totals2 = data2 ? labels.map(label => {
-        return data2[label].total || 0; // Get total values
-    }) : '';
-
     const chartData = {
         labels: labels,
         datasets: [
             {
-                label: 'Gols realizados',
+                label,
                 data: values,
-                backgroundColor: '#2572a8',
-                borderColor: '#2572a8',
+                backgroundColor: bar_color,
+                borderColor: bar_color,
                 borderWidth: 1,
                 datalabels: {
                     anchor: 'end',
                     align: 'end',
                     formatter: (value, context) => {
                         const total = totals[context.dataIndex]; // Get corresponding total
-                        return `${total}`; // Format as percentage and total
-                    },
-                },
-            },
-            {
-                label: 'Gols tomados',
-                data: values2,
-                backgroundColor: '#a86425',
-                borderColor: '#a86425',
-                borderWidth: 1,
-                datalabels: {
-                    anchor: 'end',
-                    align: 'end',
-                    formatter: (value, context) => {
-                        const total = totals2[context.dataIndex]; // Get corresponding total
                         return `${total}`; // Format as percentage and total
                     },
                 },
@@ -84,7 +61,7 @@ const SegmentBarChart = ({ data, data2 }) => {
             x: {
                 title: {
                     display: true,
-                    text: 'Segmentos de tempo',
+                    text: 'Segmentos de tempo dos jogos',
                 },
             }
         },
@@ -94,7 +71,7 @@ const SegmentBarChart = ({ data, data2 }) => {
             },
             title: {
                 display: true,
-                text: 'Distribuição de gols',
+                text: `Distribuição de cartões ${card_color}`,
             },
             tooltip: {
                 callbacks: {
@@ -108,8 +85,8 @@ const SegmentBarChart = ({ data, data2 }) => {
     };
 
     return (
-            <Bar data={chartData} options={options} plugins={[ChartDataLabels]} />
+        <Bar data={chartData} options={options} plugins={[ChartDataLabels]} />
     );
 };
 
-export default SegmentBarChart;
+export default CardsSegment;

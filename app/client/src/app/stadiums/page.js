@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
-import CardsSection from '../components/cardsSection'
+import CardsSection from '../components/stadiums/cardsSection'
 import { getTopStadiums, getBottomStadiums } from '../api/stadium';
-import BarChart from '../components/barChart';
-import PieChart from '../components/stadiumPieChart';
+import StadiumsBarChart from '../components/stadiums/stadiumsBarChart';
+import PieChart from '../components/stadiums/stadiumPieChart';
 
 function Stadiums() {
   const [topStadiumsInfo, setTopStadiumsInfo] = useState({});
@@ -31,7 +31,7 @@ function Stadiums() {
           <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
             <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
               <Box sx={{height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <BarChart/>
+                <StadiumsBarChart/>
               </Box>
             </Paper>
           </Grid>

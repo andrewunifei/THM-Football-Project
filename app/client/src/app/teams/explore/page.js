@@ -10,14 +10,16 @@ import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import GamesTable from '@/app/components/gamesTable';
-import GoalsTable from '@/app/components/goalsTable';
-import TeamGamesPieChart from '@/app/components/teamGamesPieChart';
-import SegmentBarChart from '@/app/components/segmentBarChart';
+import GamesTable from '@/app/components/teams/gamesTable';
+import GoalsTable from '@/app/components/teams/goalsTable';
+import TeamGamesPieChart from '@/app/components/teams/teamGamesPieChart';
+import SegmentBarChart from '@/app/components/teams/segmentBarChart';
 import { getTeamsGamesInfo, getTeamsGoalsInfo } from '@/app/api/team';
 import Divider from '@mui/material/Divider';
-import GoalsPieChart from '@/app/components/goalsPizza';
-import BiggestTable from '@/app/components/biggestTable';
+import GoalsPieChart from '@/app/components/teams/goalsPizza';
+import BiggestTable from '@/app/components/teams/biggestTable';
+import CardsSegment from '@/app/components/teams/cardsSegment';
+import { getTeamsCardsInfo } from '@/app/api/team';
 
 function getTitle(logo, name) {
     return (
@@ -52,21 +54,23 @@ function ExploreTeam() {
     const logo = searchParams.get('logo')
     const [teamsGamesInfo, setTeamsGamesInfo] = useState([]);
     const [teamsGoalsInfo, setTeamsGoalsInfo] = useState([]);
+    const [teamsCardsInfo, setTeamsCardsInfo] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
           const dataTeamGames = await getTeamsGamesInfo(code);
           const dataTeamGoals = await getTeamsGoalsInfo(code);
+          const dataTeamCards = await getTeamsCardsInfo(code);
           setTeamsGamesInfo(dataTeamGames);
           setTeamsGoalsInfo(dataTeamGoals);
-          console.log(teamsGoalsInfo)
+          setTeamsCardsInfo(dataTeamCards)
         }
         fetchData();
     }, []);
 
     return (
         <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}> 
-            <PageContainer maxWidth="xl" breadcrumbs={getBread()} >
+            <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}} >
                 {getTitle(logo, name)}
                 <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
                 <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Resultados</p>
@@ -138,6 +142,18 @@ function ExploreTeam() {
                 <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
                     <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Cartões</p>
                     <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                    <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={6}>
+                                <Box>
+                                    <CardsSegment label='Cartões amarelos' data={teamsCardsInfo?.yellow_cards} card_color={'amarelo'} bar_color='#a89c32' />
+                                </Box>
+                            </Grid>
+                            <Grid size={6}>
+                                <Box>
+                                    <CardsSegment label='Cartões vermelhos' data={teamsCardsInfo?.red_cards} card_color={'vermelho'} bar_color='#a83232' />
+                                </Box>
+                            </Grid>
+                        </Grid>
                 </Paper>
             </PageContainer>
         </Paper>
