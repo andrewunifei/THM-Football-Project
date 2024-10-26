@@ -24,7 +24,14 @@ def team_routes(app, Session):
 
     @app.teardown_request
     def teardown_request(exception):
-        Session.remove()
+        Session.remove()    
+
+    @app.route('/teams-id', methods=['GET'])
+    def get_teams_id():
+        ids = g.db_session.query(team.Team.team_id).all()
+        to_list = [id_tuple[0] for id_tuple in ids]
+
+        return jsonify(to_list)
 
     @app.route('/teams-info', methods=['GET'])
     def get_teams_info():

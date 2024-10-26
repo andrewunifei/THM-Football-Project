@@ -32,7 +32,7 @@ function Teams() {
 
   return (
     <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}>
-      <PageContainer maxWidth="xl">
+      <PageContainer maxWidth="xl" sx={{marginBottom: '150px'}}>
         <Paper sx={{borderRadius: 3, p: 3}} elevation={3}>
             <Grid container >
                 <Grid size={12}>

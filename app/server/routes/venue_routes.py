@@ -16,6 +16,13 @@ def venue_routes(app, Session):
     def teardown_request(exception):
         Session.remove()
 
+    @app.route('/venues-id', methods=['GET'])
+    def get_venue_ids():
+        ids = g.db_session.query(venue.Venue.venue_id).all()
+        to_list = [id_tuple[0] for id_tuple in ids]
+
+        return jsonify(to_list)
+
     @app.route('/top-cities', methods=['GET'])
     def get_top_cities():
         top_cities = (

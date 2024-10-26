@@ -8,11 +8,11 @@ class Game(Base):
     __tablename__ = 'game'
 
     game_id = Column(Integer, primary_key=True, unique=True, nullable=False)
-    referee = Column(String(50), nullable=True)
-    timezone = Column(String(10), nullable=True)
+    referee = Column(String(100), nullable=True)
+    timezone = Column(String(100), nullable=True)
     date = Column(TIMESTAMP(6), nullable=True)
-    first_period = Column(TIMESTAMP(6), nullable=True)
-    second_period = Column(TIMESTAMP(6), nullable=True)
+    first_period = Column(Integer, nullable=True)
+    second_period = Column(Integer, nullable=True)
     score = Column(JSONB, nullable=True)  # JSON object
     home_team_goals = Column(Integer, nullable=True)
     away_team_goals = Column(Integer, nullable=True)
