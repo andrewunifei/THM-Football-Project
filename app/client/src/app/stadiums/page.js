@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import CardsSection from '../components/cardsSection'
 import { getTopStadiums, getBottomStadiums } from '../api/stadium';
 import BarChart from '../components/barChart';
-import PieChart from '../components/pieChart';
+import PieChart from '../components/stadiumPieChart';
 
 function Stadiums() {
   const [topStadiumsInfo, setTopStadiumsInfo] = useState({});

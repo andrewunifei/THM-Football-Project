@@ -4,24 +4,18 @@ import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { getCapacitiesData } from '../api/stadium'; 
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(CategoryScale, LinearScale, LogarithmicScale, BarElement, Title, Tooltip, Legend);
+
+const resetChartRegistry = () => {
+    ChartJS.unregister(ChartDataLabels);
+};
 
 const BarChart = () => {
     const [chartData, setChartData] = useState({ labels: [], counts: [] });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await getCapacitiesData()
-            const labels = data?.map(item => item.interval);
-            const counts = data?.map(item => item.count);
-            setChartData({ labels, counts });
-        };
-
-        fetchData();
-    }, []);
-
-    const data = {
+    const dataBarStadium = {
         labels: chartData.labels,
         datasets: [
             {
@@ -32,7 +26,7 @@ const BarChart = () => {
         ],
     };
 
-    const options = {
+    const optionsBarStadium = {
         responsive: true,
         scales: {
             x: {
@@ -56,7 +50,24 @@ const BarChart = () => {
         }
     };
 
-    return <Bar data={data} options={options} />;
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getCapacitiesData()
+            const labels = data?.map(item => item.interval);
+            const counts = data?.map(item => item.count);
+            setChartData({ labels, counts });
+        };
+
+        fetchData();
+
+        return () => {
+            resetChartRegistry
+        };
+    }, []);
+
+    return (
+        <Bar data={dataBarStadium} options={optionsBarStadium} />
+    );
 };
 
 export default BarChart;

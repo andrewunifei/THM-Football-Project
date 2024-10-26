@@ -10,7 +10,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { getTeamsGamesInfo } from '../api/team';
 import { useTheme } from '@mui/material';
 
 function createData(name, home, away, total, color) {
@@ -21,30 +20,7 @@ function createData(name, home, away, total, color) {
     return { name, home, away, total, color };
 }
 
-function GamesTable({ code }) {
-    const [teamsGamesInfo, setTeamsGamesInfo] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-          const dataTopStadiums = await getTeamsGamesInfo(code)
-          setTeamsGamesInfo(dataTopStadiums)
-        }
-        fetchData()
-    }, []);
-
-    // "draws_away": 3,
-    // "draws_home": 3,
-    // "draws_total": 6,
-    // "games_played_away": 19,
-    // "games_played_home": 19,
-    // "games_played_total": 38,
-    // "losses_away": 8,
-    // "losses_home": 1,
-    // "losses_total": 9,
-    // "wins_away": 8,
-    // "wins_home": 15,
-    // "wins_total": 2
-
+function GamesTable({ teamsGamesInfo }) {
     const rows = [
         createData(
             'Vitórias', 

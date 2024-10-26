@@ -2,12 +2,23 @@
 
 import { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { getSurfaceData } from '../api/stadium'; 
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Title, Tooltip, Legend);
+
+const resetChartRegistry = () => {
+    ChartJS.unregister(ChartDataLabels);
+};
 
 const PieChart = () => {
+    useEffect(() => {
+        return () => {
+            resetChartRegistry();
+        };
+    })
+
     const [data, setData] = useState({});
 
     const translations = {
@@ -45,7 +56,7 @@ const PieChart = () => {
         ],
     };
 
-    const options = {
+    const optionsStadium = {
         responsive: true,
         plugins: {
             title: {
@@ -63,7 +74,7 @@ const PieChart = () => {
             tooltip: {
                 callbacks: {
                     label: function(tooltipItem) {
-                        return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                        return (`${tooltipItem.label}: ${tooltipItem.raw}`);
                     },
                 },
             },
@@ -71,7 +82,7 @@ const PieChart = () => {
     };
 
     return (
-        <Pie data={chartData} options={options} />
+        <Pie data={chartData} options={optionsStadium} />
     );
 };
 
