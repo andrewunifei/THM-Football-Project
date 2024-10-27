@@ -42,11 +42,12 @@ def fetch_game_and_populate(api_key, league, season, db_session):
         'x-rapidapi-key': api_key
     }
     response = requests.get(api_url, headers=headers)
-    games_data = response.json()
-    games_data = games_data['response']
 
     if response.status_code == 200:
+        games_data = response.json()
+        games_data = games_data['response']
         games_id = []
+        
         for game in games_data:
             winner = ''
             games_id.append(game['fixture']['id'])

@@ -38,6 +38,7 @@ def team_routes(app, Session):
         teams =\
             g.db_session.query(team.Team.name, team.Team.code, team.Team.country, team.Team.founded, team.Team.logo)\
                         .where(team.Team.games_played_total > 0)\
+                        .order_by(team.Team.name)\
                         .all()
 
         to_list = [

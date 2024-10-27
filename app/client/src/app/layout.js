@@ -11,6 +11,7 @@ import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import StadiumIcon from '@mui/icons-material/Stadium';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import PersonIcon from '@mui/icons-material/Person';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,14 +30,19 @@ const NAVIGATION = [
     title: 'Menu',
   },
   {
-    segment: 'games',
-    title: 'Jogos',
-    icon: <SportsSoccerIcon />
+    segment: 'players',
+    title: 'Jogadores',
+    icon: <PersonIcon />
   },
   {
     segment: 'teams',
     title: 'Times',
     icon: <GroupsIcon />
+  },
+  {
+    segment: 'games',
+    title: 'Jogos',
+    icon: <SportsSoccerIcon />
   },
   {
     segment: 'stadiums',

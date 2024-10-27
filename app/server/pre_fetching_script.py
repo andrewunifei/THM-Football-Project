@@ -6,6 +6,7 @@ from pre_fetching.venue_fetching import fetch_venue_and_populate
 from pre_fetching.team_fetching import fetch_team_and_populate
 from pre_fetching.player_fetching import fetch_player_and_populate
 from pre_fetching.game_fetching import fetch_game_and_populate
+from pre_fetching.injury_fetching import fetch_injury_and_populate
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,9 +23,10 @@ country = 'England'
 league = 39 # Premier League
 season = 2022
 
-# fetch_venue_and_populate(api_key, country, db_session) # Already Fetched
-# fetch_team_and_populate(api_key, league, season, db_session) # Already Fetched
+# fetch_venue_and_populate(api_key, country, db_session)
+# fetch_team_and_populate(api_key, league, season, db_session)
 # fetch_player_and_populate(api_key, league, season, db_session)
-fetch_game_and_populate(api_key, league, season, db_session)
+# fetch_game_and_populate(api_key, league, season, db_session)
+fetch_injury_and_populate(api_key, league, season, db_session)
 
 db_session.close()

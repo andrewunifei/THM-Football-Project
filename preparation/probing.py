@@ -55,8 +55,8 @@ def mount_pl_player_statistics_endpoint(league, season):
     return f'/players?league={league}&season={season}&page=8'
     # endpoint = mount_pl_player_statistics_endpoint(premier_league, season)
 
-def mount_injuries_endpoint(league, season, player):
-    return f'/injuries?league={league}&season={season}&player={player}'
+def mount_injuries_endpoint(league, season):
+    return f'/injuries?league={league}&season={season}'
     # endpoint = mount_injuries_endpoint(premier_league, season, 310187)
 
 def mount_historic_endpoint(player):
@@ -74,7 +74,7 @@ async def main():
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': api_key
     }
-    endpoint = mount_pl_team_statistics_endpoint(league, season, 46)
+    endpoint = mount_injuries_endpoint(league, season)
     complete_url = url + endpoint
     data = await fetch(complete_url, headers) 
     print(data)

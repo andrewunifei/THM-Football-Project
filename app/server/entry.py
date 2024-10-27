@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from routes.venue_routes import venue_routes
-from routes.teams_routes import team_routes
+from routes.team_routes import team_routes
+from routes.game_routes import game_routes
+from routes.player_routes import player_routes
 from sqlalchemy import create_engine, inspect, func
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -19,4 +21,6 @@ if __name__ == '__main__':
     app = Flask(__name__)
     venue_routes(app, Session)
     team_routes(app, Session)
+    game_routes(app, Session)
+    player_routes(app, Session)
     app.run(debug=True)

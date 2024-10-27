@@ -13,8 +13,6 @@ def fetch_team_and_populate(api_key, league, season, db_session):
 
     if response.status_code == 200:
         teams_data = response.json()
-        print(teams_data) # First half of the Team object (as defined in this app)
-
         # Inserindo dados no banco de dados
         for team_data in teams_data['response']:
             for key, value in team_data.items(): 
