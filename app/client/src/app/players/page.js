@@ -18,7 +18,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 function getTitle(logo, name) {
   return (
@@ -31,6 +30,10 @@ function getTitle(logo, name) {
           </ListItem>
       </List>
   )
+}
+
+function getParams(player) {
+  return `players/explore?player-id=${player?.player_id}&photo=${player?.photo}&name=${player?.name}`
 }
 
 function Players() {
@@ -61,57 +64,14 @@ function Players() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <List sx={{ width: '100%', overflow: 'auto' }}>
-                  {playersCategorized ? playersCategorized[index]['players'].map((item2, index2) => (
+                    {playersCategorized ? playersCategorized[index]['players'].map((player, index2) => (
                       <Box>
-                          <ListItemButton key={index2} value={item2[index2]} alignItems="flex-start" component={Link} to={'/'}>
-                              <ListItemAvatar>
-                                  <Avatar alt="logo" src={item2.photo} />
-                              </ListItemAvatar>
-                              <ListItemText
-                                  primary={item2.name}
-                                  secondary={
-                                      <Fragment>
-                                      <Typography
-                                          component="span"
-                                          variant="body2"
-                                          sx={{ color: 'text.secondary', display: 'block' }}
-                                      >
-                                          <span style={{fontWeight:'bold'}}>Posição:</span> {item2.position}
-                                      </Typography>
-                                      <Typography
-                                          component="span"
-                                          variant="body2"
-                                          sx={{ color: 'text.secondary', display: 'block' }}
-                                      >
-                                          <span style={{fontWeight:'bold'}}>Idade:</span> {item2.age}
-                                      </Typography>
-                                      <Typography
-                                          component="span"
-                                          variant="body2"
-                                          sx={{ color: 'text.secondary', display: 'block' }}
-                                      >
-                                          <span style={{fontWeight:'bold'}}>Nacionalidade:</span> {item2.nationality}
-                                      </Typography>                                            
-                                      </Fragment>
-                                  }
-                              />
-                          </ListItemButton>
-                        <Divider variant="inset" component="li" />
-                      </Box>
-                  )) : ''}
-                  </List>
-                </AccordionDetails>
-              </Accordion>
-              {/* <Paper elevation={1}>
-                <List sx={{ width: '100%', overflow: 'auto' }}>
-                {playersCategorized ? playersCategorized[index]['players'].map((item2, index2) => (
-                    <Box>
-                        <ListItemButton key={index2} value={item2[index2]} alignItems="flex-start" component={Link} to={'/'}>
+                        <ListItemButton key={index2} alignItems="flex-start" component={Link} to={getParams(player, index)}>
                             <ListItemAvatar>
-                                <Avatar alt="logo" src={item2.photo} />
+                                <Avatar alt="logo" src={player.photo} />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={item2.name}
+                                primary={player.name}
                                 secondary={
                                     <Fragment>
                                     <Typography
@@ -119,31 +79,40 @@ function Players() {
                                         variant="body2"
                                         sx={{ color: 'text.secondary', display: 'block' }}
                                     >
-                                        <span style={{fontWeight:'bold'}}>Posição:</span> {item2.position}
+                                        <span style={{fontWeight:'bold'}}>Posição:</span> {player.position}
                                     </Typography>
                                     <Typography
                                         component="span"
                                         variant="body2"
                                         sx={{ color: 'text.secondary', display: 'block' }}
                                     >
-                                        <span style={{fontWeight:'bold'}}>Idade:</span> {item2.age}
+                                        <span style={{fontWeight:'bold'}}>Idade:</span> {player.age}
                                     </Typography>
                                     <Typography
                                         component="span"
                                         variant="body2"
                                         sx={{ color: 'text.secondary', display: 'block' }}
                                     >
-                                        <span style={{fontWeight:'bold'}}>Nacionalidade:</span> {item2.nationality}
+                                        <span style={{fontWeight:'bold'}}>Nacionalidade:</span> {player.nationality}
                                     </Typography>                                            
+                                    <Typography
+                                        component="span"
+                                        variant="body2"
+                                        sx={{ color: 'text.secondary', display: 'block' }}
+                                    >
+                                        <span style={{fontWeight:'bold'}}>Machucado?</span>
+                                        {player.injured ? <span style={{color: 'red'}}> Sim</span> : <span style={{color: 'green'}}> Não</span>}
+                                    </Typography>   
                                     </Fragment>
                                 }
                             />
                         </ListItemButton>
-                      <Divider variant="inset" component="li" />
-                    </Box>
-                )) : ''}
-                </List>
-              </Paper> */}
+                        <Divider variant="inset" component="li" />
+                      </Box>
+                  )) : ''}
+                  </List>
+                </AccordionDetails>
+              </Accordion>
             </Paper>
             <div style={{paddingTop:'25px'}}></div>
           </>

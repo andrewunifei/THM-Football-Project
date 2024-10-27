@@ -6,6 +6,9 @@ from models import *
 import json
 from collections import defaultdict
 
+def model_to_dict(instance):
+    return {key: value for key, value in instance.__dict__.items() if not key.startswith('_')}
+
 def player_routes(app, Session):
     CORS(app)
 
@@ -26,10 +29,11 @@ def player_routes(app, Session):
     
     @app.route('/players/categorized', methods=['GET'])
     def get_players_categorized():
-        keys = ['name', 'age', 'position', 'nationality', 'injured', 'photo', 'team', 'logo']
+        keys = ['player_id', 'name', 'age', 'position', 'nationality', 'injured', 'photo', 'team', 'logo']
 
         data = (
             g.db_session.query(
+                player.Player.player_id,
                 player.Player.name,
                 player.Player.age,
                 player.Player.position,
@@ -56,6 +60,7 @@ def player_routes(app, Session):
                 grouped_teams[team_key]["logo"] = player_info['logo']
         
             grouped_teams[team_key]["players"].append({
+                'player_id': player_info['player_id'],
                 'age': player_info['age'],
                 'injured': player_info['injured'],
                 'name': player_info['name'],
@@ -73,4 +78,16 @@ def player_routes(app, Session):
             })
 
         return jsonify(categorized_by_team)
-    
+
+    @app.route('/players/player-info', methods=['GET'])
+    def get_player_info():
+        player_id = request.args.get('player-id')
+        data = (
+            g.db_session.query(player.Player)\
+                .where(player.Player.player_id == player_id)
+                .first()
+        )
+
+        player_dict = model_to_dict(data)
+
+        return jsonify(player_dict)

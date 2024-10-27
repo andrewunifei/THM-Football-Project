@@ -73,7 +73,7 @@ function ExploreTeam() {
             <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}} >
                 {getTitle(logo, name)}
                 <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Resultados</p>
+                    <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Resultados</p>
                     <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
                     <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <Grid size={6} >

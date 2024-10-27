@@ -33,13 +33,14 @@ function Teams() {
   return (
     <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}>
       <PageContainer maxWidth="xl" sx={{marginBottom: '150px'}}>
-        <Paper sx={{borderRadius: 3, p: 3}} elevation={3}>
-            <Grid container >
-                <Grid size={12}>
+        {teamsInfo ? 
+            <Paper sx={{borderRadius: 3, p: 3}} elevation={3}>
+                <Grid container >
+                    <Grid size={12}>
                         <List sx={{ width: '100%', overflow: 'auto' }}>
-                            {teamsInfo ? teamsInfo.map((item, index) => (
+                            {teamsInfo.map((item, index) => (
                                 <Box>
-                                    <ListItemButton key={index} value={item} alignItems="flex-start" component={Link} to={getParams(teamsInfo, index)}>
+                                    <ListItemButton key={index} alignItems="flex-start" component={Link} to={getParams(teamsInfo, index)}>
                                         <ListItemAvatar>
                                             <Avatar alt="logo" src={teamsInfo[index]?.logo} />
                                         </ListItemAvatar>
@@ -73,12 +74,13 @@ function Teams() {
                                         />
                                     </ListItemButton>
                                     <Divider variant="inset" component="li" />
-                                    </Box>
-                            )) : ''}
+                                </Box>
+                            ))}
                         </List>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+        : ''}
       </PageContainer>
     </Paper>
   );

@@ -97,7 +97,7 @@ export default function RootLayout({ children }) {
               theme={theme}
               branding={{
                 logo: <img src="https://static.vecteezy.com/system/resources/previews/015/863/623/non_2x/england-premier-league-logo-on-transparent-background-free-vector.jpg" alt="Football" />,
-                title: 'Premier League Dashboard',
+                title: '2022 Premier League Dashboard',
               }}
             >
               <DashboardLayout defaultSidebarCollapsed>
