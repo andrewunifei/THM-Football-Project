@@ -32,8 +32,8 @@ function getTitle(logo, name) {
   )
 }
 
-function getParams(player) {
-  return `players/explore?player-id=${player?.player_id}&photo=${player?.photo}&name=${player?.name}`
+function getEndPoint(player, teamLogo, teamName) {
+  return `players/explore?player-id=${player?.player_id}&photo=${player?.photo}&name=${player?.name}&team-logo=${teamLogo}&team-name=${teamName}`
 }
 
 function Players() {
@@ -66,7 +66,7 @@ function Players() {
                   <List sx={{ width: '100%', overflow: 'auto' }}>
                     {playersCategorized ? playersCategorized[index]['players'].map((player, index2) => (
                       <Box>
-                        <ListItemButton key={index2} alignItems="flex-start" component={Link} to={getParams(player, index)}>
+                        <ListItemButton key={index2} alignItems="flex-start" component={Link} to={getEndPoint(player, playersCategorized[index]?.logo, playersCategorized[index]?.team)}>
                             <ListItemAvatar>
                                 <Avatar alt="logo" src={player.photo} />
                             </ListItemAvatar>

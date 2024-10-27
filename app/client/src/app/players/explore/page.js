@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation'
 import Box from '@mui/material/Box';
-import { PageContainer } from '@toolpad/core/PageContainer';
+import { PageContainer, PageContainerToolbar } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
@@ -13,16 +13,26 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Divider from '@mui/material/Divider';
 import { getPlayerInfo } from '@/app/api/player';
 
-function getTitle(logo, name) {
+function getTitle(logo, name, teamLogo, teamName) {
     return (
-        <List sx={{ width: '100%', display: 'flex', alignItems:"flex-start"}} >
-            <ListItem>
+        <Grid container spacing={0} sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent:"space-between",
+            alignItems:"center",
+            marginBottom: '20px'
+        }} >
+            <Grid sx={{display: 'flex', alignItems:"center"}}>
                 <ListItemAvatar>
                     <Avatar alt="logo" src={logo}/>
                 </ListItemAvatar>
                 <p style={{fontSize: '34px', font: 'roboto', fontWeight: '100'}}>{name}</p>
-            </ListItem>
-        </List>
+            </Grid>
+            <Grid sx={{display: 'flex', alignItems:"center", justifyContent:"center", flexDirection:"column"}}>
+                <Avatar alt="logo" src={teamLogo} />
+                <p>{teamName}</p>
+            </Grid>
+        </Grid>
     )
 }
 
@@ -42,13 +52,15 @@ function getBread() {
 function ExplorePlayer() {
     const [ playerInfo, setPlayerInfo ] = useState({})
     const searchParams = useSearchParams();
-    const player_id = searchParams.get('player-id')
+    const playerId = searchParams.get('player-id')
     const name = searchParams.get('name')
     const photo = searchParams.get('photo')
+    const teamLogo = searchParams.get('team-logo')
+    const teamName = searchParams.get('team-name')
 
     useEffect(() => {
         const fetchData = async () => {
-            const playerData = await getPlayerInfo(player_id)
+            const playerData = await getPlayerInfo(playerId)
             setPlayerInfo(playerData)
           }
           fetchData();
@@ -56,15 +68,13 @@ function ExplorePlayer() {
 
     return (
         <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}> 
-            <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}} >
-                {getTitle(photo, name)}
+            <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}}>
                 {playerInfo['player_id'] ?
                 (
                     <Grid container spacing={3} >
-                        <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-                                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Identificação Geral</p>
-                                <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                        <Grid size={6}>
+                            <Paper sx={{borderRadius: 3, p: 5, height: 350}} elevation={3}>
+                                {getTitle(photo, name, teamLogo, teamName)}
                                 <p>
                                     <span style={{fontWeight: 'bold'}}>Nome completo: </span>
                                     {(playerInfo['first_name'] && playerInfo['last_name']) ? (playerInfo['first_name'] + ' ' + playerInfo['last_name']) : 'N/A'}
@@ -100,9 +110,11 @@ function ExplorePlayer() {
                             </Paper>
                         </Grid>
                         <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-                                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Estatísticas na Liga</p>
-                                <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                            <Paper sx={{borderRadius: 3, p: 5, height: 350}} elevation={3}>
+                                <div style={{width: '100%'}}>
+                                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100', display: 'flex', justifyContent:"center", alignItems:"center"}}>Estatísticas na Liga</p>
+                                </div>
+                                <Divider orientation="horizontal" style={{marginBottom: '20px', marginTop: '20px'}} />
                                     {
                                         playerInfo['games_appearences'] ?
                                             (
