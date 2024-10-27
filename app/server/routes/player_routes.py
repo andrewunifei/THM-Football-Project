@@ -26,7 +26,7 @@ def player_routes(app, Session):
     
     @app.route('/players/categorized', methods=['GET'])
     def get_players_categorized():
-        keys = ['name', 'age', 'position', 'nationality', 'injured', 'team', 'logo']
+        keys = ['name', 'age', 'position', 'nationality', 'injured', 'photo', 'team', 'logo']
 
         data = (
             g.db_session.query(
@@ -35,10 +35,12 @@ def player_routes(app, Session):
                 player.Player.position,
                 player.Player.nationality,
                 player.Player.injured,
+                player.Player.photo,
                 team.Team.name.label('team'),
                 team.Team.logo
             )
             .join(team.Team, player.Player.team_id == team.Team.team_id)
+            .where(team.Team.games_played_total > 0)\
             .order_by(team.Team.name)
             .all()
         )
@@ -58,10 +60,17 @@ def player_routes(app, Session):
                 'injured': player_info['injured'],
                 'name': player_info['name'],
                 'nationality': player_info['nationality'],
-                'position': player_info['position']
+                'position': player_info['position'],
+                'photo': player_info['photo']
             })
 
-        categorized_by_team = {team: data for team, data in grouped_teams.items()}
+        categorized_by_team = []
+        for team_key, data in grouped_teams.items():
+            categorized_by_team.append({
+                'team': team_key,
+                'logo': data['logo'],
+                'players': data['players']
+            })
 
         return jsonify(categorized_by_team)
     
