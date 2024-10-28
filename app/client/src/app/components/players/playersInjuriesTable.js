@@ -8,39 +8,15 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useTheme } from '@mui/material';
 
-function createData(name, home, away, total, color) {
+function createData(game_id, type, reason) {
     const isDarkTheme = useTheme().palette.mode === 'dark';
     if(!isDarkTheme && color == '#fff') {
         color = '#000'
     }
-    return { name, home, away, total, color };
+    return { game_id, type, reason };
 }
 
-export default function PlayersInjuriesTable({ teamsGamesInfo }) {
-    const rows = [
-        createData(
-            'Vitórias', 
-            teamsGamesInfo?.wins_home,
-            teamsGamesInfo?.wins_away,
-            teamsGamesInfo?.wins_total,
-            '#32a852'
-        ),
-        createData(
-            'Derrotas', 
-            teamsGamesInfo?.losses_home,
-            teamsGamesInfo?.losses_away,
-            teamsGamesInfo?.losses_total,
-            '#a83232'
-        ),
-        createData(
-            'Empates', 
-            teamsGamesInfo?.draws_home,
-            teamsGamesInfo?.draws_away,
-            teamsGamesInfo?.draws_total,
-            '#3277a8'
-        ),
-    ];
-
+export default function PlayersInjuriesTable({ playerInjuries }) {
     return (
         <Box sx={{height: 300}}>
             <TableContainer component={Paper}>
@@ -59,14 +35,14 @@ export default function PlayersInjuriesTable({ teamsGamesInfo }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {playerInjuries?.map((row) => (
                             <TableRow
-                            key={row.name}
+                            key={row?.game_id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
                             >
-                                <TableCell align="left">Testing 1</TableCell>
-                                <TableCell align="left">Testing 2</TableCell>
-                                <TableCell align="left">Testing 3</TableCell>
+                                <TableCell align="left">{row?.game_id}</TableCell>
+                                <TableCell align="left">{row?.type}</TableCell>
+                                <TableCell align="left">{row?.reason}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

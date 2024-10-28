@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Divider from '@mui/material/Divider';
-import { getPlayerInfo } from '@/app/api/player';
+import { getPlayerInfo, getPlayerInjuries } from '@/app/api/player';
 import PlayersInjuriesTable from '@/app/components/players/playersInjuriesTable';
 
 function getTitle(logo, name, teamLogo, teamName) {
@@ -50,6 +50,7 @@ function getBread() {
 
 function ExplorePlayer() {
     const [ playerInfo, setPlayerInfo ] = useState({})
+    const [ playerInjuries, setPlayerInjuries ] = useState({})
     const searchParams = useSearchParams();
     const playerId = searchParams.get('player-id')
     const name = searchParams.get('name')
@@ -60,7 +61,9 @@ function ExplorePlayer() {
     useEffect(() => {
         const fetchData = async () => {
             const playerData = await getPlayerInfo(playerId)
+            const injuriesData = await getPlayerInjuries(playerId)
             setPlayerInfo(playerData)
+            setPlayerInjuries(injuriesData)
           }
           fetchData();
     }, [])
@@ -143,7 +146,7 @@ function ExplorePlayer() {
                         <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Grid size={12} >
                                 <Box>
-                                    <PlayersInjuriesTable/>
+                                    <PlayersInjuriesTable playerInjuries={playerInjuries}/>
                                 </Box>
                             </Grid>
                         </Grid>
