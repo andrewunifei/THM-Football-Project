@@ -37,7 +37,6 @@ function getEndPoint(player, teamLogo, teamName) {
 }
 
 function Players() {
-
   const [playersCategorized, setPlayersCategorized] = useState([]);
 
   useEffect(() => {

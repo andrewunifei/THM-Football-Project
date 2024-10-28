@@ -8,15 +8,8 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useTheme } from '@mui/material';
 
-function createData(game_id, type, reason) {
-    const isDarkTheme = useTheme().palette.mode === 'dark';
-    if(!isDarkTheme && color == '#fff') {
-        color = '#000'
-    }
-    return { game_id, type, reason };
-}
-
 export default function PlayersInjuriesTable({ playerInjuries }) {
+    console.log(playerInjuries)
     return (
         <Box sx={{height: 300}}>
             <TableContainer component={Paper} sx={{maxHeight: 300}}>
@@ -38,15 +31,15 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {playerInjuries?.map((row) => (
+                        {playerInjuries?.data?.map((row) => (
                             <TableRow
-                            key={row?.game_id}
+                            key={row.game_id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
                             >
-                                <TableCell align="left">{row?.game_id}</TableCell>
-                                <TableCell align="left">{row?.reason}</TableCell>
-                                <TableCell align="left">{(row?.type == 'Missing Fixture') ? 'Não vai jogar' : 'Incerta'}</TableCell>
-                                <TableCell align="left"></TableCell>
+                                <TableCell align="left">{row.game_id}</TableCell>
+                                <TableCell align="left">{playerInjuries.translations[row.reason]}</TableCell>
+                                <TableCell align="left">{(row.type == 'Missing Fixture') ? 'Não vai jogar' : 'Incerta'}</TableCell>
+                                <TableCell align="left">{row.date}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

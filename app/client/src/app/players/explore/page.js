@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Divider from '@mui/material/Divider';
-import { getPlayerInfo, getPlayerInjuries } from '@/app/api/player';
+import { getPlayerInfo, getPlayerInjuries, getPlayerHistoric } from '@/app/api/player';
 import PlayersInjuriesTable from '@/app/components/players/playersInjuriesTable';
 
 function getTitle(logo, name, teamLogo, teamName) {
@@ -51,6 +51,7 @@ function getBread() {
 function ExplorePlayer() {
     const [ playerInfo, setPlayerInfo ] = useState({})
     const [ playerInjuries, setPlayerInjuries ] = useState({})
+    const [ playerHistoric, setPlayerHistoric ] = useState({})
     const searchParams = useSearchParams();
     const playerId = searchParams.get('player-id')
     const name = searchParams.get('name')
@@ -62,8 +63,10 @@ function ExplorePlayer() {
         const fetchData = async () => {
             const playerData = await getPlayerInfo(playerId)
             const injuriesData = await getPlayerInjuries(playerId)
+            const historicData = await getPlayerHistoric(playerId)
             setPlayerInfo(playerData)
             setPlayerInjuries(injuriesData)
+            setPlayerHistoric(historicData)
           }
           fetchData();
     }, [])
@@ -129,7 +132,7 @@ function ExplorePlayer() {
                                                     <p><span style={{fontWeight: 'bold'}}>Passes chaves: </span>{playerInfo['passes_key'] == null ? 'N/A' : playerInfo['passes_key']}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Cartões amarelos: </span>{playerInfo['cards_yellow_total'] == null ? 'N/A' : playerInfo['cards_yellow_total']}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Cartões vermelhos: </span>{playerInfo['cards_red_total'] == null ? 'N/A' : playerInfo['cards_red_total']}</p>
-                                                    <p><span style={{fontWeight: 'bold'}}>Lesões: </span>{playerInjuries.length}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Lesões: </span>{playerInjuries.data.length}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Nota: </span>{playerInfo['rating'].slice(0,4)}</p>
                                                 </>
                                             )
@@ -140,7 +143,7 @@ function ExplorePlayer() {
                             </Paper>
                         </Grid>
                     </Grid>
-                    {(playerInjuries.length > 0) ?
+                    {(playerInjuries.data.length > 0) ?
                         <>
                         <div style={{paddingTop:'25px'}}></div>
                         <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
@@ -167,6 +170,22 @@ function ExplorePlayer() {
                             </Grid>
                             <Grid size={6} sx={{height: 300}}>
                                 <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300}}>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                    <div style={{paddingTop:'25px'}}></div>
+                    <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                        <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Histórico de Times</p>
+                        <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                        <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={6} >
+                                <Box>
+                                </Box>
+                            </Grid>
+                            <Grid size={6} sx={{height: 300}}>
+                                <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300}}>
+
                                 </Box>
                             </Grid>
                         </Grid>

@@ -155,3 +155,23 @@ def player_routes(app, Session):
         final_response = {'data':injuries, 'translations':to_dict}
 
         return jsonify(final_response)
+
+    @app.route('/players/historic', methods=['GET'])
+    def get_player_historic():
+        player_id = request.args.get('player-id')
+        data_historic = (
+            g.db_session.query(teams_historic.Teamshistoric)\
+            .where(player.Player.player_id == teams_historic.Teamshistoric.player_id)\
+            .all()
+        )
+
+        team_id = '' # Get from data_historic after parsing
+        data_team = (
+            g.db_session.query(team.Team.name, team.Team.logo)\
+            .where(team_id =team.Team.team_id)
+        )
+
+        # We need:
+            # seasons (data_historic)
+            # team name (data_team)
+            # team logo (data_team)
