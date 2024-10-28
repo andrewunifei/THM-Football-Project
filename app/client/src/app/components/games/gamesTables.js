@@ -6,39 +6,45 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material';
 
-export default function PlayersInjuriesTable({ playerInjuries }) {
-    console.log(playerInjuries)
+export default function GamesTable({ games }) {
     return (
         <Box sx={{height: 300}}>
             <TableContainer component={Paper} sx={{maxHeight: 300}}>
-                <Table stickyHeader sx={{ width: '100%',   }} aria-label="sticky table">
+                <Table stickyHeader sx={{ width: '100%'}} aria-label="sticky table">
                     <TableHead sx={{ backgroundColor: 'background.paper',   }}>
                         <TableRow>
                             <TableCell align="left">
                             <span style={{fontWeight: 'bold'}}>Código do Jogo</span>
                             </TableCell>
                             <TableCell align="left">
-                                <span style={{fontWeight: 'bold'}}>Tipo</span>
+                                <span style={{fontWeight: 'bold'}}>{'Casa'}</span>
                             </TableCell>
                             <TableCell align="left">
-                                <span style={{fontWeight: 'bold'}}>Consequência</span>
+                                <span style={{fontWeight: 'bold'}}>{'Fora'}</span>
                             </TableCell>
                             <TableCell align="left">
-                                <span style={{fontWeight: 'bold'}}>Data</span>
+                                <span style={{fontWeight: 'bold'}}>{'Data'}</span>
+                            </TableCell>
+                            <TableCell align="left">
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {playerInjuries?.data?.map((row) => (
+                        {games?.map((item, index) => (
                             <TableRow
-                            key={row.game_id}
+                            key={item.game_id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
                             >
-                                <TableCell align="left">{row.game_id}</TableCell>
-                                <TableCell align="left">{playerInjuries.translations[row.reason]}</TableCell>
-                                <TableCell align="left">{(row.type == 'Missing Fixture') ? 'Não vai jogar' : 'Incerta'}</TableCell>
-                                <TableCell align="left">{row.date}</TableCell>
+                                <TableCell align="left">{item.game_id}</TableCell>
+                                <TableCell align="left">{'Arsenal'}</TableCell>
+                                <TableCell align="left">{'Manchester United'}</TableCell>
+                                <TableCell align="left">{item.date}</TableCell>
+                                <TableCell>
+                                    <Button variant="contained">Explorar</Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

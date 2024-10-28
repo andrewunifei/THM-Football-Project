@@ -20,6 +20,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Grid from '@mui/material/Grid2';
 import { getGamesCategorized } from '../api/game';
+import GamesTable from '../components/games/gamesTables';
 
 const months = [
   "Janeiro",
@@ -55,21 +56,12 @@ function Games() {
           <>
             {(gamesCategorized[0][item].length > 0) ? 
             (<>
-              <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>{(gamesCategorized[0][item].length > 0) ? months[index] : ''}</p>
+              <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>{(gamesCategorized[0][item].length > 0) ? (`${months[index]} ${gamesCategorized[0][item][0]['date'].slice(12, 16)}`) : ''}</p>
               <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
               <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                   <Grid size={12} >
-                      <Box>
-                          {
-                            gamesCategorized[0][item].map((item, index) => {
-                              return (<>
-                                <p>{item['date']}</p>
-                              </>)
-                            })     
-                            // gamesCategorized[0][item].forEach((element) => {
-                            //   console.log(element['date'])
-                            // })                       
-                          }
+                      <Box style={{marginBottom: '40px'}}>
+                        <GamesTable games={gamesCategorized[0][item]} />
                       </Box>
                   </Grid>
               </Grid>
