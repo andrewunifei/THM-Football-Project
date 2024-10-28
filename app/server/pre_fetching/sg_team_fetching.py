@@ -41,6 +41,7 @@ def fetch_sg_team_and_populate(api_key, db_session):
 
         if response.status_code == 200:
             statistics_data = response.json()
+            print(statistics_data)
             statistics_data = statistics_data['response']
             data = {}
             

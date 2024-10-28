@@ -37,7 +37,7 @@ def fetch_standing_and_populate(league, season, api_key, db_session, metadata, e
                 'rank': data['league']['standings']['rank'],
                 'points': data['league']['standings']['points']
             }
-            
+
             stmt = (
                 update(team_table)
                 .where(teams_ids.c.team_id == team_id)  

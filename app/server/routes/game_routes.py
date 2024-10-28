@@ -57,7 +57,7 @@ def game_routes(app, Session):
             "Novembro": list(),
             "Dezembro": list()
         }
-        games = g.db_session.query(game.Game).all()
+        games = g.db_session.query(game.Game).order_by(game.Game.date.desc()).all()
 
         for instance in games:
             to_dict = model_to_dict(instance)

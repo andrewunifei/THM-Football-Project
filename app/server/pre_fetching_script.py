@@ -18,7 +18,7 @@ postgres_passwd = os.getenv('POSTGRES_PASSWD')
 api_key = os.getenv('API_KEY')
 DATABASE_URL = f'postgresql://{postgres_user}:{postgres_passwd}@localhost:5432/football-app-db'
 engine = create_engine(DATABASE_URL)
-metadata = MetaData(bind=engine)
+metadata = MetaData()
 Session = sessionmaker(bind=engine)
 db_session = Session()
 
