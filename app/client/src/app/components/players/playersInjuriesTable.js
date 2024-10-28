@@ -20,7 +20,7 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
     return (
         <Box sx={{height: 300}}>
             <TableContainer component={Paper} sx={{maxHeight: 300}}>
-                <Table sx={{ width: '100%',   }} aria-label="sticky table">
+                <Table stickyHeader sx={{ width: '100%',   }} aria-label="sticky table">
                     <TableHead sx={{ backgroundColor: 'background.paper',   }}>
                         <TableRow>
                             <TableCell align="left">
@@ -32,6 +32,9 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
                             <TableCell align="left">
                                 <span style={{fontWeight: 'bold'}}>Consequência</span>
                             </TableCell>
+                            <TableCell align="left">
+                                <span style={{fontWeight: 'bold'}}>Data</span>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -42,7 +45,8 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
                             >
                                 <TableCell align="left">{row?.game_id}</TableCell>
                                 <TableCell align="left">{row?.reason}</TableCell>
-                                <TableCell align="left">{row?.type}</TableCell>
+                                <TableCell align="left">{(row?.type == 'Missing Fixture') ? 'Não vai jogar' : 'Incerta'}</TableCell>
+                                <TableCell align="left"></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

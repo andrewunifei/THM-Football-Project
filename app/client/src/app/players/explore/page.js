@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation'
 import Box from '@mui/material/Box';
-import { PageContainer, PageContainerToolbar } from '@toolpad/core/PageContainer';
+import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
@@ -76,7 +76,7 @@ function ExplorePlayer() {
                     <>
                     <Grid container spacing={3} >
                         <Grid size={6}>
-                            <Paper sx={{borderRadius: 3, p: 5, height: 350}} elevation={3}>
+                            <Paper sx={{borderRadius: 3, p: 5, height: 370}} elevation={3}>
                                 {getTitle(photo, name, teamLogo, teamName)}
                                 <p>
                                     <span style={{fontWeight: 'bold'}}>Nome completo: </span>
@@ -113,7 +113,7 @@ function ExplorePlayer() {
                             </Paper>
                         </Grid>
                         <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
-                            <Paper sx={{borderRadius: 3, p: 5, height: 350}} elevation={3}>
+                            <Paper sx={{borderRadius: 3, p: 5, height: 370}} elevation={3}>
                                 <div style={{width: '100%'}}>
                                 <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100', display: 'flex', justifyContent:"center", alignItems:"center"}}>Estatísticas na Liga</p>
                                 </div>
@@ -129,6 +129,7 @@ function ExplorePlayer() {
                                                     <p><span style={{fontWeight: 'bold'}}>Passes chaves: </span>{playerInfo['passes_key'] == null ? 'N/A' : playerInfo['passes_key']}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Cartões amarelos: </span>{playerInfo['cards_yellow_total'] == null ? 'N/A' : playerInfo['cards_yellow_total']}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Cartões vermelhos: </span>{playerInfo['cards_red_total'] == null ? 'N/A' : playerInfo['cards_red_total']}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Lesões: </span>{playerInjuries.length}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Nota: </span>{playerInfo['rating'].slice(0,4)}</p>
                                                 </>
                                             )
@@ -139,18 +140,22 @@ function ExplorePlayer() {
                             </Paper>
                         </Grid>
                     </Grid>
-                    <div style={{paddingTop:'25px'}}></div>
-                    <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-                        <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Lesões</p>
-                        <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
-                        <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                            <Grid size={12} >
-                                <Box>
-                                    <PlayersInjuriesTable playerInjuries={playerInjuries}/>
-                                </Box>
+                    {(playerInjuries.length > 0) ?
+                        <>
+                        <div style={{paddingTop:'25px'}}></div>
+                        <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                            <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Lesões</p>
+                            <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                            <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <Grid size={12} >
+                                    <Box>
+                                        <PlayersInjuriesTable playerInjuries={playerInjuries}/>
+                                    </Box>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Paper>
+                        </Paper>
+                        </>
+                    : ''}
                     <div style={{paddingTop:'25px'}}></div>
                     <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
                         <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Jogos</p>
