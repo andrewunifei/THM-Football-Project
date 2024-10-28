@@ -91,3 +91,17 @@ def player_routes(app, Session):
         player_dict = model_to_dict(data)
 
         return jsonify(player_dict)
+
+    @app.route('/players/injuries', methods=['GET'])
+    def get_player_info():
+        player_id = request.args.get('player-id')
+        result = (
+            g.db_session.query(injury.Injury)
+            .join(player.Player, injury.Injury.player_id == player.Player.player_id)
+            .where(player.Player.player_id == player_id)
+            .all()
+        )
+
+        print(result)
+
+        return 'ok'

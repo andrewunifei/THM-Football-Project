@@ -7,11 +7,10 @@ import { PageContainer, PageContainerToolbar } from '@toolpad/core/PageContainer
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Divider from '@mui/material/Divider';
 import { getPlayerInfo } from '@/app/api/player';
+import PlayersInjuriesTable from '@/app/components/players/playersInjuriesTable';
 
 function getTitle(logo, name, teamLogo, teamName) {
     return (
@@ -71,6 +70,7 @@ function ExplorePlayer() {
             <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}}>
                 {playerInfo['player_id'] ?
                 (
+                    <>
                     <Grid container spacing={3} >
                         <Grid size={6}>
                             <Paper sx={{borderRadius: 3, p: 5, height: 350}} elevation={3}>
@@ -136,6 +136,34 @@ function ExplorePlayer() {
                             </Paper>
                         </Grid>
                     </Grid>
+                    <div style={{paddingTop:'25px'}}></div>
+                    <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                        <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Lesões</p>
+                        <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                        <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={12} >
+                                <Box>
+                                    <PlayersInjuriesTable/>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                    <div style={{paddingTop:'25px'}}></div>
+                    <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                        <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Jogos</p>
+                        <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                        <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={6} >
+                                <Box>
+                                </Box>
+                            </Grid>
+                            <Grid size={6} sx={{height: 300}}>
+                                <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300}}>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                    </>
                 ) : '' }
             </PageContainer>
         </Paper>
