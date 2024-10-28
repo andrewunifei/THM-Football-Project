@@ -6,6 +6,12 @@ from models import *
 import json
 from collections import defaultdict
 
+
+def translate_text(text_list):
+    translator = Translator()
+    translations = translator.translate(text_list, dest='pt')
+    return [translation.text for translation in translations]
+
 def model_to_dict(instance):
     return {key: value for key, value in instance.__dict__.items() if not key.startswith('_')}
 
@@ -94,8 +100,30 @@ def player_routes(app, Session):
 
     @app.route('/players/injuries', methods=['GET'])
     def get_player_injuries():
+        injuries_translation = [
+            "Lesão muscular",
+            "Pancada",
+            "Lesão no tornozelo",
+            "Perna quebrada",
+            "Lesão na panturrilha",
+            "Lesão no quadril",
+            "Ferimento na cabeça",
+            "Cartão vermelho",
+            "Ferida",
+            "Falta de aptidão física",
+            "Cartões Amarelos",
+            "Lesão no tendão da coxa",
+            "Contrato de empréstimo",
+            "Lesão do tendão de Aquiles",
+            "Lesão na coxa",
+            "Doença",
+            "Suspenso",
+            "Lesão no joelho",
+            "Lesão na virilha"
+        ]
         player_id = request.args.get('player-id')
         injuries = []
+
         data = (
             g.db_session.query(injury.Injury)\
             .join(player.Player, injury.Injury.player_id == player.Player.player_id)\
@@ -103,7 +131,27 @@ def player_routes(app, Session):
             .all()
         )
 
-        for injury_obj in data:
-            injuries.append(model_to_dict(injury_obj))
+        injuries_reasons = (
+            g.db_session.query(injury.Injury.reason)\
+            .distinct()
+            .all()
+        )
 
-        return jsonify(injuries)
+        times = (
+            g.db_session.query(game.Game.date)\
+            .join(injury.Injury, injury.Injury.game_id == game.Game.game_id)\
+            .all()
+        )
+
+        dates_list = [date_tuple[0] for date_tuple in times]
+
+        for index, injury_obj in enumerate(data):
+            obj = model_to_dict(injury_obj)
+            obj['date'] = dates_list[index]
+            injuries.append(obj)
+
+        injuries_list = [injury_tuple[0] for injury_tuple in injuries_reasons]
+        to_dict = dict(zip(injuries_list, injuries_translation))
+        final_response = {'data':injuries, 'translations':to_dict}
+
+        return jsonify(final_response)
