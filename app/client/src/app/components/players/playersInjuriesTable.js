@@ -19,7 +19,7 @@ function createData(game_id, type, reason) {
 export default function PlayersInjuriesTable({ playerInjuries }) {
     return (
         <Box sx={{height: 300}}>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{maxHeight: 300}}>
                 <Table sx={{ width: '100%',   }} aria-label="sticky table">
                     <TableHead sx={{ backgroundColor: 'background.paper',   }}>
                         <TableRow>
@@ -41,8 +41,8 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
                             >
                                 <TableCell align="left">{row?.game_id}</TableCell>
-                                <TableCell align="left">{row?.type}</TableCell>
                                 <TableCell align="left">{row?.reason}</TableCell>
+                                <TableCell align="left">{row?.type}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
