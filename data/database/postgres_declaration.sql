@@ -152,8 +152,8 @@ CREATE TABLE SGTeamStatistics (
     goalkeeper_saves INTEGER,
     total_passes INTEGER,
     passes_accurate INTEGER,
-    ball_possession DECIMAL(5, 2) CHECK (ball_possession >= 0 AND ball_possession <= 100),
-    passes_percentage DECIMAL(5, 2) CHECK (passes_percentage >= 0 AND passes_percentage <= 100),
+    ball_possession VARCHAR(50),
+    passes_percentage VARCHAR(50),
     PRIMARY KEY (game_id, team_id)
 );
 
@@ -163,7 +163,7 @@ CREATE TABLE SGPlayerStatistics (
     game_id INTEGER REFERENCES Game(game_id) ON DELETE CASCADE NOT NULL,
     player_number INTEGER,
     position CHAR(5),
-    rating DECIMAL(2, 2) CHECK (rating >= 0 AND rating <= 10),
+    rating VARCHAR(50),
     captain BOOLEAN,
     substitute BOOLEAN,
     offsides INTEGER,
@@ -175,7 +175,7 @@ CREATE TABLE SGPlayerStatistics (
     goals_saves INTEGER,
     passes_total INTEGER,
     passes_key INTEGER,
-    passes_accuracy DECIMAL(5, 2) CHECK (passes_accuracy >= 0 AND passes_accuracy <= 100),
+    passes_accuracy VARCHAR(50),
     tackles_total INTEGER,
     blocks INTEGER,
     interceptions INTEGER,
@@ -195,3 +195,5 @@ CREATE TABLE SGPlayerStatistics (
     penalty_saved INTEGER,
     PRIMARY KEY (player_id, game_id)
 );
+
+CREATE TABLE Standing

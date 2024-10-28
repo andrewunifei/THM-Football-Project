@@ -190,6 +190,8 @@ Team {
 	penalty_missed integer(4)
 	yellow_cards json(500)
 	red_cards json(500)
+	rank integer(4)
+	position integer(4)
 	venue_id integer(4) > Venue.venue_id
 }
 

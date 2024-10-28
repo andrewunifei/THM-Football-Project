@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, CheckConstraint
+from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, CheckConstraint, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from base import Base
@@ -22,14 +22,8 @@ class SGTeamStatistics(Base):
     goalkeeper_saves = Column(Integer, nullable=True)
     total_passes = Column(Integer, nullable=True)
     passes_accurate = Column(Integer, nullable=True)
-
-    # Ball possession and passes percentage with constraints
-    ball_possession = Column(DECIMAL(5, 2), 
-                             CheckConstraint('ball_possession >= 0 AND ball_possession <= 100'), 
-                             nullable=True)
-    passes_percentage = Column(DECIMAL(5, 2), 
-                               CheckConstraint('passes_percentage >= 0 AND passes_percentage <= 100'), 
-                               nullable=True)
+    ball_possession = Column(String(50), nullable=True)
+    passes_percentage = Column(String(50), nullable=True)
 
     # Relationships
     game = relationship('Game', back_populates='teams_statistics')  # Assuming Game class exists

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Boolean, CHAR, CheckConstraint
+from sqlalchemy import Column, Integer, ForeignKey, DECIMAL, Boolean, CHAR, String, CheckConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from base import Base
@@ -10,9 +10,7 @@ class SGPlayerStatistics(Base):
     game_id = Column(Integer, ForeignKey('game.game_id', ondelete='CASCADE'), primary_key=True, nullable=False)
     player_number = Column(Integer, nullable=True)
     position = Column(CHAR(5), nullable=True)
-    rating = Column(DECIMAL(2, 2), 
-                   CheckConstraint('rating >= 0 AND rating <= 10'), 
-                   nullable=True)
+    rating = Column(String(50), nullable=True)
     captain = Column(Boolean, nullable=True)
     substitute = Column(Boolean, nullable=True)
     offsides = Column(Integer, nullable=True)
@@ -24,9 +22,7 @@ class SGPlayerStatistics(Base):
     goals_saves = Column(Integer, nullable=True)
     passes_total = Column(Integer, nullable=True)
     passes_key = Column(Integer, nullable=True)
-    passes_accuracy = Column(DECIMAL(5, 2), 
-                             CheckConstraint('passes_accuracy >= 0 AND passes_accuracy <= 100'), 
-                             nullable=True)
+    passes_accuracy = Column(String(50), nullable=True)
     tackles_total = Column(Integer, nullable=True)
     blocks = Column(Integer, nullable=True)
     interceptions = Column(Integer, nullable=True)
@@ -45,6 +41,5 @@ class SGPlayerStatistics(Base):
     penalty_missed = Column(Integer, nullable=True)
     penalty_saved = Column(Integer, nullable=True)
 
-    # Relationships
     player = relationship('Player', foreign_keys=[player_id], back_populates='games_statistics')  # Assuming Player class exists
     game = relationship('Game', foreign_keys=[game_id], back_populates='players_statistics')      # Assuming Game class exists
