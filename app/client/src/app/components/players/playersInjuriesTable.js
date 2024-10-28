@@ -6,6 +6,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+// import Link from 'next/link';
+import Link from '@mui/material/Link';
 
 export default function PlayersInjuriesTable({ playerInjuries }) {
     console.log(playerInjuries)
@@ -16,7 +18,7 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
                     <TableHead sx={{ backgroundColor: 'background.paper',   }}>
                         <TableRow>
                             <TableCell align="left">
-                            <span style={{fontWeight: 'bold'}}>Código do Jogo</span>
+                                <span style={{fontWeight: 'bold'}}>Código do Jogo</span>
                             </TableCell>
                             <TableCell align="left">
                                 <span style={{fontWeight: 'bold'}}>Tipo</span>
@@ -35,7 +37,7 @@ export default function PlayersInjuriesTable({ playerInjuries }) {
                             key={row.game_id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
                             >
-                                <TableCell align="left">{row.game_id}</TableCell>
+                                <TableCell align="left"><Link href={`/games/explore?game-id=${row.game_id}`} color='#3277a8'>{row.game_id}</Link></TableCell>
                                 <TableCell align="left">{playerInjuries.translations[row.reason]}</TableCell>
                                 <TableCell align="left">{(row.type == 'Missing Fixture') ? 'Não vai jogar' : 'Incerta'}</TableCell>
                                 <TableCell align="left">{row.date}</TableCell>

@@ -51,24 +51,24 @@ function Games() {
   return (
     <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}>
       <PageContainer maxWidth="xl" sx={{marginBottom: '150px'}}>
-      <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
-        {gamesCategorized[0] ? months.map((item, index) => (
-          <>
-            {(gamesCategorized[0][item].length > 0) ? 
-            (<>
-              <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>{(gamesCategorized[0][item].length > 0) ? (`${months[index]} ${gamesCategorized[0][item][0]['date'].slice(12, 16)}`) : ''}</p>
-              <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
-              <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <Grid size={12} >
-                      <Box style={{marginBottom: '40px'}}>
-                        <GamesTable games={gamesCategorized[0][item]} />
-                      </Box>
-                  </Grid>
-              </Grid>
-            </>) : ''}
-          </>
-        )) : ''}
-      </Paper>
+        <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+          {gamesCategorized[0] ? months.map((item, index) => (
+            <>
+              {(gamesCategorized[0][item].length > 0) ? 
+              (<>
+                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>{(gamesCategorized[0][item].length > 0) ? (`${months[index]} ${gamesCategorized[0][item][0]['date'].slice(12, 16)}`) : ''}</p>
+                <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <Grid size={12} >
+                        <Box style={{marginBottom: '40px'}}>
+                          <GamesTable games={gamesCategorized[0][item]} />
+                        </Box>
+                    </Grid>
+                </Grid>
+              </>) : ''}
+            </>
+          )) : ''}
+        </Paper>
       </PageContainer>
     </Paper>
   );
