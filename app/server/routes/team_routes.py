@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, g
 from flask_cors import CORS
-from sqlalchemy import create_engine, inspect, func
+from sqlalchemy import create_engine, inspect, func, or_
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import *
 import json
@@ -12,7 +12,7 @@ def replace_none_with_zero(d):
         elif key in ['percentage', 'total'] and value is None:
             d[key] = 0 
 
-def instance_to_dict(instance):
+def model_to_dict(instance):
     return {key: value for key, value in instance.__dict__.items() if not key.startswith('_')}
 
 def team_routes(app, Session):
@@ -147,3 +147,15 @@ def team_routes(app, Session):
             return jsonify(cards_info_dict)
         else:
             return None
+
+    @app.route('/teams/match', methods=['GET'])
+    def get_teams_match():
+        result = []
+        home_team_id = request.args.get('home_id')
+        away_team_id = request.args.get('away_id')
+        match_info_tuple = g.db_session.query(team.Team.team_id, team.Team.name)\
+            .where(or_(team.Team.team_id == home_team_id, team.Team.team_id == away_team_id)).all()
+
+        teams_dict = {team_id: name for team_id, name in match_info_tuple}
+
+        return jsonify(teams_dict)

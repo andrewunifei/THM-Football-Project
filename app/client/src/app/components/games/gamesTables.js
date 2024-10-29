@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,8 +11,19 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material';
+import { getTeamsMatch } from '@/app/api/team';
 
 export default function GamesTable({ games }) {
+    const [ teamsInfo, setTeamsInfo ] = useState({})
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data_teams = getTeamsMatch(games.home_team_id, games.away_team_id)
+            setTeamsInfo(data_teams)
+        }
+        fetchData()
+    })
+
     return (
         <Box sx={{height: 300}}>
             <TableContainer component={Paper} sx={{maxHeight: 300}}>
@@ -33,20 +47,20 @@ export default function GamesTable({ games }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {games?.map((item, index) => (
+                        {teamsInfo ? games.map((item, index) => (
                             <TableRow
                             key={item.game_id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
                             >
                                 <TableCell align='left'>{item.game_id}</TableCell>
-                                <TableCell align='left'>{'Arsenal'}</TableCell>
-                                <TableCell align='left'>{'Manchester United'}</TableCell>
+                                <TableCell align='left'>{item.home_team}</TableCell>
+                                <TableCell align='left'>{item.away_team}</TableCell>
                                 <TableCell align='left'>{item.date}</TableCell>
                                 <TableCell>
                                     <Button variant='contained' href={`/games/explore?game-id=${item.game_id}`}>Explorar</Button>
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        )): ''}
                     </TableBody>
                 </Table>
             </TableContainer>

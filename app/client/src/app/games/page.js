@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid2';
 import { getGamesCategorized } from '../api/game';
 import GamesTable from '../components/games/gamesTables';
+import { getTeamsMatch } from '../api/team';
 
 const months = [
   "Janeiro",

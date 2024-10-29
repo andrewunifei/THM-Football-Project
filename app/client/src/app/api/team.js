@@ -61,7 +61,25 @@ export async function getTeamsCardsInfo(code) {
         })
     }
     try {
-        const response = await fetch(`http://127.0.0.1:5000//teams-cards-info?code=${code}`, options)
+        const response = await fetch(`http://127.0.0.1:5000/teams-cards-info?code=${code}`, options)
+        const parsed = await response.json()
+        return parsed
+    }
+    catch(e) {
+        console.log(e)
+    }
+}
+
+export async function getTeamsMatch(home_id, away_id) {
+    const options = {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        })
+    }
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/teams-match?home_id=${home_id}&away_id${away_id}`, options)
         const parsed = await response.json()
         return parsed
     }
