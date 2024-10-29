@@ -5,6 +5,8 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from models import *
 import json
 from collections import defaultdict
+import copy
+
 
 def model_to_dict(instance):
     return {key: value for key, value in instance.__dict__.items() if not key.startswith('_')}
@@ -29,6 +31,7 @@ def game_routes(app, Session):
     
     @app.route('/games/categorized', methods=['GET'])
     def get_games():
+        data_dict = {}
         months_translation = {
             "January": "Janeiro",
             "February": "Fevereiro",
@@ -57,11 +60,16 @@ def game_routes(app, Session):
             "Novembro": list(),
             "Dezembro": list()
         }
-        games = g.db_session.query(game.Game).order_by(game.Game.date.desc()).all()
-
-        for instance in games:
-            to_dict = model_to_dict(instance)
-            translated = months_translation[instance.date.strftime("%B")]        
-            periods[translated].append(to_dict)
-
-        return jsonify(periods)
+        distinct_years_tuple =  g.db_session.query(func.extract('year', game.Game.date).label('year'))\
+        .distinct().all()
+        
+        for year_tuple in distinct_years_tuple:
+            periods_copy = copy.deepcopy(periods)
+            games = g.db_session.query(game.Game).where(func.extract('year', game.Game.date) == str(year_tuple[0])).all()
+            for instance in games:
+                to_dict = model_to_dict(instance)
+                translated = months_translation[instance.date.strftime("%B")]        
+                periods_copy[translated].append(to_dict)
+            data_dict[str(year_tuple[0])] = periods_copy
+            
+        return jsonify(data_dict)
