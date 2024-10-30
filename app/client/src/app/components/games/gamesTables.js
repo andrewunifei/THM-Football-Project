@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,8 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material';
-import { getTeamsMatch } from '@/app/api/team';
 
 export default function GamesTable({ games }) {
     return (

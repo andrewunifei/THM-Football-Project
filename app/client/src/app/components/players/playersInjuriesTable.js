@@ -6,7 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-// import Link from 'next/link';
 import Link from '@mui/material/Link';
 
 export default function PlayersInjuriesTable({ playerInjuries }) {

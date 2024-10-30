@@ -7,19 +7,7 @@ import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Divider from '@mui/material/Divider';
-import TeamsGoalsPieChart from '@/app/components/teams/teamsGoalsPizza';
-import TeamsBiggestTable from '@/app/components/teams/teamsBiggestTable';
-import TeamsCardsSegment from '@/app/components/teams/teamsCardsSegment';
-import TeamsGamesTable from '@/app/components/teams/teamsGamesTable';
-import TeamsGoalsTable from '@/app/components/teams/teamsGoalsTable';
-import TeamGamesPieChart from '@/app/components/teams/teamGamesPieChart';
-import TeamsGoalsSegment from '@/app/components/teams/teamsGoalsSegment';
-import { getTeamsGamesInfo, getTeamsGoalsInfo } from '@/app/api/team';
-import { getTeamsCardsInfo } from '@/app/api/team';
 import { getGameDetails } from '@/app/api/game';
 
 function getTitle(logo, name) {
@@ -123,6 +111,37 @@ function ExploreGame() {
                         </Paper>
                     </Grid>
                 </Grid>
+                <div style={{paddingTop:'25px'}}></div>
+                    <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                        <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Estatísticas {gameDetails?.home_name} (Time Casa)</p>
+                        <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                        <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={6} >
+                                <Box>
+                                </Box>
+                            </Grid>
+                            <Grid size={6} sx={{height: 300}}>
+                                <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300}}>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                    <div style={{paddingTop:'25px'}}></div>
+                    <Paper sx={{borderRadius: 3, p: 5}} elevation={3}>
+                        <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>Estatísticas {gameDetails?.away_name} (Time Fora)</p>
+                        <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
+                        <Grid container spacing={8} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Grid size={6} >
+                                <Box>
+                                </Box>
+                            </Grid>
+                            <Grid size={6} sx={{height: 300}}>
+                                <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300}}>
+
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
             </PageContainer>
         </Paper>
     )

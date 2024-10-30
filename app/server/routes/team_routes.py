@@ -26,14 +26,14 @@ def team_routes(app, Session):
     def teardown_request(exception):
         Session.remove()    
 
-    @app.route('/teams-id', methods=['GET'])
+    @app.route('/teams/ids', methods=['GET'])
     def get_teams_id():
         ids = g.db_session.query(team.Team.team_id).all()
         to_list = [id_tuple[0] for id_tuple in ids]
 
         return jsonify(to_list)
 
-    @app.route('/teams-info', methods=['GET'])
+    @app.route('/teams/info', methods=['GET'])
     def get_teams_info():
         teams =\
             g.db_session.query(team.Team.name, team.Team.code, team.Team.country, team.Team.founded, team.Team.logo)\
@@ -54,7 +54,7 @@ def team_routes(app, Session):
         
         return jsonify(to_list)
 
-    @app.route('/teams-games-info', methods=['GET'])
+    @app.route('/teams/games-info', methods=['GET'])
     def get_teams_games_info():
         keys = [
             'games_played_home',
@@ -89,7 +89,7 @@ def team_routes(app, Session):
         else:
             return None
 
-    @app.route('/teams-goals-info', methods=['GET'])
+    @app.route('/teams/goals-info', methods=['GET'])
     def get_teams_goals_info():
         keys = [
             'goals_for_home',
@@ -125,7 +125,7 @@ def team_routes(app, Session):
         else:
             return None
     
-    @app.route('/teams-cards-info', methods=['GET'])
+    @app.route('/teams/cards-info', methods=['GET'])
     def get_teams_cards_info():
         keys = [
             'yellow_cards',

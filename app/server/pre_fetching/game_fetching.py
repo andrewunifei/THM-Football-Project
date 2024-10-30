@@ -4,7 +4,7 @@ from models.game import Game
 import json
 
 def get_teams_ids():
-    url = 'http://127.0.0.1:5000/teams-id'
+    url = 'http://127.0.0.1:5000/teams/ids'
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -17,7 +17,7 @@ def get_teams_ids():
         return []
 
 def get_venues_ids():
-    url = 'http://127.0.0.1:5000/venues-id'
+    url = 'http://127.0.0.1:5000/stadiums/venues-ids'
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

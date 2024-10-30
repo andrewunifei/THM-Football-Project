@@ -7,7 +7,7 @@ export async function getTeamsInfo() {
         })
     }
     try {
-        const response = await fetch('http://127.0.0.1:5000/teams-info', options)
+        const response = await fetch('http://127.0.0.1:5000/teams/info', options)
         const parsed = await response.json()
         return parsed
     }
@@ -25,7 +25,7 @@ export async function getTeamsGamesInfo(code) {
         })
     }
     try {
-        const response = await fetch(`http://127.0.0.1:5000/teams-games-info?code=${code}`, options)
+        const response = await fetch(`http://127.0.0.1:5000/teams/games-info?code=${code}`, options)
         const parsed = await response.json()
         return parsed
     }
@@ -43,7 +43,7 @@ export async function getTeamsGoalsInfo(code) {
         })
     }
     try {
-        const response = await fetch(`http://127.0.0.1:5000/teams-goals-info?code=${code}`, options)
+        const response = await fetch(`http://127.0.0.1:5000/teams/goals-info?code=${code}`, options)
         const parsed = await response.json()
         return parsed
     }
@@ -61,7 +61,7 @@ export async function getTeamsCardsInfo(code) {
         })
     }
     try {
-        const response = await fetch(`http://127.0.0.1:5000/teams-cards-info?code=${code}`, options)
+        const response = await fetch(`http://127.0.0.1:5000/teams/cards-info?code=${code}`, options)
         const parsed = await response.json()
         return parsed
     }
@@ -79,7 +79,7 @@ export async function getTeamsMatch(home_id, away_id) {
         })
     }
     try {
-        const response = await fetch(`http://127.0.0.1:5000/teams-match?home_id=${home_id}&away_id${away_id}`, options)
+        const response = await fetch(`http://127.0.0.1:5000/teams/match?home_id=${home_id}&away_id${away_id}`, options)
         const parsed = await response.json()
         return parsed
     }

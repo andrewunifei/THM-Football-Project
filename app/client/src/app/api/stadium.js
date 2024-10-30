@@ -7,7 +7,7 @@ export async function getTopStadiums() {
         })
     }
     try {
-        const response = await fetch('http://127.0.0.1:5000/top-stadiums', options)
+        const response = await fetch('http://127.0.0.1:5000/stadiums/top', options)
         const parsed = await response.json()
         return parsed
     }
@@ -25,7 +25,7 @@ export async function getBottomStadiums() {
         })
     }
     try {
-        const response = await fetch('http://127.0.0.1:5000/bottom-stadiums', options)
+        const response = await fetch('http://127.0.0.1:5000/stadiums/bottom', options)
         const parsed = await response.json()
         return parsed
     }
@@ -43,7 +43,7 @@ export async function getCapacitiesData() {
         })
     }
     try {
-        const response = await fetch('http://127.0.0.1:5000/capacities-categorized', options)
+        const response = await fetch('http://127.0.0.1:5000/stadiums/capacities-categorized', options)
         const parsed = await response.json()
         return parsed
     }
@@ -61,7 +61,7 @@ export async function getSurfaceData() {
         })
     }
     try {
-        const response = await fetch('http://127.0.0.1:5000/surface-occurrences', options)
+        const response = await fetch('http://127.0.0.1:5000/stadiums/surface-occurrences', options)
         const parsed = await response.json()
         return parsed
     }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Paper from '@mui/material/Paper';
@@ -8,12 +8,10 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid2';
 import { getGamesCategorized, getGamesAvailable } from '../api/game';
 import GamesTable from '../components/games/gamesTables';
-import { getTeamsMatch } from '../api/team';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import Button from '@mui/material/Button';
 
 const months_mapping = {
   1: "Janeiro",

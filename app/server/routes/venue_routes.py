@@ -16,25 +16,14 @@ def venue_routes(app, Session):
     def teardown_request(exception):
         Session.remove()
 
-    @app.route('/venues-id', methods=['GET'])
+    @app.route('/stadiums/venues-ids', methods=['GET'])
     def get_venue_ids():
         ids = g.db_session.query(venue.Venue.venue_id).all()
         to_list = [id_tuple[0] for id_tuple in ids]
 
         return jsonify(to_list)
 
-    @app.route('/top-cities', methods=['GET'])
-    def get_top_cities():
-        top_cities = (
-            g.db_session.query(venue.Venue.city, func.count(venue.Venue.city).label('occurrence'))
-            .group_by(venue.Venue.city)
-            .order_by(func.count(venue.Venue.city).desc())
-            .limit(5)
-            .all()
-        )
-        return jsonify(dict(top_cities))
-
-    @app.route('/top-stadiums', methods=['GET'])
+    @app.route('/stadiums/top', methods=['GET'])
     def get_top_stadium():
         top_stadiums = []
         top_stadiums_objs =\
@@ -48,7 +37,7 @@ def venue_routes(app, Session):
             top_stadiums.append(stadium_obj.__dict__)
         return jsonify(top_stadiums)
 
-    @app.route('/bottom-stadiums', methods=['GET'])
+    @app.route('/stadiums/bottom', methods=['GET'])
     def get_bottom_stadium():
         bottom_stadiums = []
         bottom_stadiums_objs =\
@@ -62,12 +51,7 @@ def venue_routes(app, Session):
             bottom_stadiums.append(stadium_obj.__dict__)
         return jsonify(bottom_stadiums)
 
-    @app.route('/avg-capacity', methods=['GET'])
-    def get_avg_capacity():
-        avg_capacity = g.db_session.query(func.avg(venue.Venue.capacity)).scalar()        
-        return format(avg_capacity, '.2f')
-
-    @app.route('/surface-occurrences', methods=['GET'])
+    @app.route('/stadiums/surface-occurrences', methods=['GET'])
     def get_surface_occurrence():
         surface_occ =\
             g.db_session.query(venue.Venue.surface, func.count(venue.Venue.surface))\
@@ -75,7 +59,7 @@ def venue_routes(app, Session):
             .all()
         return jsonify(dict(surface_occ))
 
-    @app.route('/capacities-categorized', methods=['GET'])
+    @app.route('/stadiums/capacities-categorized', methods=['GET'])
     def get_capacities_categorized():
         tuple_capacities = \
             g.db_session.query(venue.Venue.capacity).order_by(venue.Venue.capacity.asc()).all()

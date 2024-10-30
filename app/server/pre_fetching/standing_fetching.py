@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, Table, update
 
 def get_teams_ids():
-    url = 'http://127.0.0.1:5000/teams-id'
+    url = 'http://127.0.0.1:5000/teams/ids'
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

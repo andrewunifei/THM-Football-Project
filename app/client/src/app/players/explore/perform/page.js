@@ -1,14 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation'
-import Box from '@mui/material/Box';
 import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Divider from '@mui/material/Divider';
 
 function getBread() {
     return [
