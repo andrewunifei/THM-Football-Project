@@ -63,9 +63,10 @@ function Games() {
   const [games, setGames] = useState()
 
   async function handleAccordion(year, month) {
-    await getGamesCategorized(year, month).then((games_data) => {
-      setGames((<GamesTable games={games_data}/>))
-    })
+    if(!games){
+      const games_data = await getGamesCategorized(year, month)
+      setGames(games_data)
+    }
   }
   
   function mountAccordion(gamesCategorized, year) {
@@ -85,7 +86,7 @@ function Games() {
                       </span>
                     </AccordionSummary>
                       <AccordionDetails>
-                        {games}
+                        {games?(<GamesTable games={games}/>):'Loading...'}
                       </AccordionDetails>
                   </Accordion>
                 </Grid>
