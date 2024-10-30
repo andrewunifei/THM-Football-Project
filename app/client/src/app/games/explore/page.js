@@ -61,20 +61,20 @@ function ExploreGame() {
             <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}} >
                 <Grid container spacing={3} >
                     <Grid size={6}>
-                        <Paper elevation={3} sx={{paddingTop: 3, paddingBottom: 3, height: 370, display: 'flex', justifyContent: 'center', alignContent:'center',  flexDirection:'column'}}>
+                        <Paper elevation={3} sx={{borderRadius: 3, paddingTop: 3, paddingBottom: 3, height: 370, display: 'flex', justifyContent: 'center', alignContent:'center',  flexDirection:'column'}}>
                             <Divider/>
                             <Box sx={{borderRadius: 3, p: 5, display: 'flex', justifyContent: 'center', alignContent:'center',  flexDirection:'column'}}>
                             {gameDetails ? (
                                 <Grid container spacing={0} direction={'row'}>
                                     <Grid size={5}>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <Avatar alt="logo" src={gameDetails['home_logo']} sx={{ width: 120, height: 120 }}/>
+                                            <Avatar alt="logo" src={gameDetails?.home_logo} sx={{ width: 120, height: 120 }}/>
                                         </Box>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <p style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>{gameDetails['home_name']}</p>  
+                                            <p style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>{gameDetails?.home_name}</p>  
                                         </Box>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <p style={{fontSize: '30px', font: 'roboto', fontWeight: '100'}}>{gameDetails.game?.['home_team_goals']}</p>  
+                                            <p style={{fontSize: '30px', font: 'roboto', fontWeight: '100'}}>{gameDetails.game?.home_team_goals}</p>  
                                         </Box>
                                     </Grid>
                                     <Grid size={2} sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'column'}}>
@@ -84,13 +84,13 @@ function ExploreGame() {
                                     </Grid>
                                     <Grid size={5}>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <Avatar alt="logo" src={gameDetails['away_logo']} sx={{ width: 120, height: 120 }} />
+                                            <Avatar alt="logo" src={gameDetails?.away_logo} sx={{ width: 120, height: 120 }} />
                                         </Box>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <p style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>{gameDetails['away_name']}</p>  
+                                            <p style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>{gameDetails?.away_name}</p>  
                                         </Box>  
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <p style={{fontSize: '30px', font: 'roboto', fontWeight: '100'}}>{gameDetails.game?.['away_team_goals']}</p>  
+                                            <p style={{fontSize: '30px', font: 'roboto', fontWeight: '100'}}>{gameDetails?.game?.away_team_goals}</p>  
                                         </Box>
                                     </Grid>
                                 </Grid>
