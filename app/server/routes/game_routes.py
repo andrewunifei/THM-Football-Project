@@ -87,3 +87,23 @@ def game_routes(app, Session):
             
         return jsonify(data_dict)
         #return ''
+
+    @app.route('/games/available', methods=['GET'])
+    def get_games_available():
+        by_year = {}
+        months = []
+        games_available = g.db_session.query(
+            func.extract('month', game.Game.date).label('months'),
+            func.extract('year', game.Game.date).label('years')
+        )\
+        .distinct()\
+        .order_by(func.extract('month', game.Game.date))\
+        .all()
+
+        for available in games_available:
+            by_year[str(available[1])] = []
+        
+        for available in games_available:
+            by_year[str(available[1])].append(available[0])
+
+        return jsonify(by_year)
