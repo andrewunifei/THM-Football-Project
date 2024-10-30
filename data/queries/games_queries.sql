@@ -19,3 +19,19 @@ JOIN
 JOIN 
     team AS away_team ON game.away_team_id = away_team.team_id
 WHERE EXTRACT(YEAR FROM date) = 2023 AND EXTRACT(MONTH FROM date) = 4;
+
+--
+SELECT
+	game.*,
+	home_team.name AS home_team,
+	home_team.code AS home_code,
+	home_team.logo AS home_logo,
+    away_team.name AS away_team,
+	away_team.code AS away_code,
+	away_team.logo AS away_logo
+FROM game
+JOIN 
+    team AS home_team ON game.home_team_id = home_team.team_id
+JOIN 
+    team AS away_team ON game.away_team_id = away_team.team_id
+WHERE game.game_id = 867946

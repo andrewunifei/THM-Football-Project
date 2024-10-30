@@ -30,43 +30,17 @@ const months_mapping = {
   12: "Dezembro"
 }
 
-
-// function mountTable(gamesCategorized, year) {
-//   return(
-//     [...months].reverse().map((item, index) => (
-//       <>
-//         {(gamesCategorized[0][year][item]?.length > 0 && gamesCategorized[0][year][item][0]['date']?.slice(12, 16) == String(year)) ? 
-//         (<>
-//           <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100'}}>{(gamesCategorized[0][year][item].length > 0) ? (`${[...months].reverse()[index]} ${gamesCategorized[0][year][item][0]['date'].slice(12, 16)}`) : ''}</p>
-//           <Divider orientation="horizontal" style={{marginBottom: '40px'}} />
-//           <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-//               <Grid size={12} >
-//                   <Box style={{marginBottom: '40px'}}>
-//                     <GamesTable games={gamesCategorized[0][year][item]} />
-//                   </Box>
-//               </Grid>
-//             </Grid>
-//           </>) : ''}
-//         </>
-//       )
-//     )
-//   )
-// }
-
-
-
-    
-
-
 function Games() {
   const [gamesAvailable, setGamesAvailable] = useState({});
   const [games, setGames] = useState()
+  const [currentmonth, setCurrentMonth] = useState('')
 
   async function handleAccordion(year, month) {
-    if(!games){
+    if(!games || currentmonth != month){
       const games_data = await getGamesCategorized(year, month)
       setGames(games_data)
     }
+    setCurrentMonth(month)
   }
   
   function mountAccordion(gamesCategorized, year) {
@@ -86,7 +60,7 @@ function Games() {
                       </span>
                     </AccordionSummary>
                       <AccordionDetails>
-                        {games?(<GamesTable games={games}/>):'Loading...'}
+                        {games?(<GamesTable games={games}/>):''}
                       </AccordionDetails>
                   </Accordion>
                 </Grid>

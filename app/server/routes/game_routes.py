@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, inspect, func, and_
 from sqlalchemy.orm import sessionmaker, scoped_session, aliased
 from models import *
 import json
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 import copy
 
 
@@ -91,3 +91,37 @@ def game_routes(app, Session):
             by_year[str(available[1])].append(available[0])
 
         return jsonify(by_year)
+
+    @app.route('/games/details', methods=['GET'])
+    def get_games_details():
+        game_id = request.args.get('game-id')
+        Result = namedtuple('Result', ['game', 'home_team', 'home_code', 'home_logo', 'away_team', 'away_code', 'away_logo'])
+
+        home_team_alias = aliased(team.Team, name='home_team')
+        away_team_alias = aliased(team.Team, name='away_team')
+        games_details = g.db_session.query(
+            game.Game,
+            home_team_alias.name.label('home_name'),
+            home_team_alias.code.label('home_code'),
+            home_team_alias.logo.label('home_logo'),
+            away_team_alias.name.label('away_name'),
+            away_team_alias.code.label('away_code'),
+            away_team_alias.logo.label('away_logo')
+        )\
+        .join(home_team_alias, game.Game.home_team_id == home_team_alias.team_id)\
+        .join(away_team_alias, game.Game.away_team_id == away_team_alias.team_id)\
+        .filter(game.Game.game_id == game_id)\
+        .first()
+
+        to_dict = model_to_dict(games_details[0])    
+        game_data_dict = {
+            'game': to_dict,
+            'home_name': games_details.home_name,
+            'home_code': games_details.home_code,
+            'home_logo': games_details.home_logo,
+            'away_name': games_details.away_name,
+            'away_code': games_details.away_code,
+            'away_logo': games_details.away_logo,
+        }
+
+        return jsonify(game_data_dict)
