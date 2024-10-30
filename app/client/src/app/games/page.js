@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Paper from '@mui/material/Paper';
@@ -53,42 +53,44 @@ const months_mapping = {
 //   )
 // }
 
-function handleAccordion() {
-  console.log('Hello')
-}
 
-function mountAccordion(gamesCategorized, year) {
-  return(
-    [...gamesCategorized[0][year]].reverse().map((item, index) => (
-        <>
-          <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <Grid size={12} >
-                <Accordion onChange={handleAccordion}>
-                  <AccordionSummary
-                    expandIcon={<ArrowDownwardIcon />}
-                    aria-controls="panel1-content"
-                    id="panel1-header"
-                  >
-                    <span style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>
-                      {months_mapping[item]}
-                    </span>
-                  </AccordionSummary>
-                    <AccordionDetails id={item}>
-                    </AccordionDetails>
-                </Accordion>
-              </Grid>
-            </Grid>
-        </>
-      )
-    )
-  )
-}
 
     
 
 
 function Games() {
   const [gamesAvailable, setGamesAvailable] = useState({});
+
+  function handleAccordion(item) {
+        console.log(item)
+  }
+  
+  function mountAccordion(gamesCategorized, year) {
+    return(
+      [...gamesCategorized[0][year]].reverse().map((item, index) => (
+          <>
+            <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <Grid size={12} >
+                  <Accordion id={item} onChange={()=>{handleAccordion(item)}}>
+                    <AccordionSummary
+                      expandIcon={<ArrowDownwardIcon />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                    >
+                      <span style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>
+                        {months_mapping[item]}
+                      </span>
+                    </AccordionSummary>
+                      <AccordionDetails id={item}>
+                      </AccordionDetails>
+                  </Accordion>
+                </Grid>
+              </Grid>
+          </>
+        )
+      )
+    )
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,10 +99,6 @@ function Games() {
     }
     fetchData()
   }, []);
-
-  useEffect(() => {
-    console.log('Hello')
-  }, [AccordionDetails])
 
   return (
     <Paper sx={{borderRadius: 0, p: 2, width: '100%', height: '100vh', overflow: 'auto' }} elevation={1}>
