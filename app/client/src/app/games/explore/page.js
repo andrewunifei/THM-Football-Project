@@ -102,7 +102,7 @@ function ExploreGame() {
                                                     <p><span style={{fontWeight: 'bold'}}>Time casa: </span>{gameDetails?.home_name}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Time fora: </span>{gameDetails?.away_name}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Estádio: </span>{gameDetails?.stadium_name}</p>
-                                                    <p><span style={{fontWeight: 'bold'}}>Capacidade estádio: </span>{gameDetails?.stadium_capacity}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Capacidade estádio: </span>{gameDetails?.stadium_capacity?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} pessoas</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Endereço: </span>{gameDetails?.stadium_address}</p>
                                                     <p><span style={{fontWeight: 'bold'}}>Cidade: </span>{gameDetails?.city}</p>
                                                 </>
