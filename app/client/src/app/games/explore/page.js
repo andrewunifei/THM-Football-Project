@@ -61,12 +61,14 @@ function ExploreGame() {
             <PageContainer maxWidth="xl" breadcrumbs={getBread()} sx={{marginBottom: '150px'}} >
                 <Grid container spacing={3} >
                     <Grid size={6}>
-                        <Paper sx={{borderRadius: 3, p: 5, height: 370}} elevation={3}>
-                           {gameDetails ? (
+                        <Paper elevation={3} sx={{paddingTop: 3, paddingBottom: 3, height: 370, display: 'flex', justifyContent: 'center', alignContent:'center',  flexDirection:'column'}}>
+                            <Divider/>
+                            <Box sx={{borderRadius: 3, p: 5, display: 'flex', justifyContent: 'center', alignContent:'center',  flexDirection:'column'}}>
+                            {gameDetails ? (
                                 <Grid container spacing={0} direction={'row'}>
                                     <Grid size={5}>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <Avatar alt="logo" src={gameDetails['home_logo']} sx={{ width: 100, height: 100 }}/>
+                                            <Avatar alt="logo" src={gameDetails['home_logo']} sx={{ width: 120, height: 120 }}/>
                                         </Box>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
                                             <p style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>{gameDetails['home_name']}</p>  
@@ -77,12 +79,12 @@ function ExploreGame() {
                                     </Grid>
                                     <Grid size={2} sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'column'}}>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <span style={{fontSize: '36px', font: 'roboto', fontWeight: '100'}}>VS</span> 
+                                            <span style={{fontSize: '36px', font: 'roboto', fontWeight: '100', fontStyle: 'italic'}}>VS</span> 
                                         </Box>
                                     </Grid>
                                     <Grid size={5}>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
-                                            <Avatar alt="logo" src={gameDetails['away_logo']} sx={{ width: 100, height: 100 }} />
+                                            <Avatar alt="logo" src={gameDetails['away_logo']} sx={{ width: 120, height: 120 }} />
                                         </Box>
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignContent:'center', flexDirection:'row'}}>
                                             <p style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>{gameDetails['away_name']}</p>  
@@ -93,6 +95,8 @@ function ExploreGame() {
                                     </Grid>
                                 </Grid>
                             ): ''}
+                            </Box>
+                            <Divider/>
                         </Paper>
                     </Grid>
                     <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
