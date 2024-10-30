@@ -95,7 +95,6 @@ def game_routes(app, Session):
     @app.route('/games/details', methods=['GET'])
     def get_games_details():
         game_id = request.args.get('game-id')
-        Result = namedtuple('Result', ['game', 'home_team', 'home_code', 'home_logo', 'away_team', 'away_code', 'away_logo'])
 
         home_team_alias = aliased(team.Team, name='home_team')
         away_team_alias = aliased(team.Team, name='away_team')
@@ -106,10 +105,17 @@ def game_routes(app, Session):
             home_team_alias.logo.label('home_logo'),
             away_team_alias.name.label('away_name'),
             away_team_alias.code.label('away_code'),
-            away_team_alias.logo.label('away_logo')
+            away_team_alias.logo.label('away_logo'),
+            venue.Venue.image.label('stadium_photo'),
+            venue.Venue.name.label('stadium_name'),
+            venue.Venue.address.label('stadium_address'),
+            venue.Venue.city.label('city'),
+            venue.Venue.capacity.label('stadium_capacity'),
+
         )\
         .join(home_team_alias, game.Game.home_team_id == home_team_alias.team_id)\
         .join(away_team_alias, game.Game.away_team_id == away_team_alias.team_id)\
+        .join(venue.Venue, game.Game.venue_id == venue.Venue.venue_id)\
         .filter(game.Game.game_id == game_id)\
         .first()
 
@@ -122,6 +128,11 @@ def game_routes(app, Session):
             'away_name': games_details.away_name,
             'away_code': games_details.away_code,
             'away_logo': games_details.away_logo,
+            'stadium_photo': games_details.stadium_photo,
+            'stadium_name': games_details.stadium_name,
+            'stadium_address': games_details.stadium_address,
+            'city': games_details.city,
+            'stadium_capacity': games_details.stadium_capacity
         }
 
         return jsonify(game_data_dict)

@@ -23,6 +23,7 @@ WHERE EXTRACT(YEAR FROM date) = 2023 AND EXTRACT(MONTH FROM date) = 4;
 --
 SELECT
 	game.*,
+	venue.*,
 	home_team.name AS home_team,
 	home_team.code AS home_code,
 	home_team.logo AS home_logo,
@@ -34,4 +35,6 @@ JOIN
     team AS home_team ON game.home_team_id = home_team.team_id
 JOIN 
     team AS away_team ON game.away_team_id = away_team.team_id
-WHERE game.game_id = 867946
+JOIN
+	venue on game.venue_id = venue.venue_id
+WHERE game.game_id = 

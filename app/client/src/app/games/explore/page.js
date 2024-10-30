@@ -101,7 +101,25 @@ function ExploreGame() {
                     </Grid>
                     <Grid size={6} sx={{border: '2px', borderColor: '#fff'}}>
                         <Paper sx={{borderRadius: 3, p: 5, height: 370}} elevation={3}>
-
+                        <div style={{width: '100%'}}>
+                                <p style={{fontSize: '24px', font: 'roboto', fontWeight: '100', display: 'flex', justifyContent:"center", alignItems:"center"}}>Informações da Partida</p>
+                                </div>
+                                <Divider orientation="horizontal" style={{marginBottom: '20px', marginTop: '20px'}} />
+                                    {
+                                        gameDetails ?
+                                            (
+                                                <>
+                                                    <p><span style={{fontWeight: 'bold'}}>Data: </span>{gameDetails?.game?.date}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Árbitro: </span>{gameDetails?.game?.referee}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Time casa: </span>{gameDetails?.home_name}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Time fora: </span>{gameDetails?.away_name}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Estádio: </span>{gameDetails?.stadium_name}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Capacidade estádio: </span>{gameDetails?.stadium_capacity}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Endereço: </span>{gameDetails?.stadium_address}</p>
+                                                    <p><span style={{fontWeight: 'bold'}}>Cidade: </span>{gameDetails?.city}</p>
+                                                </>
+                                            ) : ''
+                                    }
                         </Paper>
                     </Grid>
                 </Grid>
