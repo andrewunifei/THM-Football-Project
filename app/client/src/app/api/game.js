@@ -1,4 +1,4 @@
-export async function getGamesCategorized() {
+export async function getGamesCategorized(year, month) {
     const options = {
         method: 'GET',
         headers: new Headers({
@@ -7,7 +7,7 @@ export async function getGamesCategorized() {
         })
     }
     try {
-        const response = await fetch('http://127.0.0.1:5000/games/categorized', options)
+        const response = await fetch(`http://127.0.0.1:5000/games/categorized?year=${year}&month=${month}`, options)
         const parsed = await response.json()
         return parsed
     }

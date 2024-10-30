@@ -60,28 +60,32 @@ const months_mapping = {
 
 function Games() {
   const [gamesAvailable, setGamesAvailable] = useState({});
+  const [games, setGames] = useState()
 
-  function handleAccordion(item) {
-        console.log(item)
+  async function handleAccordion(year, month) {
+    await getGamesCategorized(year, month).then((games_data) => {
+      setGames((<GamesTable games={games_data}/>))
+    })
   }
   
   function mountAccordion(gamesCategorized, year) {
     return(
-      [...gamesCategorized[0][year]].reverse().map((item, index) => (
+      [...gamesCategorized[0][year]].reverse().map((month, index) => (
           <>
-            <Grid container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Grid container sx={{display: 'flex', alignmonths: 'center', justifyContent: 'center'}}>
                 <Grid size={12} >
-                  <Accordion id={item} onChange={()=>{handleAccordion(item)}}>
+                  <Accordion id={month} onChange={()=>{handleAccordion(year, month)}}>
                     <AccordionSummary
                       expandIcon={<ArrowDownwardIcon />}
                       aria-controls="panel1-content"
                       id="panel1-header"
                     >
                       <span style={{fontSize: '20px', font: 'roboto', fontWeight: '100'}}>
-                        {months_mapping[item]}
+                        {months_mapping[month]}
                       </span>
                     </AccordionSummary>
-                      <AccordionDetails id={item}>
+                      <AccordionDetails>
+                        {games}
                       </AccordionDetails>
                   </Accordion>
                 </Grid>

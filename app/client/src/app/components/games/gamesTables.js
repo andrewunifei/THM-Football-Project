@@ -14,16 +14,6 @@ import { useTheme } from '@mui/material';
 import { getTeamsMatch } from '@/app/api/team';
 
 export default function GamesTable({ games }) {
-    const [ teamsInfo, setTeamsInfo ] = useState({})
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const data_teams = getTeamsMatch(games.home_team_id, games.away_team_id)
-            setTeamsInfo(data_teams)
-        }
-        fetchData()
-    })
-
     return (
         <Box sx={{height: 300}}>
             <TableContainer component={Paper} sx={{maxHeight: 300}}>
@@ -47,7 +37,8 @@ export default function GamesTable({ games }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {teamsInfo ? games.map((item, index) => (
+                        {console.log(games)}
+                        {games?.map((item, index) => (
                             <TableRow
                             key={item.game_id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 },   }}
@@ -60,7 +51,7 @@ export default function GamesTable({ games }) {
                                     <Button variant='contained' href={`/games/explore?game-id=${item.game_id}`}>Explorar</Button>
                                 </TableCell>
                             </TableRow>
-                        )): ''}
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
