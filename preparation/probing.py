@@ -80,3 +80,8 @@ async def main():
     print(data)
 
 asyncio.run(main())
+
+
+## api Alemao safari casa
+## e-mail: alemarcelino72@gmail.com
+## senha: tY33|!7npdWm

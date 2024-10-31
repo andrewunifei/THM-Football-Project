@@ -7,6 +7,12 @@ from routes.game_routes import game_routes
 from routes.player_routes import player_routes
 from sqlalchemy import create_engine, inspect, func
 from sqlalchemy.orm import sessionmaker, scoped_session
+import threading
+from automatic_fecthing import run_schedule
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Welcome to the API Fetcher!"})
 
 if __name__ == '__main__':
     load_dotenv()
@@ -17,6 +23,9 @@ if __name__ == '__main__':
     engine = create_engine(DATABASE_URI)
     SessionFactory = sessionmaker(bind=engine)
     Session = scoped_session(SessionFactory)
+
+    scheduler_thread = threading.Thread(target=run_schedule, daemon=True)
+    scheduler_thread.start()
     
     app = Flask(__name__)
     venue_routes(app, Session)
