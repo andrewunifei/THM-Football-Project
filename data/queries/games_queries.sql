@@ -38,3 +38,8 @@ JOIN
 JOIN
 	venue on game.venue_id = venue.venue_id
 WHERE game.game_id = 
+
+--
+SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_name = 'game';
