@@ -1,0 +1,49 @@
+{
+    "response":[
+        {
+            "winner_team_id": 201,
+            "away_team_id": 202,
+            "game_id": 1001,
+            "date": "2024-10-15T14:30:00",
+            "first_period": 1,
+            "second_period": 2,
+            "score": {"home": 3, "away": 1},
+            "home_team_goals": 3,
+            "away_team_goals": 1,
+            "venue_id": 101,
+            "home_team_id": 201,
+            "referee": "John Doe",
+            "timezone": "UTC"
+        },
+        {
+            "winner_team_id": 202,
+            "away_team_id": 201,
+            "game_id": 1002,
+            "date": "2024-10-16T17:00:00",
+            "first_period": 2,
+            "second_period": 3,
+            "score": {"home": 2, "away": 4},
+            "home_team_goals": 2,
+            "away_team_goals": 4,
+            "venue_id": 102,
+            "home_team_id": 202,
+            "referee": "Jane Smith",
+            "timezone": "UTC"
+        },
+        {
+            "winner_team_id": null,
+            "away_team_id": 203,
+            "game_id": 1003,
+            "date": "2024-10-17T19:00:00",
+            "first_period": 1,
+            "second_period": 1,
+            "score": {"home": 1, "away": 1},
+            "home_team_goals": 1,
+            "away_team_goals": 1,
+            "venue_id": 101,
+            "home_team_id": 204,
+            "referee": "Emily Johnson",
+            "timezone": "UTC"
+        }
+    ]
+}
