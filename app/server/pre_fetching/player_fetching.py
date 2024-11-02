@@ -5,6 +5,19 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.player import Player
 
+def get_teams_ids():
+    url = 'http://127.0.0.1:5000/teams/ids'
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return []
+
 def call_api(api_key, endpoint, params=None):
     if params is None:
         params = {}
@@ -20,19 +33,6 @@ def call_api(api_key, endpoint, params=None):
         return response.json()  
     else:
         response.raise_for_status() 
-
-def get_teams_ids():
-    url = 'http://127.0.0.1:5000/teams/ids'
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
-    response = requests.get(url, headers=headers)
-
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return []
 
 # Função recursiva por conta do sistema de paginação desse enpoint da API
 def generate_players_data(api_key, league, season, page=1, players_data=None):
