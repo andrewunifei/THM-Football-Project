@@ -29,7 +29,7 @@ def get_venues_ids():
     else:
         return []
 
-def handle_polling_game(api_url, db_Session, api_key):
+def handle_polling_game(api_url, db_session, api_key):
     teams_ids = get_teams_ids()
     venues_ids = get_venues_ids()
     new_games_ids = []
@@ -48,7 +48,7 @@ def handle_polling_game(api_url, db_Session, api_key):
         games_data = games_data['response']
         games_id = []
         
-        if(len(games_data['response']) > 0):
+        if(len(games_data) > 0):
             for game in games_data:
                 winner = ''
                 games_id.append(game['fixture']['id'])
@@ -57,12 +57,15 @@ def handle_polling_game(api_url, db_Session, api_key):
                 else:
                     winner = game['teams']['away']['id']
 
-                validation_flag1 = (
-                    int(winner) in teams_ids and
-                    int(game['teams']['home']['id']) in teams_ids and
-                    int(game['teams']['away']['id']) in teams_ids
-                )
-                validation_flag2 = (int(game['fixture']['venue']['id']) in venues_ids)
+                # validation_flag1 = (
+                #     int(winner) in teams_ids and
+                #     int(game['teams']['home']['id']) in teams_ids and
+                #     int(game['teams']['away']['id']) in teams_ids
+                # )
+                # validation_flag2 = (int(game['fixture']['venue']['id']) in venues_ids)
+
+                validation_flag1 = True
+                validation_flag2 = True
 
                 if(validation_flag1 and validation_flag2):
                     new_game = Game(
@@ -81,7 +84,8 @@ def handle_polling_game(api_url, db_Session, api_key):
                         winner_team_id=winner
                     )
                     db_session.add(new_game)
-                    new_games_ids.push([game['teams']['home']['id'], game['teams']['away']['id']])
+                    print('Data added successfully.')
+                    new_games_ids.append([game['teams']['home']['id'], game['teams']['away']['id']])
                 else:
                     continue
 
@@ -89,7 +93,7 @@ def handle_polling_game(api_url, db_Session, api_key):
                 json.dump(games_id, file) # Irei usar esses ids para capturar dados em sg_team_fetching e sg_player_fetching
 
             db_session.commit()
-            print('Data inserted successfully.')
+            print('Commited successfully.')
 
             return new_games_ids
         else:

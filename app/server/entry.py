@@ -9,6 +9,9 @@ from sqlalchemy import create_engine, inspect, func
 from sqlalchemy.orm import sessionmaker, scoped_session
 import threading
 from poll_fetching import run_schedule
+from dotenv import load_dotenv
+
+load_dotenv()
 
 if __name__ == '__main__':
     load_dotenv()
@@ -19,9 +22,12 @@ if __name__ == '__main__':
     engine = create_engine(DATABASE_URI)
     SessionFactory = sessionmaker(bind=engine)
     Session = scoped_session(SessionFactory)
+    api_key = os.getenv('API_KEY')
+    league = 39
+    season = 2022
 
-    # scheduler_thread = threading.Thread(target=run_schedule, daemon=True)
-    # scheduler_thread.start()
+    scheduler_thread = threading.Thread(target=run_schedule, args=(league, season, Session, api_key), daemon=True)
+    scheduler_thread.start()
     
     app = Flask(__name__)
     venue_routes(app, Session)

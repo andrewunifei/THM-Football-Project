@@ -4,81 +4,80 @@
             {
                 "team": {
                     "id": 100000,
-                    "name": "Fake",
-                    "code": "FAKE",
-                    "country": "Fake",
-                    "founded": 0,
-                    "national": false,
-                    "logo": "fake"
+                    "name": "Example",
+                    "code": "EXMP",
+                    "country": "Exampleland",
+                    "founded": 1990,
+                    "national": true,
+                    "logo": "example_logo.png"
                 },
                 "fixtures": {
                     "played": {
-                        "home": 12,
-                        "away": 10,
+                        "home": 15,
+                        "away": 7,
                         "total": 22
                     },
                     "wins": {
-                        "home": 7,
-                        "away": 5,
-                        "total": 12
+                        "home": 10,
+                        "away": 4,
+                        "total": 14
                     },
                     "draws": {
-                        "home": 2,
-                        "away": 3,
-                        "total": 5
-                    },
-                    "loses": {
                         "home": 3,
                         "away": 2,
                         "total": 5
+                    },
+                    "loses": {
+                        "home": 2,
+                        "away": 1,
+                        "total": 3
                     }
                 },
                 "goals": {
                     "for": {
                         "total": {
-                            "home": 25,
-                            "away": 18,
-                            "total": 43
+                            "home": 35,
+                            "away": 20,
+                            "total": 55
                         },
                         "minute": {}
                     },
                     "against": {
                         "total": {
-                            "home": 15,
-                            "away": 22,
-                            "total": 37
+                            "home": 10,
+                            "away": 25,
+                            "total": 35
                         },
                         "minute": {}
                     }
                 },
                 "biggest": {
                     "wins": {
-                        "home": "5-0",
-                        "away": "4-1"
+                        "home": "7-0",
+                        "away": "6-1"
                     },
                     "loses": {
-                        "home": "0-3",
-                        "away": "1-4"
+                        "home": "1-2",
+                        "away": "3-4"
                     }
                 },
                 "clean_sheet": {
-                    "home": 4,
-                    "away": 2,
-                    "total": 6
+                    "home": 6,
+                    "away": 3,
+                    "total": 9
                 },
                 "failed_to_score": {
-                    "home": 1,
-                    "away": 3,
-                    "total": 4
+                    "home": 0,
+                    "away": 2,
+                    "total": 2
                 },
                 "penalty": {
                     "scored": {
-                        "total": 6
+                        "total": 8
                     },
                     "missed": {
-                        "total": 2
-                    },
-                    "total": 8
+                        "total": 1
+                    }
                 },
                 "cards": {
                     "yellow": {},  
@@ -92,86 +91,86 @@
             {
                 "team": {
                     "id": 100001,
-                    "name": "Fake",
-                    "code": "FAKE",
-                    "country": "Fake",
-                    "founded": 0,
-                    "national": false,
-                    "logo": "fake"
+                    "name": "Sample",
+                    "code": "SAMP",
+                    "country": "Sampleland",
+                    "founded": 1985,
+                    "national": true,
+                    "logo": "sample_logo.png"
                 },
                 "fixtures": {
                     "played": {
-                        "home": 14,
-                        "away": 8,
+                        "home": 16,
+                        "away": 6,
                         "total": 22
                     },
                     "wins": {
-                        "home": 9,
-                        "away": 4,
-                        "total": 13
+                        "home": 11,
+                        "away": 3,
+                        "total": 14
                     },
                     "draws": {
-                        "home": 3,
+                        "home": 2,
                         "away": 1,
-                        "total": 4
+                        "total": 3
                     },
                     "loses": {
-                        "home": 2,
-                        "away": 3,
+                        "home": 3,
+                        "away": 2,
                         "total": 5
                     }
                 },
                 "goals": {
                     "for": {
-                        "total": {
-                            "home": 30,
-                            "away": 22,
-                            "total": 52
-                        },
-                        "minute": {}
-                    },
-                    "against": {
-                        "total": {
-                            "home": 12,
-                            "away": 18,
-                            "total": 30
-                        },
-                        "minute": {}
-                    }
-                },
-                "biggest": {
-                    "wins": {
-                        "home": "6-1",
-                        "away": "5-2"
-                    },
-                    "loses": {
-                        "home": "0-4",
-                        "away": "2-5"
-                    }
-                },
-                "clean_sheet": {
-                    "home": 5,
-                    "away": 1,
-                    "total": 6
-                },
-                "failed_to_score": {
-                    "home": 2,
-                    "away": 1,
-                    "total": 3
-                },
-                "penalty": {
-                    "scored": {
-                        "total": 7
-                    },
-                    "missed": {
-                        "total": 1
-                    }
-                },
-                "cards": {
-                    "yellow": 30,
-                    "red": 4
-                }
-            }
-        ]
-    }
-]
+                        "total":{
+                           	"home" :40, 
+                           	"away" :25, 
+                           	"total" :65 
+                        	},
+                        	"minute" : {}
+                    	},
+                    	"against" :{
+                        	"total":{
+                            	"home" :15, 
+                            	"away" :20, 
+                            	"total" :35 
+                        	},
+                        	"minute" : {}
+                    	}
+                	},
+                	"biggest":{
+                    	"wins":{
+                        	"home":"8-1", 
+                        	"away":"7-2"
+                    	},
+                    	"loses":{
+                        	"home":"1-3", 
+                        	"away":"3-5"
+                    	}
+                	},
+                	"clean_sheet":{
+                    	"home":"7", 
+                    	"away":"2", 
+                    	"total":"9"
+                	},
+                	"failed_to_score":{
+                    	"home":"1", 
+                    	"away":"0", 
+                    	"total":"1"
+                	},
+                	"penalty":{
+                    	"scored":{
+                        	"total":"9"
+                    	},
+                    	"missed":{
+                        	"total":"0"
+                    	}
+                	},
+                	"cards":{
+                    	"yellow":"25",  
+                    	"red":"5"
+                	}
+             }
+         ]
+     }
+ ]
