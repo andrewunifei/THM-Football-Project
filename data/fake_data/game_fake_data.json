@@ -34,13 +34,13 @@
             },
             "teams": {
                 "home": {
-                    "id": 33,
+                    "id": 100000,
                     "name": "AS FAR",
                     "logo": "",
                     "winner": false
                 },
                 "away": {
-                    "id": 34,
+                    "id": 100001,
                     "name": "Raja CA",
                     "logo": "",
                     "winner": true

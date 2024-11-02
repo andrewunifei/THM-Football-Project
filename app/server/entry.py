@@ -26,7 +26,7 @@ if __name__ == '__main__':
     league = 39
     season = 2022
 
-    scheduler_thread = threading.Thread(target=run_schedule, args=(league, season, Session, api_key), daemon=True)
+    scheduler_thread = threading.Thread(target=run_schedule, args=(league, season, Session, api_key, engine), daemon=True)
     scheduler_thread.start()
     
     app = Flask(__name__)

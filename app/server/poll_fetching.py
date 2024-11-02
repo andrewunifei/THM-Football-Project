@@ -6,7 +6,7 @@ import requests
 from polling.game_poll import handle_polling_game
 from polling.team_poll import handle_polling_team
 
-def fetch_api(league, season, db_session, api_key):
+def fetch_api(league, season, db_session, api_key, engine):
     today = datetime.now()
     yesterday = today - timedelta(days=1)
     yesterday_formated = yesterday.strftime("%Y-%m-%d")
@@ -18,9 +18,9 @@ def fetch_api(league, season, db_session, api_key):
     try:
         results = handle_polling_game(complete_url, db_session, api_key)
         if len(results) > 0:
-            # for result in results:
-            #     handle_polling_team(db_session, result[0])
-            #     handle_polling_team(db_session, result[1])
+            for result in results:
+                handle_polling_team(engine, db_session, 0)
+                handle_polling_team(engine, db_session, 1)
             print(results)
         else:
             False
@@ -28,8 +28,8 @@ def fetch_api(league, season, db_session, api_key):
     except Exception as e:
         print(f'Error fetching data: {e}')
 
-def run_schedule(league, season, db_session, api_key):
-    fetch_api(league, season, db_session, api_key)
+def run_schedule(league, season, db_session, api_key, engine):
+    fetch_api(league, season, db_session, api_key, engine)
     # schedule.every().day.at("22:33").do(fetch_api)
 
     # while True:
