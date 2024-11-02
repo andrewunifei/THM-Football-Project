@@ -40,7 +40,7 @@ def generate_players_data(api_key, league, season, page=1, players_data=None):
 
     return players_data
 
-def handle_polling_team(engine, db_session, api_key, league, season, team_id):
+def handle_polling_player(engine, db_session, api_key, league, season, team_id):
     all_columns = Team.__table__.c.keys()
     excluded_columns = {
         'player_id',

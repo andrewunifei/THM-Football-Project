@@ -26,12 +26,16 @@ country = 'England'
 league = 39 # Premier League
 season = 2022
 
+# -- Inseridos com sucesso --
 # fetch_venue_and_populate(api_key, country, db_session)
 # fetch_team_and_populate(api_key, league, season, db_session)
 # fetch_player_and_populate(api_key, league, season, db_session)
 # fetch_game_and_populate(api_key, league, season, db_session)
 # fetch_injury_and_populate(api_key, league, season, db_session)
-fetch_sg_team_and_populate(api_key, db_session)
+
+# -- Precisam ser inseridos --
+# fetch_sg_team_and_populate(api_key, db_session)
 # fetch_sg_player_and_populate(api_key, db_session)
+# fetch_standing_and_populate(api_key, db_session)
 
 db_session.close()
