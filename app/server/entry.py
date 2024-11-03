@@ -8,7 +8,7 @@ from routes.player_routes import player_routes
 from sqlalchemy import create_engine, inspect, func
 from sqlalchemy.orm import sessionmaker, scoped_session
 import threading
-from poll_fetching import run_schedule
+from mock_poll_fetching import run_schedule
 from dotenv import load_dotenv
 
 load_dotenv()

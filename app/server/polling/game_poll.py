@@ -32,7 +32,7 @@ def get_venues_ids():
 def handle_polling_game(api_url, db_session, api_key):
     teams_ids = get_teams_ids()
     venues_ids = get_venues_ids()
-    new_games_ids = []
+    new_games_relevant_info = []
 
     if((len(teams_ids) == 0) or (len(venues_ids) == 0)):
         return
@@ -57,12 +57,12 @@ def handle_polling_game(api_url, db_session, api_key):
                 else:
                     winner = game['teams']['away']['id']
 
-                # validation_flag1 = (
-                #     int(winner) in teams_ids and
-                #     int(game['teams']['home']['id']) in teams_ids and
-                #     int(game['teams']['away']['id']) in teams_ids
-                # )
-                # validation_flag2 = (int(game['fixture']['venue']['id']) in venues_ids)
+                validation_flag1 = (
+                    int(winner) in teams_ids and
+                    int(game['teams']['home']['id']) in teams_ids and
+                    int(game['teams']['away']['id']) in teams_ids
+                )
+                validation_flag2 = (int(game['fixture']['venue']['id']) in venues_ids)
 
                 validation_flag1 = True
                 validation_flag2 = True
@@ -75,29 +75,26 @@ def handle_polling_game(api_url, db_session, api_key):
                         date=game['fixture']['date'],
                         first_period=game['fixture']['periods']['first'],
                         second_period=game['fixture']['periods']['second'],
-                        score=game['score'],  # JSON object
+                        score=game['score'],
                         home_team_goals=game['goals']['home'],
                         away_team_goals=game['goals']['away'],
-                        venue_id=game['fixture']['venue']['id'],  # Foreign key reference to Venue
-                        home_team_id=game['teams']['home']['id'],  # Foreign key reference to Team
-                        away_team_id=game['teams']['away']['id'],  # Foreign key reference to Team
+                        venue_id=game['fixture']['venue']['id'],
+                        home_team_id=game['teams']['home']['id'], 
+                        away_team_id=game['teams']['away']['id'],  
                         winner_team_id=winner
                     )
                     db_session.add(new_game)
-                    print('Data added successfully.')
-                    new_games_ids.append([game['teams']['home']['id'], game['teams']['away']['id']])
+                    print('Dados adicionados com sucesso.')
+                    new_games_relevant_info.append([game['teams']['home']['id'], game['teams']['away']['id']], game['fixture']['id'])
                 else:
                     continue
 
-            with open('games_id.json', 'w') as file:
-                json.dump(games_id, file) # Irei usar esses ids para capturar dados em sg_team_fetching e sg_player_fetching
-
             db_session.commit()
-            print('Commited successfully.')
+            print('Comitado com sucesso para o banco de dados.')
 
-            return new_games_ids
+            return new_games_relevant_info
         else:
             return []
 
     else:
-        print(f'Failed to fetch data from API: {response.status_code}')
+        print(f'Falha na comunicação com a API: {response.status_code}')

@@ -6,7 +6,6 @@ from models import *
 import json
 from collections import defaultdict
 
-
 def translate_text(text_list):
     translator = Translator()
     translations = translator.translate(text_list, dest='pt')
@@ -165,13 +164,8 @@ def player_routes(app, Session):
             .all()
         )
 
-        team_id = '' # Get from data_historic after parsing
+        team_id = ''
         data_team = (
             g.db_session.query(team.Team.name, team.Team.logo)\
             .where(team_id =team.Team.team_id)
         )
-
-        # We need:
-            # seasons (data_historic)
-            # team name (data_team)
-            # team logo (data_team)
