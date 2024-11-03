@@ -6,6 +6,8 @@ import requests
 from polling.game_poll import handle_polling_game
 from polling.team_poll import handle_polling_team
 
+scheduler_initialized = False
+
 def fetch_api(league, season, db_session, api_key, engine):
     today = datetime.now()
     yesterday = today - timedelta(days=1)
@@ -14,24 +16,31 @@ def fetch_api(league, season, db_session, api_key, engine):
     # endpoint = f'fixtures?league={league}&season={season}&date={yesterday_formated}'
     endpoint = ''
     complete_url = base_url + endpoint
+    results = []
 
     try:
         results = handle_polling_game(complete_url, db_session, api_key)
+    except Exception as e:
+        print(f'Error fetching game data: {e}')
+
+    try: 
         if len(results) > 0:
             for result in results:
                 handle_polling_team(engine, db_session, 0)
                 handle_polling_team(engine, db_session, 1)
             print(results)
         else:
-            False
-
+            return False
     except Exception as e:
-        print(f'Error fetching data: {e}')
+        print(f'Error fetching team data: {e}')
 
 def run_schedule(league, season, db_session, api_key, engine):
-    fetch_api(league, season, db_session, api_key, engine)
-    # schedule.every().day.at("22:33").do(fetch_api)
+    global scheduler_initialized
 
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(60)
+    if not scheduler_initialized:
+        schedule.every().day.at("21:26").do(lambda: fetch_api(league, season, db_session, api_key, engine))
+        scheduler_initialized = True
+
+    while True:
+        schedule.run_pending()
+        time.sleep(60)

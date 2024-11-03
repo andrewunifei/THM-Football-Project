@@ -34,5 +34,5 @@ if __name__ == '__main__':
     team_routes(app, Session)
     game_routes(app, Session)
     player_routes(app, Session)
-    app.run(debug=True)
+    app.run(debug=False)
 

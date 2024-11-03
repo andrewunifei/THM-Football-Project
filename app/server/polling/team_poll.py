@@ -17,11 +17,8 @@ def handle_polling_team(engine, db_session, team_index, team_id=None):
         'id'
     }
     selected_columns = [col for col in all_columns if col not in excluded_columns]
-    print(selected_columns)
-
     api_url = f'http://127.0.0.1:8080/fake/teams?index={team_index}'
     response = requests.get(api_url)
-    print(response)
 
     if response.status_code == 200:
         teams_data = response.json()
