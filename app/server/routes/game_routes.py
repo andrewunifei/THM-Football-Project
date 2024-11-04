@@ -21,13 +21,6 @@ def game_routes(app, Session):
     @app.teardown_request
     def teardown_request(exception):
         Session.remove() 
-
-    @app.route('/games-id', methods=['GET'])
-    def get_games_id():
-        ids = g.db_session.query(game.Game.game_id).all()
-        to_list = [id_tuple[0] for id_tuple in ids]
-
-        return jsonify(to_list)
     
     @app.route('/games/categorized', methods=['GET'])
     def get_games():
@@ -136,3 +129,10 @@ def game_routes(app, Session):
         }
 
         return jsonify(game_data_dict)
+
+    @app.route('/games-id', methods=['GET'])
+    def get_games_id():
+        ids = g.db_session.query(game.Game.game_id).all()
+        to_list = [id_tuple[0] for id_tuple in ids]
+
+        return jsonify(to_list)

@@ -18,7 +18,7 @@ JOIN
     team AS home_team ON game.home_team_id = home_team.team_id
 JOIN 
     team AS away_team ON game.away_team_id = away_team.team_id
-WHERE EXTRACT(YEAR FROM date) = 2023 AND EXTRACT(MONTH FROM date) = 4;
+WHERE EXTRACT(YEAR FROM date) =  AND EXTRACT(MONTH FROM date) = 
 
 --
 SELECT
